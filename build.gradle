@@ -24,6 +24,13 @@ dependencies {
   implementation('org.hibernate:hibernate-core:7.0.0.Alpha3')
   implementation('org.glassfish.jaxb:jaxb-runtime:4.0.5')
 
+  implementation("org.mariadb.jdbc:mariadb-java-client:3.5.1")
+
+  compileOnly("org.projectlombok:lombok:1.18.36")
+  annotationProcessor("org.projectlombok:lombok:1.18.36")
+
+  implementation("net.datafaker:datafaker:2.4.2")
+
   testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
