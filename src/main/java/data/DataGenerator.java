@@ -5,22 +5,21 @@ import model.*;
 import net.datafaker.Faker;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 
 public class DataGenerator {
 
-    private Faker faker = new Faker();
-    private final Random rd = new Random();
+    private static Faker faker = new Faker();
+    private static final Random rd = new Random();
     private static EntityManager em = Persistence.createEntityManagerFactory("mariadb-pu")
             .createEntityManager();
 
     private static EntityTransaction tr = em.getTransaction();
 
-    //Tạo ngày tạo ngẫu nhiên từ 1-1000 ngày trước
-    public LocalDate generateNgayTao(){
+//    Tạo ngày tạo ngẫu nhiên từ 1-1000 ngày trước
+    public static LocalDate generateNgayTao(){
         LocalDate today = LocalDate.now();
         int randomDays = rd.nextInt(1000) + 1;
         LocalDate randomDate = today.minusDays(randomDays);
@@ -28,7 +27,7 @@ public class DataGenerator {
     }
 
     //Tạo số điện thoại ngẫu nhiên theo định dạng Việt Nam
-    public String generateSDT(){
+    public static String generateSDT(){
         String[] prefixes = {"090", "091", "092", "093", "094", "095", "096", "097", "098", "099", "03", "07", "08"};
         String prefix = prefixes[faker.random().nextInt(prefixes.length)];
         String phoneNumber = prefix + faker.number().digits(7);
@@ -37,7 +36,7 @@ public class DataGenerator {
     }
 
     //Tạo ngày sinh ngẫu nhiên từ 18-100 năm trước
-    public LocalDate generateNgaySinh(){
+    public static LocalDate generateNgaySinh(){
         LocalDate today = LocalDate.now();
         LocalDate minDate = today.minusYears(100); // 100 năm trước
         LocalDate maxDate = today.minusYears(18);  // 18 năm trước
@@ -49,7 +48,7 @@ public class DataGenerator {
 
     //Đoạn code phát sinh khách hàng
     //Tạo 3 loại khách hàng
-    public void generateLoaiKhachHang() {
+    public static void generateLoaiKhachHang() {
         String[] maLoaiKH = {"LKH1", "LKH2", "LKH3"};
         String[] tenLoaiKH = {"Thành viên", "Vàng", "Kim cương"};
         double[] giamGiaTV = {0, 0.10, 0.15};
@@ -67,7 +66,7 @@ public class DataGenerator {
 
     }
 
-    public KhachHang generateKhachHang(){
+    public static KhachHang generateKhachHang(){
         KhachHang khachHang = new KhachHang();
         khachHang.setMaKH("KH" + faker.number().digits(6));
         khachHang.setNgaySinh(generateNgaySinh());
@@ -86,9 +85,9 @@ public class DataGenerator {
         khachHang.setLoaiKH(em.find(LoaiKhachHang.class, maLoaiKH));
         return khachHang;
     }
-    //Ket thuc doan code phat sinh khach hang
+//    Ket thuc doan code phat sinh khach hang
 
-    //Doan code phat sinh ban
+//    Doan code phat sinh ban
     public void generateLoaiBan() {
         String[] maLoaiBan = {"LB1", "LB2"};
         String[] tenLoaiBan = {"Thường", "VIP"};
@@ -112,8 +111,8 @@ public class DataGenerator {
         ban.setLoaiBan(em.find(LoaiBan.class, loaiBan));
         return ban;
     }
-    //Ket thuc doan code phat sinh ban
-    //Doan code phat sinh nhan vien
+//    Ket thuc doan code phat sinh ban
+//    Doan code phat sinh nhan vien
     public NhanVien generateNhanVien(){
         String loaiNV = faker.bool().bool() ? "QL" : "NV";
         NhanVien nhanVien = new NhanVien();
@@ -130,23 +129,20 @@ public class DataGenerator {
 
         return nhanVien;
     }
-    //Ket thuc doan code phat sinh nhan vien
-    //Doan code phat sinh mon an
+//    Ket thuc doan code phat sinh nhan vien
+//    Doan code phat sinh mon an
     public void generateLoaiMonAn(){
         String[] tenLoai = {"Khai vị", "Tráng miệng", "Thịt", "Hải sản", "Mì ý", "Súp"};
         for (int i = 0; i < 6; i++){
             LoaiMonAn loaiMonAn = new LoaiMonAn();
             loaiMonAn.setMaLoaiMon("LM" + faker.number().digits(3));
             loaiMonAn.setTenLoaiMon(tenLoai[i]);
-            tr.begin();
-            em.persist(loaiMonAn);
-            tr.commit();
         }
     }
 
-    public MonAn generateMonAn(List<LoaiMonAn> listlm){
+    public MonAn generateMonAn(List<LoaiMonAn> listLMM){
         MonAn monAn = new MonAn();
-        LoaiMonAn lm = listlm.get(rd.nextInt(listlm.size()));
+        LoaiMonAn lm = listLMM.get(rd.nextInt(listLMM.size()));
         monAn.setMaMonAn("MA" + faker.number().digits(3));
         monAn.setTenMonAn(faker.food().dish());
         monAn.setLoaiMonAn(lm);
@@ -155,76 +151,43 @@ public class DataGenerator {
         return monAn;
     }
     //Doan code phat sinh khuyen mai
-    public void generateLoaiKHuyenMai(){
-        String[] loaiKM = {"Món ăn", "Hóa đơn"};
-        for(int i = 0; i < 2; i ++){
-            LoaiKhuyenMai loaiKhuyenMai = new LoaiKhuyenMai();
-            loaiKhuyenMai.setMaLoaiKM("LKM" + (i+1));
-            loaiKhuyenMai.setTenLoaiKM(loaiKM[i]);
-            tr.begin();
-            em.persist(loaiKhuyenMai);
-            tr.commit();
-        }
-    }
-    public KhuyenMai generateKhuyenMai(List<LoaiKhuyenMai> listlkm){
-        LoaiKhuyenMai loaiKhuyenMai = listlkm.get(rd.nextInt(listlkm.size()));
-        KhuyenMai khuyenMai = new KhuyenMai();
-        khuyenMai.setMaKM("KM" + faker.number().digits(3));
-        khuyenMai.setLoaiKM(loaiKhuyenMai);
-        khuyenMai.setTenKM("Khuyến mãi" + loaiKhuyenMai.getTenLoaiKM().toLowerCase() + faker.number().digits(5));
-        int ptKM = (faker.number().numberBetween(5, 20));
-        khuyenMai.setChietKhau((double)ptKM);
-        khuyenMai.setNgayBD(LocalDateTime.now());
-        khuyenMai.setNgayKT(LocalDateTime.now().plusDays(faker.number().numberBetween(5, 10)));
-        return khuyenMai;
-    }
+
     //Ket thuc doan code phat sinh khuyen mai
     public static void main(String[] args) {
         DataGenerator generator = new DataGenerator();
 
-        generator.generateLoaiKhachHang();
+//        generator.generateLoaiKhachHang();
         for (int i = 0; i < 20; i++) {
             KhachHang khachHang = generator.generateKhachHang();
             tr.begin();
             em.persist(khachHang);
             tr.commit();
         }
-
-        generator.generateLoaiBan();
-        for (int i = 0; i < 20; i++) {
-            Ban ban = generator.generateBan();
-            tr.begin();
-            em.persist(ban);
-            tr.commit();
-        }
-
-        for (int i = 0; i < 20; i++) {
-            NhanVien nhanVien = generator.generateNhanVien();
-            tr.begin();
-            em.persist(nhanVien);
-            tr.commit();
-        }
-
-        generator.generateLoaiMonAn();
-        Query qr = em.createQuery("FROM LoaiMonAn ");
-        List<LoaiMonAn> listlm = qr.getResultList();
-        for(int i = 0; i < 30; i++){
-            MonAn monAn = generator.generateMonAn(listlm);
-            tr.begin();
-            em.persist(monAn);
-            tr.commit();
-        }
-
-        generator.generateLoaiKHuyenMai();
-        Query qr2 = em.createQuery("FROM LoaiKhuyenMai ");
-        List<LoaiKhuyenMai> listkm = qr2.getResultList();
-        for(int i = 0; i < 10; i++){
-            KhuyenMai km = generator.generateKhuyenMai(listkm);
-            tr.begin();
-            em.persist(km);
-            tr.commit();
-        }
-
-
+//
+//        generator.generateLoaiBan();
+//        for (int i = 0; i < 20; i++) {
+//            Ban ban = generator.generateBan();
+//            tr.begin();
+//            em.persist(ban);
+//            tr.commit();
+//        }
+//
+//        for (int i = 0; i < 20; i++) {
+//            NhanVien nhanVien = generator.generateNhanVien();
+//            tr.begin();
+//            em.persist(nhanVien);
+//            tr.commit();
+//        }
+//
+//        Query qr = em.createQuery("FROM LoaiMonAn");
+//        List<LoaiMonAn> listlm = qr.getResultList();
+//        for(int i = 0; i < 30; i++){
+//            MonAn monAn = generator.generateMonAn(listlm);
+//            tr.begin();
+//            em.persist(monAn);
+//            tr.commit();
+//        }
+//
+//
     }
 }

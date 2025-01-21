@@ -8,9 +8,12 @@ import model.KhachHang;
 import java.util.List;
 
 public class KhachHangDAO {
-    private static EntityManager em = Persistence.createEntityManagerFactory(
-            "mariadb-pu"
-    ).createEntityManager();
+    private static EntityManager em;
+
+    // Constructor để inject EntityManager
+    public KhachHangDAO(EntityManager em) {
+        this.em = em;
+    }
 
     public static boolean create(KhachHang khachHang){
         EntityTransaction tr = em.getTransaction();
@@ -35,7 +38,9 @@ public class KhachHangDAO {
             return true;
         }catch(Exception ex){
             ex.printStackTrace();
-            tr.rollback();
+            if (tr.isActive()){
+                tr.rollback();
+            }
         }
         return false;
     }
