@@ -35,7 +35,7 @@ public class NhanVienDAO {
         return false;
     }
     public List<NhanVien> getAllNhanVien() {
-        String query = "Select * from NhanVien";
+        String query = "Select nv from NhanVien nv";
         return em.createQuery(query, NhanVien.class).getResultList();
     }
     public NhanVien getNhanVien(int maNV) {

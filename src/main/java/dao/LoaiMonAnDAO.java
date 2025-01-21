@@ -26,13 +26,13 @@ public class LoaiMonAnDAO {
     }
 
     //
-    public static List<LoaiMonAn> getAll(){
-        String query = "select * from LoaiMonAn;
+    public List<LoaiMonAn> getAll(){
+        String query = "select loaiMonAn from LoaiMonAn loaiMonAn";
         return em.createQuery(query, LoaiMonAn.class).getResultList();
     }
 
-    public static LoaiMonAn findByID(String maLoaiMon){
-        return em.find(LoaiMonAn.class, maLoaiMon;
+    public LoaiMonAn findByID(String maLoaiMon){
+        return em.find(LoaiMonAn.class, maLoaiMon);
     }
 
 

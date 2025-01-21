@@ -26,13 +26,13 @@ public class LoaiKhuyenMaiDAO {
         return false;
     }
 
-    //
-    public static List<LoaiKhuyenMai> getAll(){
-        String query = "select * from LoaiKhuyenMai;
+
+    public List<LoaiKhuyenMai> getAll(){
+        String query = "select loaiKM from LoaiKhuyenMai loaiKM";
         return em.createQuery(query, LoaiKhuyenMai.class).getResultList();
     }
 
-    public static LoaiKhuyenMai findByID(String maLoaiKM){
+    public LoaiKhuyenMai findByID(String maLoaiKM){
         return em.find(LoaiKhuyenMai.class, maLoaiKM);
     }
 
