@@ -20,7 +20,6 @@ public class KhuyenMai {
     @Column(columnDefinition = "nvarchar(40)", nullable = false)
     private String tenKM;
 
-    private double giamGia;
     private double chietKhau;
 
     @Column(nullable = false)
@@ -33,6 +32,6 @@ public class KhuyenMai {
     private int soLuong;
 
     @ManyToOne
-    @JoinColumn(name = "maKhuyenMai")
+    @JoinColumn(name = "maLoaiKM")
     private LoaiKhuyenMai loaiKM;
 }

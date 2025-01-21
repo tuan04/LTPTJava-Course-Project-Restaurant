@@ -5,6 +5,7 @@ import model.*;
 import net.datafaker.Faker;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
@@ -137,12 +138,15 @@ public class DataGenerator {
             LoaiMonAn loaiMonAn = new LoaiMonAn();
             loaiMonAn.setMaLoaiMon("LM" + faker.number().digits(3));
             loaiMonAn.setTenLoaiMon(tenLoai[i]);
+            tr.begin();
+            em.persist(loaiMonAn);
+            tr.commit();
         }
     }
 
-    public MonAn generateMonAn(List<LoaiMonAn> listLMM){
+    public MonAn generateMonAn(List<LoaiMonAn> listlm){
         MonAn monAn = new MonAn();
-        LoaiMonAn lm = listLMM.get(rd.nextInt(listLMM.size()));
+        LoaiMonAn lm = listlm.get(rd.nextInt(listlm.size()));
         monAn.setMaMonAn("MA" + faker.number().digits(3));
         monAn.setTenMonAn(faker.food().dish());
         monAn.setLoaiMonAn(lm);
@@ -151,40 +155,73 @@ public class DataGenerator {
         return monAn;
     }
     //Doan code phat sinh khuyen mai
-
+    public void generateLoaiKHuyenMai(){
+        String[] loaiKM = {"Món ăn", "Hóa đơn"};
+        for(int i = 0; i < 2; i ++){
+            LoaiKhuyenMai loaiKhuyenMai = new LoaiKhuyenMai();
+            loaiKhuyenMai.setMaLoaiKM("LKM" + (i+1));
+            loaiKhuyenMai.setTenLoaiKM(loaiKM[i]);
+            tr.begin();
+            em.persist(loaiKhuyenMai);
+            tr.commit();
+        }
+    }
+    public KhuyenMai generateKhuyenMai(List<LoaiKhuyenMai> listlkm){
+        LoaiKhuyenMai loaiKhuyenMai = listlkm.get(rd.nextInt(listlkm.size()));
+        KhuyenMai khuyenMai = new KhuyenMai();
+        khuyenMai.setMaKM("KM" + faker.number().digits(3));
+        khuyenMai.setLoaiKM(loaiKhuyenMai);
+        khuyenMai.setTenKM("Khuyến mãi" + loaiKhuyenMai.getTenLoaiKM().toLowerCase() + faker.number().digits(5));
+        int ptKM = (faker.number().numberBetween(5, 20));
+        khuyenMai.setChietKhau((double)ptKM);
+        khuyenMai.setNgayBD(LocalDateTime.now());
+        khuyenMai.setNgayKT(LocalDateTime.now().plusDays(faker.number().numberBetween(5, 10)));
+        return khuyenMai;
+    }
     //Ket thuc doan code phat sinh khuyen mai
     public static void main(String[] args) {
         DataGenerator generator = new DataGenerator();
 
-//        generator.generateLoaiKhachHang();
-//        for (int i = 0; i < 20; i++) {
-//            KhachHang khachHang = generator.generateKhachHang();
-//            tr.begin();
-//            em.persist(khachHang);
-//            tr.commit();
-//        }
-//
-//        generator.generateLoaiBan();
-//        for (int i = 0; i < 20; i++) {
-//            Ban ban = generator.generateBan();
-//            tr.begin();
-//            em.persist(ban);
-//            tr.commit();
-//        }
-//
-//        for (int i = 0; i < 20; i++) {
-//            NhanVien nhanVien = generator.generateNhanVien();
-//            tr.begin();
-//            em.persist(nhanVien);
-//            tr.commit();
-//        }
+        generator.generateLoaiKhachHang();
+        for (int i = 0; i < 20; i++) {
+            KhachHang khachHang = generator.generateKhachHang();
+            tr.begin();
+            em.persist(khachHang);
+            tr.commit();
+        }
 
-        Query qr = em.createQuery("FROM LoaiMonAn");
+        generator.generateLoaiBan();
+        for (int i = 0; i < 20; i++) {
+            Ban ban = generator.generateBan();
+            tr.begin();
+            em.persist(ban);
+            tr.commit();
+        }
+
+        for (int i = 0; i < 20; i++) {
+            NhanVien nhanVien = generator.generateNhanVien();
+            tr.begin();
+            em.persist(nhanVien);
+            tr.commit();
+        }
+
+        generator.generateLoaiMonAn();
+        Query qr = em.createQuery("FROM LoaiMonAn ");
         List<LoaiMonAn> listlm = qr.getResultList();
         for(int i = 0; i < 30; i++){
             MonAn monAn = generator.generateMonAn(listlm);
             tr.begin();
             em.persist(monAn);
+            tr.commit();
+        }
+
+        generator.generateLoaiKHuyenMai();
+        Query qr2 = em.createQuery("FROM LoaiKhuyenMai ");
+        List<LoaiKhuyenMai> listkm = qr2.getResultList();
+        for(int i = 0; i < 10; i++){
+            KhuyenMai km = generator.generateKhuyenMai(listkm);
+            tr.begin();
+            em.persist(km);
             tr.commit();
         }
 
