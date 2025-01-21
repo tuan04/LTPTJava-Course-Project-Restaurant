@@ -4,10 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import model.LoaiKhachHang;
 
 import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -16,6 +14,7 @@ import java.util.Set;
 public class KhachHang {
 
     @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition =  "nvarchar(8)",nullable = false)
     private String maKH;
 
@@ -23,7 +22,7 @@ public class KhachHang {
     private String tenKH;
     @Column(columnDefinition = "nvarchar(10)", nullable = false)
     private String sdt;
-    @Column(columnDefinition = "nvarchar(30)", nullable = false)
+    @Column(columnDefinition = "nvarchar(60)", nullable = false)
     private String email;
 
     @Column(nullable = false)

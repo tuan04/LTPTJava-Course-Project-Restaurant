@@ -12,6 +12,7 @@ import org.checkerframework.checker.units.qual.C;
 @ToString
 public class MonAn {
     @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "nvarchar(5)")
     private String maMonAn;
 

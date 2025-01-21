@@ -12,6 +12,7 @@ import lombok.ToString;
 
 public class Ban {
     @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "nvarchar(5)")
     private String maBan;
     @Column(columnDefinition = "nvarchar(10)", nullable = false)

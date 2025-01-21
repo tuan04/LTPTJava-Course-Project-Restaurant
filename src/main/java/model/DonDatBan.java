@@ -15,6 +15,7 @@ import java.util.Set;
 @ToString
 public class DonDatBan {
     @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "nvarchar(12)")
     private String maDDB;
 

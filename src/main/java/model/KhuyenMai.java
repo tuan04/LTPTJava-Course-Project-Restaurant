@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class KhuyenMai {
 
     @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "nvarchar(5)")
     private String maKM;
     @Column(columnDefinition = "nvarchar(40)", nullable = false)

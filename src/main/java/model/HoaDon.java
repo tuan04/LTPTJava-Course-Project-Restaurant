@@ -15,6 +15,7 @@ import java.util.Set;
 @ToString
 public class HoaDon {
     @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "nvarchar(11)")
     private String maHD;
 

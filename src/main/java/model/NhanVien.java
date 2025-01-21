@@ -1,12 +1,11 @@
 package model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -14,6 +13,7 @@ import lombok.ToString;
 @ToString
 public class NhanVien {
     @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "nvarchar(8)")
     private String maNV;
 
@@ -26,16 +26,16 @@ public class NhanVien {
     @Column(columnDefinition = "char(10)", nullable = false)
     private String sdt;
 
-    @Column(columnDefinition = "nvarchar(30)", nullable = false)
+    @Column(columnDefinition = "nvarchar(50)", nullable = false)
     private String email;
 
     @Column(columnDefinition = "date", nullable = false)
-    private String ngaySinh;
+    private LocalDate ngaySinh;
 
     @Column(columnDefinition = "varchar(64)", nullable = false)
     private String matKhau;
 
-    @Column(columnDefinition = "varchar(6)", nullable = false)
+    @Column(columnDefinition = "varchar(6)")
     private String maXacThuc;
 
     @Column(nullable = false)

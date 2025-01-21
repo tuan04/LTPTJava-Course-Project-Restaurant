@@ -13,6 +13,7 @@ import java.util.Set;
 @ToString
 public class LoaiKhuyenMai {
     @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "nvarchar(5)")
     private String maLoaiKM;
 
