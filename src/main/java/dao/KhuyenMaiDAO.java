@@ -1,5 +1,14 @@
 package dao;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+import model.KhuyenMai;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class KhuyenMaiDAO {
 
     private EntityManager em = Persistence.createEntityManagerFactory("mariadb-pu")
