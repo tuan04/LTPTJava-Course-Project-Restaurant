@@ -18,7 +18,7 @@ public class KhuyenMaiDAO {
         EntityTransaction tr = em.getTransaction();
         try{
             tr.begin();
-            em.persist(ban);
+            em.persist(khuyenmai);
             tr.commit();
             return true;
         } catch (Exception ex){
