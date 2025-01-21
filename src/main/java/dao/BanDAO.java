@@ -13,6 +13,7 @@ public class BanDAO {
     private EntityManager em = Persistence.createEntityManagerFactory("mariadb-pu")
             .createEntityManager();
 
+
     public boolean createBan(Ban ban){
         EntityTransaction tr = em.getTransaction();
         try{
