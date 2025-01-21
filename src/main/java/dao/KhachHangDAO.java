@@ -3,7 +3,9 @@ package dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 import model.KhachHang;
+import model.LoaiKhachHang;
 
 import java.util.List;
 
@@ -46,8 +48,9 @@ public class KhachHangDAO {
     }
 
     public static List<KhachHang> getAll(){
-        String query = "select kh from KhachHang kh";
-        return em.createQuery(query, KhachHang.class).getResultList();
+        String query = "SELECT kh FROM KhachHang kh";
+        TypedQuery<KhachHang> typedQuery = em.createQuery(query, KhachHang.class);
+        return typedQuery.getResultList();
     }
 
     public static KhachHang findById(String maKH){

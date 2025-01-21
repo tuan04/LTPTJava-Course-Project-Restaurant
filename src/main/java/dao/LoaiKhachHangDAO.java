@@ -3,20 +3,24 @@ package dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 import model.LoaiKhachHang;
 
 import java.util.List;
 
 public class LoaiKhachHangDAO {
-    private static EntityManager em = Persistence.createEntityManagerFactory(
-            "mariadb-pu"
-    ).createEntityManager();
+    private static EntityManager em;
 
-    public static boolean update(LoaiKhachHangDAO loaiKhachHangDAO){
+    // Constructor để inject EntityManager
+    public LoaiKhachHangDAO(EntityManager em) {
+        this.em = em;
+    }
+
+    public static boolean update(LoaiKhachHang loaiKhachHang){
         EntityTransaction tr = em.getTransaction();
         try{
             tr.begin();
-            em.merge(loaiKhachHangDAO);
+            em.merge(loaiKhachHang);
             tr.commit();
             return true;
         }catch (Exception ex){
@@ -27,8 +31,9 @@ public class LoaiKhachHangDAO {
     }
 
     public static List<LoaiKhachHang> getAll(){
-        String query = "select lKH from LoaiKhachHang lKH";
-        return em.createQuery(query, LoaiKhachHang.class).getResultList();
+        String query = "SELECT lkh FROM LoaiKhachHang lkh";
+        TypedQuery<LoaiKhachHang> typedQuery = em.createQuery(query, LoaiKhachHang.class);
+        return typedQuery.getResultList();
     }
 
     public static LoaiKhachHang findByID(String maLoai){
