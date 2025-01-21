@@ -32,7 +32,7 @@ public class KhuyenMaiDAO {
         EntityTransaction tr = em.getTransaction();
         try{
             tr.begin();
-            em.merge(ban);
+            em.merge(khuyenmai);
             tr.commit();
             return true;
         } catch (Exception ex){
