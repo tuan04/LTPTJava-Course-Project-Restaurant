@@ -10,7 +10,8 @@ repositories {
 }
 
 ext {
-  junitVersion = '5.11.0-M2'
+//  junitVersion = '5.11.0-M2'
+  junitVersion = '5.10.0' // Phiên bản JUnit 5 mới nhất
 }
 
 sourceCompatibility = '21'
@@ -30,10 +31,15 @@ dependencies {
   annotationProcessor("org.projectlombok:lombok:1.18.36")
 
   implementation("net.datafaker:datafaker:2.4.2")
+//  testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+//  testRuntimeOnly("org.junit.jupiter:junit-jupiter-api:5.10.0")
 
   testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+  testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.11.4'
+
 }
 
 test {
-useJUnitPlatform()}
+useJUnitPlatform()
+}
