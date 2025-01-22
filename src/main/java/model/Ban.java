@@ -25,4 +25,5 @@ public class Ban {
     @ManyToOne
     @JoinColumn(name = "maLoaiBan")
     private LoaiBan loaiBan;
+
 }

@@ -1,9 +1,7 @@
 package model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.checkerframework.checker.units.qual.C;
 
 import java.util.Set;
@@ -11,6 +9,8 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class LoaiKhachHang {
     @Id
