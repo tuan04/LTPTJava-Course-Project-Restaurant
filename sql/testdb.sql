@@ -8,4 +8,4 @@ select * from monan;
 select * from loaikhuyenmai;
 select * from khuyenmai;
 
-select * from ban where maBan = 'B001'
+select * from ban where maBan = 'B002'
