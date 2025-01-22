@@ -24,7 +24,6 @@ import java.util.List;
 
 public class NhanVienDAOTest {
 
-
     private NhanVienDAO n = new NhanVienDAO();
     @Test
     public void createNhanVien() {
@@ -40,8 +39,7 @@ public class NhanVienDAOTest {
         nh.setLoaiNV("QL");
         n.createNhanVien(nh);
         boolean result = n.createNhanVien(nh);
-        assertTrue(result, "tạo nhân viên thành công");
-
+        assertTrue(result, "Tạo nhân viên thành công");
 
     }
     @Test
@@ -56,12 +54,10 @@ public class NhanVienDAOTest {
         assertNotNull(list, "List of NhanVien should not be null");
         assertFalse(list.isEmpty(), "List of NhanVien should not be empty");
     }
-
     @Test
     public void testUpdateNhanVien() {
         NhanVien nh = n.getNhanVien("NV001");
         assertNotNull(nh, "NhanVien với mã NV001 should exist");
-
         nh.setTenNV("Nguyen Van B");
         boolean result = n.updateNhanVien(nh);
         assertTrue(result, "Update NhanVien should return true");
@@ -69,7 +65,6 @@ public class NhanVienDAOTest {
         NhanVien updatedNhanVien = n.getNhanVien("NV001");
         assertEquals("Nguyen Van B", updatedNhanVien.getTenNV(), "Updated name should be Nguyen Van B");
     }
-
     @Test
     public void testGetNhanVien() {
         NhanVien nh = n.getNhanVien("NV001");
