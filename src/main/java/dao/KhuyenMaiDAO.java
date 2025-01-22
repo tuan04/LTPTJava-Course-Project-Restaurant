@@ -46,7 +46,7 @@ public class KhuyenMaiDAO {
         String query = "SELECT km FROM KhuyenMai km";
         return em.createQuery(query, KhuyenMai.class).getResultList();
     }
-    public KhuyenMai getKhuyenMai(int maKM) {
+    public KhuyenMai getKhuyenMai(String maKM) {
         return em.find(KhuyenMai.class, maKM);
     }
 
