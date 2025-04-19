@@ -6,39 +6,9 @@ import model.NhanVien;
 
 import java.util.List;
 
-public class NhanVienDAO {
-    private EntityManager em = Persistence.createEntityManagerFactory("mariadb-pu")
-            .createEntityManager();
-    public boolean createNhanVien(NhanVien nhanvien) {
-        try {
-            em.getTransaction().begin();
-            em.persist(nhanvien);
-            em.getTransaction().commit();
-            return true;
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-        }
-        return false;
+public class NhanVienDAO extends GenericDao<NhanVien, String>{
 
-
-    }
-    public boolean updateNhanVien(NhanVien nhanvien) {
-        try {
-            em.getTransaction().begin();
-            em.merge(nhanvien);
-            em.getTransaction().commit();
-            return true;
-
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-        }
-        return false;
-    }
-    public List<NhanVien> getAllNhanVien() {
-        String query = "Select nv from NhanVien nv";
-        return em.createQuery(query, NhanVien.class).getResultList();
-    }
-    public NhanVien getNhanVien(String maNV) {
-        return em.find(NhanVien.class, maNV);
+    public NhanVienDAO(Class<NhanVien> clazz) {
+        super(clazz);
     }
 }

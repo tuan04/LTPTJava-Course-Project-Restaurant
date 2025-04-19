@@ -7,5 +7,9 @@ select * from loaimonan;
 select * from monan;
 select * from loaikhuyenmai;
 select * from khuyenmai;
+select * from hoadon;
 
-select * from ban where maBan = 'B002'
+select * from ban where maBan = 'B002';
+select * from khuyenmai where maKM = 'KM001';
+
+delete from khuyenmai where maKM = 'KM001'

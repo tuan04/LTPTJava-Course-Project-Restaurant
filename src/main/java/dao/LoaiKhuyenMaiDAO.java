@@ -7,33 +7,10 @@ import model.LoaiKhuyenMai;
 
 import java.util.List;
 
-public class LoaiKhuyenMaiDAO {
+public class LoaiKhuyenMaiDAO extends GenericDao<LoaiKhuyenMai, String>{
 
-    private EntityManager em = Persistence.createEntityManagerFactory("mariadb-pu")
-            .createEntityManager();
 
-    public boolean updateLoaiKhuyenMai(LoaiKhuyenMai loaikhuyenmai){
-        EntityTransaction tr = em.getTransaction();
-        try{
-            tr.begin();
-            em.merge(loaikhuyenmai);
-            tr.commit();
-            return true;
-        }catch (Exception ex){
-            ex.printStackTrace();
-            tr.rollback();
-        }
-        return false;
+    public LoaiKhuyenMaiDAO(Class<LoaiKhuyenMai> clazz) {
+        super(clazz);
     }
-
-
-    public List<LoaiKhuyenMai> getAll(){
-        String query = "select loaiKM from LoaiKhuyenMai loaiKM";
-        return em.createQuery(query, LoaiKhuyenMai.class).getResultList();
-    }
-
-    public LoaiKhuyenMai findByID(String maLoaiKM){
-        return em.find(LoaiKhuyenMai.class, maLoaiKM);
-    }
-
 }

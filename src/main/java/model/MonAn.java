@@ -1,18 +1,20 @@
 package model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.checkerframework.checker.units.qual.C;
+
+import java.io.Serializable;
 
 @Entity
 @Getter
 @Setter
 @ToString
-public class MonAn {
+@NoArgsConstructor
+@AllArgsConstructor
+
+public class MonAn implements Serializable {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "nvarchar(5)")
     private String maMonAn;
 

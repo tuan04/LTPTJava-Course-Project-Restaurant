@@ -3,6 +3,7 @@ package model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
@@ -11,10 +12,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class KhachHang {
+
+public class KhachHang implements Serializable {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition =  "nvarchar(8)",nullable = false)
     private String maKH;
 
