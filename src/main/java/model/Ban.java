@@ -1,18 +1,19 @@
 package model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
+import java.io.Serializable;
 
 @Entity
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 
-public class Ban {
+public class Ban implements Serializable {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "nvarchar(5)")
     private String maBan;
     @Column(columnDefinition = "nvarchar(10)", nullable = false)

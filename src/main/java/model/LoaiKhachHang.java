@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.checkerframework.checker.units.qual.C;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
@@ -12,9 +13,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class LoaiKhachHang {
+
+public class LoaiKhachHang implements Serializable {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "nvarchar(5)")
     private String maLoaiKH;
 

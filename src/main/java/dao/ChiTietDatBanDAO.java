@@ -1,4 +1,6 @@
 package dao;
 
-public class ChiTietDatBanDAO {
+import model.ChiTietDatBan;
+
+public class ChiTietDatBanDAO{
 }

@@ -8,15 +8,9 @@ import model.LoaiBan;
 
 import java.util.List;
 
-public class LoaiBanDAO {
-    EntityManager em = Persistence.createEntityManagerFactory("mariadb-pu")
-            .createEntityManager();
-    public List<LoaiBan> getAllLoaiBan(){
-        String query = "select lb from LoaiBan lb";
-        return em.createQuery(query, LoaiBan.class).getResultList();
-    }
+public class LoaiBanDAO extends GenericDao<LoaiBan, String>{
 
-    public LoaiBan getLoaiBanTheoMa(String maLoaiBan){
-        return em.find(LoaiBan.class, maLoaiBan);
+    public LoaiBanDAO(Class<LoaiBan> clazz) {
+        super(clazz);
     }
 }

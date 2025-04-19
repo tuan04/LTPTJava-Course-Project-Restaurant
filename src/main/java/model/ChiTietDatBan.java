@@ -1,15 +1,19 @@
 package model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
+import java.io.Serializable;
 
 @Entity
 @Getter
 @Setter
 @ToString
-public class ChiTietDatBan {
+@NoArgsConstructor
+@AllArgsConstructor
+
+@IdClass(ChiTietDatBan.ChiTietDatBanId.class)
+public class ChiTietDatBan implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "maDonDatBan")
@@ -19,6 +23,14 @@ public class ChiTietDatBan {
     @ManyToOne
     @JoinColumn(name = "maMonAn")
     private MonAn monAn;
+
+    @EqualsAndHashCode
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ChiTietDatBanId implements Serializable {
+        private DonDatBan donDatBan;
+        private MonAn monAn;
+    }
 
     private int soLuong;
     private double donGia;

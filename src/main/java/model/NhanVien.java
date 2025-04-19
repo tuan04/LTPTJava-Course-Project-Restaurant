@@ -1,19 +1,20 @@
 package model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @Getter
 @Setter
 @ToString
-public class NhanVien {
+@NoArgsConstructor
+@AllArgsConstructor
+
+public class NhanVien implements Serializable {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "nvarchar(8)")
     private String maNV;
 

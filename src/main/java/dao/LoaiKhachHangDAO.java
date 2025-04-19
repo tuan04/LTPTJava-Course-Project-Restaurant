@@ -8,37 +8,8 @@ import model.LoaiKhachHang;
 
 import java.util.List;
 
-public class LoaiKhachHangDAO {
-    private static EntityManager em;
-
-    // Constructor để inject EntityManager
-    public LoaiKhachHangDAO(EntityManager em) {
-        this.em = em;
+public class LoaiKhachHangDAO extends GenericDao<LoaiKhachHang, String>{
+    public LoaiKhachHangDAO(Class<LoaiKhachHang> clazz) {
+        super(clazz);
     }
-
-    public static boolean update(LoaiKhachHang loaiKhachHang){
-        EntityTransaction tr = em.getTransaction();
-        try{
-            tr.begin();
-            em.merge(loaiKhachHang);
-            tr.commit();
-            return true;
-        }catch (Exception ex){
-            ex.printStackTrace();
-            tr.rollback();
-        }
-        return false;
-    }
-
-    public static List<LoaiKhachHang> getAll(){
-        String query = "SELECT lkh FROM LoaiKhachHang lkh";
-        TypedQuery<LoaiKhachHang> typedQuery = em.createQuery(query, LoaiKhachHang.class);
-        return typedQuery.getResultList();
-    }
-
-    public static LoaiKhachHang findByID(String maLoai){
-        return em.find(LoaiKhachHang.class, maLoai);
-    }
-
-
 }
