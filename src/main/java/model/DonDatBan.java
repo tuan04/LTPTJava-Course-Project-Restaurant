@@ -23,7 +23,7 @@ public class DonDatBan {
     private int soLuongKH;
 
     @Column(nullable = false)
-    private boolean trangThai;
+    private int trangThai;
 
     @Column(columnDefinition = "datetime",nullable = false)
     private LocalDateTime gioDat;
