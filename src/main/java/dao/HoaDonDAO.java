@@ -3,6 +3,10 @@ package dao;
 import jakarta.persistence.EntityManager;
 
 import jakarta.persistence.EntityTransaction;
+import model.HoaDon;
+
+
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import model.*;
@@ -24,15 +28,18 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
     }
 
 
+
     public  boolean capNhatTongTienHD(String maHD, double tongTien) {
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
             String sql = "UPDATE HoaDon h SET h.tongTien = :tongTien WHERE h.maHD = :maHD";
+
             int updatedCount = em.createQuery(sql)
                     .setParameter("tongTien", tongTien)
                     .setParameter("maHD", maHD)
                     .executeUpdate();
+
             transaction.commit();
             return updatedCount > 0;
         } catch (Exception e) {
@@ -688,6 +695,7 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
         }
     }
 
+
     public static void main(String[] args) throws SQLException {
         EntityManager em = JPAUtil.getEntityManager();
         HoaDonDAO dao = new HoaDonDAO(HoaDon.class);
@@ -771,3 +779,4 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
     }
 
 }
+
