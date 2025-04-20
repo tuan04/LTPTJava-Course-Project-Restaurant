@@ -107,7 +107,7 @@ public class DataGenerator {
         String loaiBan = faker.bool().bool() ? "LB1" : "LB2";
         ban.setMaBan("B" + em.find(LoaiBan.class, loaiBan).getTenLoaiBan().substring(0,0) + faker.number().digits(3));
         ban.setTenBan("Bàn" + ban.getMaBan().substring(1,4));
-        ban.setTrangThai("Trống");
+        ban.setTrangThai(0);
         ban.setViTri(faker.bool().bool()? "Tầng 1" : "Tầng 2");
         ban.setLoaiBan(em.find(LoaiBan.class, loaiBan));
         return ban;
