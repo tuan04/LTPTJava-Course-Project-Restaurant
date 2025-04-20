@@ -7,7 +7,7 @@ import util.JPAUtil;
 import java.util.List;
 
 public abstract class GenericDao<T, ID> {
-    protected EntityManager em;
+    protected static EntityManager em;
     protected Class<T> clazz;
 
     public GenericDao(Class<T> clazz) {
