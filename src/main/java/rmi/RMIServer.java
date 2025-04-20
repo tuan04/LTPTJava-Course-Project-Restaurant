@@ -22,11 +22,12 @@ public class RMIServer {
         DonDatBanDAO ddb_dao = new DonDatBanDAO(DonDatBan.class); //Java Object
         ChiTietDatBanDAO ctdb_dao = new ChiTietDatBanDAO(ChiTietDatBan.class); //Java Object
 
+
         DonDatBanService ddbService = new DonDatBanServiceImpl(ddb_dao); //Java Remote Object
         ChiTietDatBanService ctdbService = new ChiTietDatBanServiceImpl(ctdb_dao); //Java Remote Object
 
-        context.bind("rmi://H83M17:9090/donDatBanService", ddbService);
-        context.bind("rmi://H83M17:9090/chiTietDatBanService", ctdbService);
+        context.bind("rmi://DESKTOP-0LHH81P:9090/donDatBanService", ddbService);
+        context.bind("rmi://DESKTOP-0LHH81P:9090/chiTietDatBanService", ctdbService);
 
 
         System.out.println("RMI Server is running...");

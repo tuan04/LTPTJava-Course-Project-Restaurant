@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="LTPTJava-Course-Project-Restaurant.main:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/LTPTJava_Course_Project_Restaurant_main_jar</output-path>
+    <root id="archive" name="LTPTJava-Course-Project-Restaurant.main.jar">
+      <element id="module-output" name="LTPTJava-Course-Project-Restaurant.main" />
+    </root>
+  </artifact>
+</component>

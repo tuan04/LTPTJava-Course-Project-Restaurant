@@ -132,15 +132,4 @@ public class NhanVienDAO extends GenericDao<NhanVien, String> {
         return otp.toString();
     }
 
-    public static void main(String[] args) {
-        NhanVienDAO dao = new NhanVienDAO(NhanVien.class);
-//        NhanVien nv = dao.dangNhap("NVLT002", "ee79976c9380d5e337fc1c095ece8c8f22f91f306ceeb161fa51fecede2c4ba1");
-//        System.out.println(nv);
-//        List<NhanVien> list = dao.getListNVTheoTrangThai(false);
-//
-//        for (NhanVien nv : list) {
-//            System.out.println(nv);
-//        }
-        System.out.println(dao.deleteOTP("NVLT002"));
-    }
 }
