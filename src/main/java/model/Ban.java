@@ -21,7 +21,7 @@ public class Ban implements Serializable {
     @Column(columnDefinition = "nvarchar(10)", nullable = false)
     private String viTri;
     @Column(columnDefinition = "nvarchar(10)", nullable = false)
-    private String trangThai;
+    private int trangThai;
 
     @ManyToOne
     @JoinColumn(name = "maLoaiBan")
