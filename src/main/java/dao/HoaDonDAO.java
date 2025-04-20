@@ -3,9 +3,9 @@ package dao;
 import jakarta.persistence.EntityManager;
 
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
-import model.Ban;
-import model.HoaDon;
+import model.*;
 import util.JPAUtil;
 
 import java.sql.*;
@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -415,11 +417,276 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
         }
         return list.isEmpty() ? null : list;
     }
+    public boolean createOrder(HoaDon hd) {
+        return save(hd);
+    }
+    public HoaDon getHoaDon(String soBan) {
+        try {
+            String jpql = "SELECT hd FROM HoaDon hd " +
+                    "JOIN Ban  b on hd.ban.maBan =  b.maBan " +
+                    "WHERE hd.trangThai = false AND b.maBan = :soBan ";
+            TypedQuery<HoaDon> query = em.createQuery(jpql, HoaDon.class);
+            query.setParameter("soBan", soBan);
+            List<HoaDon> results = query.getResultList();
+
+            return results.isEmpty() ? null : results.get(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<Object[]> getChiTietHoaDon(String soBan) {
+        List<Object[]> result = new ArrayList<>();
+        try {
+            String jpql = "SELECT ma.tenMonAn, ct.soLuong, ma.gia, ct.thanhTien " +
+                    "FROM ChiTietHoaDon ct " +
+                    "JOIN HoaDon hd on hd.maHD=ct.hoaDon.maHD " +
+                    "JOIN Ban b on hd.ban.maBan=b.maBan " +
+                    "JOIN MonAn ma on ct.monAn.maMonAn=ma.maMonAn " +
+                    "WHERE hd.trangThai = false AND b.maBan = :soBan";
+//            TypedQuery<Object[]> query = em.createQuery(jpql, Object[].class);
+//            query.setParameter("soBan", soBan);
+//            result = query.getResultList();
+            return em.createQuery(jpql,Object[].class).setParameter("soBan", soBan).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
 
+    public boolean taoHoaDon(HoaDon hoaDon) throws SQLException {
+
+        return save(hoaDon);
+    }
+
+    public Object[] getThongTinHoaDon(String maHoaDon) {
+        try {
+            String jpql = "SELECT " +
+                    "b.loaiBan.maLoaiBan, nv.tenNV, b.maBan, hd.tongTien, " +
+                    "COALESCE(ddb.tienCoc, 0), " +
+                    "hd.gioVao " +
+                    "FROM HoaDon hd " +
+                    "JOIN NhanVien nv on hd.nhanVien.maNV=nv.maNV " +
+                    "LEFT JOIN DonDatBan ddb on hd.donDatBan.maDDB=ddb.maDDB " +
+                    "JOIN Ban b on hd.ban.maBan=b.maBan " +
+                    "WHERE hd.maHD = :maHoaDon";
+
+            Object[] result = em.createQuery(jpql, Object[].class)
+                    .setParameter("maHoaDon", maHoaDon)
+                    .getSingleResult();
+
+            // Xử lý chuyển mã loại bàn và định dạng thời gian
+            Object[] finalResult = new Object[6];
+
+            // Xử lý tên loại bàn
+            String maLoaiBan = (String) result[0];
+            switch (maLoaiBan) {
+                case "LB001" -> finalResult[0] = "Thường";
+                case "LB002" -> finalResult[0] = "VIP";
+
+                default -> finalResult[0] = "Không rõ";
+            }
+
+            finalResult[1] = result[1]; // Họ tên NV
+            finalResult[2] = result[2]; // Số bàn
+            finalResult[3] = result[3]; // Tổng tiền
+            finalResult[4] = result[4]; // Tiền cọc
 
 
+            // Format giờ vào
+            LocalDateTime gioVao = (LocalDateTime) result[5];
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            finalResult[5] = gioVao.format(formatter);
 
+            return finalResult;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public List<Object[]> getChiTietHoaDon_1(String maHD) {
+        try {
+            String jpql = """
+            SELECT 
+                ma.tenMonAn, 
+                cthd.soLuong, 
+                ma.gia, 
+                cthd.thanhTien, 
+                cthd.donGia
+            FROM 
+                ChiTietHoaDon cthd
+            JOIN 
+                HoaDon hd  on hd.maHD=cthd.hoaDon.maHD
+            JOIN 
+                MonAn ma on cthd.monAn.maMonAn =ma.maMonAn
+            WHERE 
+                hd.maHD = :maHD
+        """;
+
+            List<Object[]> results = em.createQuery(jpql, Object[].class)
+                    .setParameter("maHD", maHD)
+                    .getResultList();
+
+            // Thêm chỉ số thứ tự i vào đầu mỗi mảng
+            List<Object[]> finalList = new ArrayList<>();
+            int i = 1;
+            for (Object[] row : results) {
+                Object[] withIndex = new Object[6];
+                withIndex[0] = i++;                  // STT
+                withIndex[1] = row[0];               // tên món ăn
+                withIndex[2] = row[1];               // số lượng
+                withIndex[3] = row[2];               // giá
+                withIndex[4] = row[3];               // giá sau giảm
+                withIndex[5] = row[4];               // thành tiền
+                finalList.add(withIndex);
+            }
+
+            return finalList;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+    public double checkNS(String maHoaDon, String sdt) {
+        try {
+            String jpql = """
+    SELECT hd.tongTien * lkh.giamGiaSN / 100.0
+    FROM HoaDon hd
+    JOIN KhachHang kh on hd.khachHang.maKH=kh.maKH
+    JOIN LoaiKhachHang  lkh on lkh.maLoaiKH=kh.loaiKH.maLoaiKH
+    WHERE hd.maHD = :maHD
+      AND kh.sdt = :sdt
+      AND FUNCTION('DAY', kh.ngaySinh) = FUNCTION('DAY', CURRENT_DATE)
+      AND FUNCTION('MONTH', kh.ngaySinh) = FUNCTION('MONTH', CURRENT_DATE)
+""";
+
+
+            Double result = em.createQuery(jpql, Double.class)
+                    .setParameter("maHD", maHoaDon)
+                    .setParameter("sdt", sdt)
+                    .getSingleResult();
+
+            return result != null ? result : 0;
+
+        } catch (NoResultException e) {
+            return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    public Object[] getThongTinKH(String maHD, String sdt) {
+        try {
+            String jpql = """
+            SELECT kh.tenKH, kh.loaiKH.maLoaiKH, hd.tongTien * lkh.giamGiaTV / 100.0
+            FROM HoaDon hd
+            JOIN KhachHang kh on hd.khachHang.maKH=kh.maKH
+            JOIN LoaiKhachHang lkh on lkh.maLoaiKH=kh.loaiKH.maLoaiKH
+            WHERE hd.maHD = :maHD AND kh.sdt = :sdt
+        """;
+
+            Object[] result = em.createQuery(jpql, Object[].class)
+                    .setParameter("maHD", maHD)
+                    .setParameter("sdt", sdt)
+                    .getSingleResult();
+
+            // Xử lý đổi tên loại khách hàng
+            if (result[1] != null) {
+                String maLoai = result[1].toString();
+                switch (maLoai) {
+                    case "LKH1" -> result[1] = "Thành Viên";
+                    case "LKH2" -> result[1] = "Vàng";
+                    case "LKH3" -> result[1] = "Kim Cương";
+                }
+            }
+
+            return result;
+
+        } catch (NoResultException e) {
+            return new Object[] { };
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Object[] {  };
+        }
+    }
+
+    public Object[] getKM(String maHD, String maKM) {
+        try {
+            String jpql = """
+            SELECT km.chietKhau, hd.tongTien * km.chietKhau / 100.0
+            FROM HoaDon hd 
+            join KhuyenMai km on hd.khuyenMai.maKM=km.maKM 
+            join LoaiKhuyenMai lkm on lkm.maLoaiKM=km.loaiKM.maLoaiKM
+            WHERE hd.maHD = :maHD
+              AND km.maKM = :maKM
+              AND lkm.maLoaiKM ='LKM01'
+              AND km.soLuong >= 1
+              AND km.ngayKT >= CURRENT_DATE
+        """;
+
+            Object[] result = em.createQuery(jpql, Object[].class)
+                    .setParameter("maHD", maHD)
+                    .setParameter("maKM", maKM)
+                    .getSingleResult();
+
+            Object[] obj = new Object[2];
+            obj[0] = "Giảm giá " + result[0] + "%";
+            obj[1] = result[1];
+
+            return obj;
+
+        } catch (NoResultException e) {
+            return new Object[] {  };
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Object[] { };
+        }
+    }
+    public boolean capNhatHoaDon(String maHD, String maKM, String maKH, Double tienTT, Double giamGia) {
+        try {
+            HoaDon hoaDon = findById(maHD);
+            if (hoaDon == null) {
+                return false;
+            }
+
+            // Thiết lập mã khuyến mãi nếu có
+            if (maKM != null) {
+                KhuyenMai km = em.find(KhuyenMai.class, maKM);
+                hoaDon.setKhuyenMai(km);
+            } else {
+                hoaDon.setKhuyenMai(null);
+            }
+
+            if (maKH != null) {
+                KhachHang kh = em.find(KhachHang.class, maKH);
+                hoaDon.setKhachHang(kh);
+            } else {
+                hoaDon.setKhachHang(null);
+            }
+
+            hoaDon.setTongTienGiamGia(giamGia);
+            hoaDon.setTongTienThanhToan(tienTT);
+            hoaDon.setTrangThai(true);
+            hoaDon.setGioRa(LocalDateTime.now());
+
+            em.getTransaction().begin();
+            em.merge(hoaDon);
+            em.getTransaction().commit();
+
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            return false;
+        }
+    }
 
     public static void main(String[] args) throws SQLException {
         EntityManager em = JPAUtil.getEntityManager();
@@ -443,21 +710,21 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
 //            System.out.println("Không có hóa đơn nào.");
 //        }
 //
-        List<Object[]> list=dao.thongKeNamMon("2024","LM001");
+//        List<Object[]> list=dao.thongKeNamMon("2024","LM001");
 //        List<Object[]> list=dao.thongKeQuyMon("4","2024","LM001");
 //        List<Object[]> list=dao.thongKeThangMon("12","2024","LM001");
 //        List<Object[]> list=dao.thongKeNgayMon("2024-12-13","LM001");
 //
-        if (list != null && !list.isEmpty()) {
-            for (Object[] row : list) {
-                for (Object obj : row) {
-                    System.out.print(obj + " ");  // In từng phần tử của mảng
-                }
-                System.out.println();  // In xuống dòng sau mỗi dòng kết quả
-            }
-        } else {
-            System.out.println("Không có hóa đơn nào.");
-        }
+//        if (list != null && !list.isEmpty()) {
+//            for (Object[] row : list) {
+//                for (Object obj : row) {
+//                    System.out.print(obj + " ");  // In từng phần tử của mảng
+//                }
+//                System.out.println();  // In xuống dòng sau mỗi dòng kết quả
+//            }
+//        } else {
+//            System.out.println("Không có hóa đơn nào.");
+//        }
 //        List<Integer> list=dao.loadNam();
 //                if (list != null && !list.isEmpty()) {
 //            list.forEach(System.out::println);
@@ -472,6 +739,35 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
 //        } else {
 //            System.out.println("Không có hóa đơn nào.");
 //        }
+
+//        System.out.println(dao.getHoaDon("T1001"));
+//        List<Object[]> list=dao.getChiTietHoaDon("T1009");
+//        if (list != null && !list.isEmpty()) {
+//            for (Object[] row : list) {
+//                for (Object obj : row) {
+//                    System.out.print(obj + " ");  // In từng phần tử của mảng
+//                }
+//                System.out.println();  // In xuống dòng sau mỗi dòng kết quả
+//            }
+//        } else {
+//            System.out.println("Không có hóa đơn nào.");
+//        }
+//        System.out.println(Arrays.toString(dao.getThongTinHoaDon("HD241212001")));
+//        List<Object[]> list=dao.getChiTietHoaDon_1("HD241212001");
+//        if (list != null && !list.isEmpty()) {
+//            for (Object[] row : list) {
+//                for (Object obj : row) {
+//                    System.out.print(obj + " ");  // In từng phần tử của mảng
+//                }
+//                System.out.println();  // In xuống dòng sau mỗi dòng kết quả
+//            }
+//        } else {
+//            System.out.println("Không có hóa đơn nào.");
+//        }
+//        System.out.println(dao.checkNS("HD241212001","0912345678"));
+//        System.out.println(Arrays.toString(dao.getThongTinKH("HD241212001","0912345678")));
+//        System.out.println(Arrays.toString(dao.getKM("HD241213003","KM008")));
+        System.out.println(dao.capNhatHoaDon("HD241212001",null,"KH000001",474501.0,100.0));
     }
 
 }
