@@ -3,6 +3,7 @@ package dao;
 import jakarta.persistence.EntityManager;
 
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.criteria.*;
 import model.HoaDon;
 
 
@@ -27,9 +28,7 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
         super(clazz);
     }
 
-
-
-    public  boolean capNhatTongTienHD(String maHD, double tongTien) {
+    public boolean capNhatTongTienHD(String maHD, double tongTien) {
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
@@ -49,18 +48,17 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
     }
 
 
-
     public boolean updateNhanVienHoaDon(String maNV, String maHD) {
         EntityTransaction transaction = em.getTransaction();
         int n = 0;
         try {
             transaction.begin();
-            String sql="update HoaDon h set h.nhanVien.maNV =:maNhanVien where h.maHD =:maHD";
+            String sql = "update HoaDon h set h.nhanVien.maNV =:maNhanVien where h.maHD =:maHD";
             int updatedCount = em.createQuery(sql)
-                    .setParameter("maNhanVien",maNV)
-                    .setParameter("maHD",maHD).executeUpdate();
-                transaction.commit();
-                return updatedCount > 0;
+                    .setParameter("maNhanVien", maNV)
+                    .setParameter("maHD", maHD).executeUpdate();
+            transaction.commit();
+            return updatedCount > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,7 +66,7 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
     }
 
     public HoaDon getHoaDonTheoMa(String mahd) {
-    return findById(mahd);
+        return findById(mahd);
     }
 
 
@@ -79,22 +77,22 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
             transaction.begin();
             String sqlUpdateHoaDon = "UPDATE HoaDon h SET h.tongTienThanhToan =:tongTienTT, h.trangThai = true, h.khachHang.maKH =: maKhachHang, h.khuyenMai.maKM =: maKhuyenMai, h.tongTienGiamGia=:giamGia, h.gioRa = CURRENT_TIMESTAMP WHERE h.maHD =: maHD ";
             em.createQuery(sqlUpdateHoaDon)
-                        .setParameter("tongTienTT", tongTienTT)
-                        .setParameter("maKhachHang", maKhachHang)
-                        .setParameter("maKhuyenMai", maKhuyenMai)
-                        .setParameter("giamGia", giamGia)
-                        .setParameter("maHD", maHoaDon)
-                        .executeUpdate();
+                    .setParameter("tongTienTT", tongTienTT)
+                    .setParameter("maKhachHang", maKhachHang)
+                    .setParameter("maKhuyenMai", maKhuyenMai)
+                    .setParameter("giamGia", giamGia)
+                    .setParameter("maHD", maHoaDon)
+                    .executeUpdate();
 
 
             String sqlUpdateBan = "UPDATE Ban b SET b.trangThai = 0 WHERE b.maBan = :maBan";
-                    em.createQuery(sqlUpdateBan)
-                            .setParameter("maBan", maBan).executeUpdate();
-                    transaction.commit();
+            em.createQuery(sqlUpdateBan)
+                    .setParameter("maBan", maBan).executeUpdate();
+            transaction.commit();
             return true;
 
         } catch (Exception e) {
-        e.printStackTrace();
+            e.printStackTrace();
 
             if (transaction.isActive()) {
                 transaction.rollback(); // Rollback nếu gặp lỗi
@@ -102,13 +100,14 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
         }
         return false;
     }
+
     public HoaDon getHoaDonTheoBanHoatDong(String maBan) {
 
 
         try {
 
-          String sql=("select h from HoaDon h where h.trangThai = false and h.ban.maBan =: maBan");
-            return em.createQuery(sql,HoaDon.class).setParameter("maBan", maBan).getSingleResult();
+            String sql = ("select h from HoaDon h where h.trangThai = false and h.ban.maBan =: maBan");
+            return em.createQuery(sql, HoaDon.class).setParameter("maBan", maBan).getSingleResult();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -140,7 +139,7 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
 
             if (!loaiBan.equals("Tất cả")) {
                 String pattern = loaiBan.equals("Tầng 1") ? "T1%" :
-                        loaiBan.equals("Tầng 2") ? "T2%" :"T3%";
+                        loaiBan.equals("Tầng 2") ? "T2%" : "T3%";
                 query.setParameter("maBanPattern", pattern);
             }
 
@@ -181,8 +180,6 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
     }
 
 
-
-
     public List<HoaDon> thongKeThang(String month, String year, String loaiBan) {
         List<HoaDon> result;
 
@@ -214,8 +211,6 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
 
         return result;
     }
-
-
 
 
     public List<HoaDon> thongKeNgay(String day, String loaiBan) {
@@ -284,6 +279,7 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
 
         return result.isEmpty() ? null : result;
     }
+
     public List<Object[]> thongKeQuyMon(String quarter, String year, String maLoaiMon) {
         List<Object[]> list = new ArrayList<>();
         try {
@@ -404,8 +400,9 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
         }
         return maHD;
     }
+
     public HoaDon getHD(String maHD) {
-        return  findById(maHD);
+        return findById(maHD);
     }
 
     public List<HoaDon> todayList(String maNhanVien, String today) {
@@ -416,17 +413,19 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
                     "AND FUNCTION('DATE', HD.ngayTao) = :today";
 
             list = em.createQuery(jpql, HoaDon.class)
-            .setParameter("maNhanVien", maNhanVien)
-            .setParameter("today", LocalDate.parse(today)).getResultList();
+                    .setParameter("maNhanVien", maNhanVien)
+                    .setParameter("today", LocalDate.parse(today)).getResultList();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list.isEmpty() ? null : list;
     }
+
     public boolean createOrder(HoaDon hd) {
         return save(hd);
     }
+
     public HoaDon getHoaDon(String soBan) {
         try {
             String jpql = "SELECT hd FROM HoaDon hd " +
@@ -455,7 +454,7 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
 //            TypedQuery<Object[]> query = em.createQuery(jpql, Object[].class);
 //            query.setParameter("soBan", soBan);
 //            result = query.getResultList();
-            return em.createQuery(jpql,Object[].class).setParameter("soBan", soBan).getResultList();
+            return em.createQuery(jpql, Object[].class).setParameter("soBan", soBan).getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -514,24 +513,25 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
             return null;
         }
     }
+
     public List<Object[]> getChiTietHoaDon_1(String maHD) {
         try {
             String jpql = """
-            SELECT 
-                ma.tenMonAn, 
-                cthd.soLuong, 
-                ma.gia, 
-                cthd.thanhTien, 
-                cthd.donGia
-            FROM 
-                ChiTietHoaDon cthd
-            JOIN 
-                HoaDon hd  on hd.maHD=cthd.hoaDon.maHD
-            JOIN 
-                MonAn ma on cthd.monAn.maMonAn =ma.maMonAn
-            WHERE 
-                hd.maHD = :maHD
-        """;
+                        SELECT 
+                            ma.tenMonAn, 
+                            cthd.soLuong, 
+                            ma.gia, 
+                            cthd.thanhTien, 
+                            cthd.donGia
+                        FROM 
+                            ChiTietHoaDon cthd
+                        JOIN 
+                            HoaDon hd  on hd.maHD=cthd.hoaDon.maHD
+                        JOIN 
+                            MonAn ma on cthd.monAn.maMonAn =ma.maMonAn
+                        WHERE 
+                            hd.maHD = :maHD
+                    """;
 
             List<Object[]> results = em.createQuery(jpql, Object[].class)
                     .setParameter("maHD", maHD)
@@ -558,18 +558,19 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
             return Collections.emptyList();
         }
     }
+
     public double checkNS(String maHoaDon, String sdt) {
         try {
             String jpql = """
-    SELECT hd.tongTien * lkh.giamGiaSN / 100.0
-    FROM HoaDon hd
-    JOIN KhachHang kh on hd.khachHang.maKH=kh.maKH
-    JOIN LoaiKhachHang  lkh on lkh.maLoaiKH=kh.loaiKH.maLoaiKH
-    WHERE hd.maHD = :maHD
-      AND kh.sdt = :sdt
-      AND FUNCTION('DAY', kh.ngaySinh) = FUNCTION('DAY', CURRENT_DATE)
-      AND FUNCTION('MONTH', kh.ngaySinh) = FUNCTION('MONTH', CURRENT_DATE)
-""";
+                        SELECT hd.tongTien * lkh.giamGiaSN / 100.0
+                        FROM HoaDon hd
+                        JOIN KhachHang kh on hd.khachHang.maKH=kh.maKH
+                        JOIN LoaiKhachHang  lkh on lkh.maLoaiKH=kh.loaiKH.maLoaiKH
+                        WHERE hd.maHD = :maHD
+                          AND kh.sdt = :sdt
+                          AND FUNCTION('DAY', kh.ngaySinh) = FUNCTION('DAY', CURRENT_DATE)
+                          AND FUNCTION('MONTH', kh.ngaySinh) = FUNCTION('MONTH', CURRENT_DATE)
+                    """;
 
 
             Double result = em.createQuery(jpql, Double.class)
@@ -586,15 +587,16 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
             return 0;
         }
     }
+
     public Object[] getThongTinKH(String maHD, String sdt) {
         try {
             String jpql = """
-            SELECT kh.tenKH, kh.loaiKH.maLoaiKH, hd.tongTien * lkh.giamGiaTV / 100.0
-            FROM HoaDon hd
-            JOIN KhachHang kh on hd.khachHang.maKH=kh.maKH
-            JOIN LoaiKhachHang lkh on lkh.maLoaiKH=kh.loaiKH.maLoaiKH
-            WHERE hd.maHD = :maHD AND kh.sdt = :sdt
-        """;
+                        SELECT kh.tenKH, kh.loaiKH.maLoaiKH, hd.tongTien * lkh.giamGiaTV / 100.0
+                        FROM HoaDon hd
+                        JOIN KhachHang kh on hd.khachHang.maKH=kh.maKH
+                        JOIN LoaiKhachHang lkh on lkh.maLoaiKH=kh.loaiKH.maLoaiKH
+                        WHERE hd.maHD = :maHD AND kh.sdt = :sdt
+                    """;
 
             Object[] result = em.createQuery(jpql, Object[].class)
                     .setParameter("maHD", maHD)
@@ -614,26 +616,26 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
             return result;
 
         } catch (NoResultException e) {
-            return new Object[] { };
+            return new Object[]{};
         } catch (Exception e) {
             e.printStackTrace();
-            return new Object[] {  };
+            return new Object[]{};
         }
     }
 
     public Object[] getKM(String maHD, String maKM) {
         try {
             String jpql = """
-            SELECT km.chietKhau, hd.tongTien * km.chietKhau / 100.0
-            FROM HoaDon hd 
-            join KhuyenMai km on hd.khuyenMai.maKM=km.maKM 
-            join LoaiKhuyenMai lkm on lkm.maLoaiKM=km.loaiKM.maLoaiKM
-            WHERE hd.maHD = :maHD
-              AND km.maKM = :maKM
-              AND lkm.maLoaiKM ='LKM01'
-              AND km.soLuong >= 1
-              AND km.ngayKT >= CURRENT_DATE
-        """;
+                        SELECT km.chietKhau, hd.tongTien * km.chietKhau / 100.0
+                        FROM HoaDon hd 
+                        join KhuyenMai km on hd.khuyenMai.maKM=km.maKM 
+                        join LoaiKhuyenMai lkm on lkm.maLoaiKM=km.loaiKM.maLoaiKM
+                        WHERE hd.maHD = :maHD
+                          AND km.maKM = :maKM
+                          AND lkm.maLoaiKM ='LKM01'
+                          AND km.soLuong >= 1
+                          AND km.ngayKT >= CURRENT_DATE
+                    """;
 
             Object[] result = em.createQuery(jpql, Object[].class)
                     .setParameter("maHD", maHD)
@@ -647,12 +649,13 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
             return obj;
 
         } catch (NoResultException e) {
-            return new Object[] {  };
+            return new Object[]{};
         } catch (Exception e) {
             e.printStackTrace();
-            return new Object[] { };
+            return new Object[]{};
         }
     }
+
     public boolean capNhatHoaDon(String maHD, String maKM, String maKH, Double tienTT, Double giamGia) {
         try {
             HoaDon hoaDon = findById(maHD);
@@ -694,6 +697,107 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
             return false;
         }
     }
+
+    public Object timKiemHD(String maHD) {
+        Object ob = new Object[]{};
+
+        try {
+            String jpql = "SELECT b.maBan, hd.ngayTao, nv.tenNV, kh.tenKH, km.maKM, hd.trangThai, hd.tongTien, "
+                    + "hd.tongTien * (km.chietKhau / 100.0), "
+                    + "hd.tongTienGiamGia, ddb.tienCoc, b.loaiBan.maLoaiBan, hd.tongTienThanhToan, "
+                    + "FUNCTION('FORMAT', hd.gioVao, 'dd/MM/yyyy HH:mm'), "
+                    + "COALESCE(FUNCTION('FORMAT', hd.gioRa, 'dd/MM/yyyy HH:mm'), ' ') "
+                    + "FROM HoaDon hd "
+                    + "LEFT JOIN NhanVien nv on hd.nhanVien.maNV =nv.maNV "
+                    + "LEFT JOIN Ban b on hd.ban.maBan=b.maBan "
+                    + "LEFT JOIN KhachHang kh on hd.khachHang.maKH=kh.maKH "
+                    + "LEFT JOIN KhuyenMai km on hd.khuyenMai.maKM=km.maKM "
+                    + "LEFT JOIN DonDatBan ddb on hd.donDatBan.maDDB=ddb.maDDB "
+                    + "WHERE hd.maHD = :maHD";
+
+            TypedQuery<Object[]> query = em.createQuery(jpql, Object[].class);
+            query.setParameter("maHD", maHD);
+
+            List<Object[]> result = query.getResultList();
+            if (!result.isEmpty()) {
+                ob = result.get(0);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
+        return ob;
+    }
+    public boolean kiemTraGiamGiaSN(String maKH) {
+        try {
+            String jpql = "SELECT COUNT(hd) FROM HoaDon hd WHERE hd.khachHang.maKH = :maKH AND FUNCTION('FORMAT', hd.ngayTao, 'yyyy-MM-dd') = FUNCTION('FORMAT', CURRENT_DATE, 'yyyy-MM-dd')";
+            Long count = em.createQuery(jpql, Long.class)
+                    .setParameter("maKH", maKH)
+                    .getSingleResult();
+            return count == 0;
+        } finally {
+            em.close();
+        }
+    }
+    public List<Object[]> timKiemCTHD(String maHD) {
+        List<Object[]> result = new ArrayList<>();
+        try {
+            String jpql = "SELECT ma.tenMonAn, ma.gia, cthd.thanhTien, cthd.soLuong, cthd.donGia "
+                    + "FROM ChiTietHoaDon cthd JOIN MonAn ma on cthd.monAn.maMonAn=ma.maMonAn "
+                    + "WHERE cthd.hoaDon.maHD = :maHD";
+
+            List<Object[]> rawList = em.createQuery(jpql, Object[].class)
+                    .setParameter("maHD", maHD)
+                    .getResultList();
+
+            int i = 1;
+            for (Object[] row : rawList) {
+                Object[] ob = new Object[]{i++, row[0], row[1], row[2], row[3], row[4]};
+                result.add(ob);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return result;
+    }
+    public List<Object[]> hoaDonTrongNgay() {
+        List<Object[]> resultList = new ArrayList<>();
+        try {
+            String jpql = "SELECT hd.maHD, hd.ngayTao, kh.tenKH, kh.sdt, hd.tongTien, hd.tongTienThanhToan, b.maBan, hd.trangThai " +
+                    "FROM HoaDon hd LEFT JOIN KhachHang kh on hd.khachHang.maKH=kh.maKH " +
+                    "LEFT JOIN Ban b on hd.ban.maBan=b.maBan " +
+                    "WHERE hd.ngayTao = CURRENT_DATE";
+
+            List<Object[]> rawList = em.createQuery(jpql, Object[].class).getResultList();
+
+            for (Object[] row : rawList) {
+                String trangThai = row[7] != null && row[7].equals(true) ? "Đã thanh toán" : "Chưa thanh toán";
+                Object[] formattedRow = new Object[]{
+                        row[0],
+                        row[1],
+                        row[2],
+                        row[3],
+                        row[4],
+                        row[5],
+                        row[6],
+                        trangThai
+                };
+                resultList.add(formattedRow);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultList;
+    }
+
+
 
 
     public static void main(String[] args) throws SQLException {
@@ -775,7 +879,15 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
 //        System.out.println(dao.checkNS("HD241212001","0912345678"));
 //        System.out.println(Arrays.toString(dao.getThongTinKH("HD241212001","0912345678")));
 //        System.out.println(Arrays.toString(dao.getKM("HD241213003","KM008")));
-        System.out.println(dao.capNhatHoaDon("HD241212001",null,"KH000001",474501.0,100.0));
+//        System.out.println(dao.capNhatHoaDon("HD241212001", null, "KH000001", 474501.0, 100.0));
+//        System.out.println(Arrays.toString((Object[]) dao.timKiemHD("HD241212001")));
+//        System.out.println(dao.kiemTraGiamGiaSN("KH000001"));
+//        List<Object[]> list = dao.timKiemCTHD("HD241212002");
+        List<Object[]> list=dao.hoaDonTrongNgay();
+        for (Object[] row : list) {
+            System.out.println(Arrays.toString(row));
+        }
+
     }
 
 }
