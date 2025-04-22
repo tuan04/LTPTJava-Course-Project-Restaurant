@@ -10,8 +10,10 @@ import gui.swing.menu.PopupMenu;
 import java.awt.Component;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
-
-import model.Ban;
+import connectDB.ConnectDB;
+import dao.DonDatBan_DAO;
+import dao.KhachHang_DAO;
+import entity.Ban;
 import gui.form.CapNhatHoaDon_PN;
 import gui.form.DanhMucBanThuNgan_PN;
 import gui.form.KetToanThuNgan_PN;
@@ -19,15 +21,9 @@ import gui.form.QuanLyKhachHang_PN;
 import gui.form.TaoHoaDon_PN;
 import gui.form.TimHoaDon_PN;
 import gui.form.TimKhachHang_PN;
-import java.rmi.RemoteException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import rmi.RMIClientManager;
-import service.DonDatBanService;
-import service.KhachHangService;
 
 public class ThuNgan_DashBoard extends javax.swing.JFrame {
 
@@ -35,35 +31,31 @@ public class ThuNgan_DashBoard extends javax.swing.JFrame {
     private Header header;
     private JPanel main;
     private Menu menu;
-    private static DonDatBanService dao ;
-    private static KhachHangService kh_dao;
+    private static DonDatBan_DAO dao = new DonDatBan_DAO();
+    private static KhachHang_DAO kh_dao = new KhachHang_DAO();
+
     public Header getHeader() {
         return header;
     }
 
-    public ThuNgan_DashBoard() throws Exception {
-        this.dao=RMIClientManager.getInstance().getDonDatBanService();
-        this.kh_dao=RMIClientManager.getInstance().getKhachHangService();
+    public ThuNgan_DashBoard() {
         header = new Header();
         initComponents();
         init();
-//        connect();
+        connect();
 
     }
 
-    public ThuNgan_DashBoard(Header header) throws Exception {
-         this.dao=RMIClientManager.getInstance().getDonDatBanService();
-        this.kh_dao=RMIClientManager.getInstance().getKhachHangService();
-       
+    public ThuNgan_DashBoard(Header header) {
         this.header = header;
         initComponents();
         init();
-//        connect();
+        connect();
     }
 
-//    private void connect() {
-//        ConnectDB.getInstance().connect();
-//    }
+    private void connect() {
+        ConnectDB.getInstance().connect();
+    }
 
     private void init() {
         layout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
@@ -228,35 +220,15 @@ public class ThuNgan_DashBoard extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                try {
-                    new ThuNgan_DashBoard().setVisible(true);
-                } catch (Exception ex) {
-                    Logger.getLogger(ThuNgan_DashBoard.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new ThuNgan_DashBoard().setVisible(true);
                 ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2); // 2 luồng cho 2 nhiệm vụ
 
        
-                scheduler.scheduleAtFixedRate(() -> {
-                    try {
-                        dao.capNhatBanTruocGioKhachDen();
-                    } catch (RemoteException ex) {
-                        Logger.getLogger(ThuNgan_DashBoard.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }, 0, 10, TimeUnit.MINUTES);
+                scheduler.scheduleAtFixedRate(() -> dao.capNhatBanTruocGioKhachDen(), 0, 10, TimeUnit.MINUTES);
 
         
-                scheduler.scheduleAtFixedRate(() -> {
-                    try {
-                        dao.capNhatBanSauGioKhachDen();
-                    } catch (RemoteException ex) {
-                        Logger.getLogger(ThuNgan_DashBoard.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }, 0, 10, TimeUnit.MINUTES);
-                try {
-                    kh_dao.updateDiemTL();
-                } catch (RemoteException ex) {
-                    Logger.getLogger(ThuNgan_DashBoard.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                scheduler.scheduleAtFixedRate(() -> dao.capNhatBanSauGioKhachDen(), 0, 10, TimeUnit.MINUTES);
+                kh_dao.updateDiemTL();
             }
         });
     }
