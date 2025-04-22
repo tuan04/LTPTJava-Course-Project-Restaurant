@@ -1,7 +1,8 @@
 package gui.main;
 
-
-import dao.KhachHangDAO;
+import connectDB.ConnectDB;
+import dao.DonDatBan_DAO;
+import dao.KhachHang_DAO;
 import gui.component.Header;
 import gui.component.Menu;
 import gui.event.EventMenuSelected;
@@ -15,17 +16,11 @@ import gui.form.TimDonDatBan_PN;
 import gui.swing.menu.MenuItem;
 import gui.swing.menu.PopupMenu;
 import java.awt.Component;
-import java.rmi.RemoteException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
-import rmi.RMIClientManager;
-import service.DonDatBanService;
-import service.KhachHangService;
 
 public class LeTan_DashBoard extends javax.swing.JFrame {
 
@@ -33,35 +28,30 @@ public class LeTan_DashBoard extends javax.swing.JFrame {
     private Header header;
     private JPanel main;
     private Menu menu;
-    private static DonDatBanService dao ;
-    private static KhachHangService kh_dao ;
+    private static DonDatBan_DAO dao = new DonDatBan_DAO();
+    private static KhachHang_DAO kh_dao = new KhachHang_DAO();
     
     public Header getHeader() {
         return header;
     }
 
-    public LeTan_DashBoard() throws Exception {
+    public LeTan_DashBoard() {
         header = new Header();
-        this.dao=RMIClientManager.getInstance().getDonDatBanService();
-        this.kh_dao=RMIClientManager.getInstance().getKhachHangService();
         initComponents();
         init();
-//        connect();
+        connect();
     }
 
-    public LeTan_DashBoard(Header header) throws Exception {
-         this.dao=RMIClientManager.getInstance().getDonDatBanService();
-        this.kh_dao=RMIClientManager.getInstance().getKhachHangService();
-       
+    public LeTan_DashBoard(Header header) {
         this.header = header;
         initComponents();
         init();
-//        connect();
+        connect();
     }
 
-//    private void connect() {
-//        ConnectDB.getInstance().connect();
-//    }
+    private void connect() {
+        ConnectDB.getInstance().connect();
+    }
 
     private void init() {
         layout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
@@ -211,31 +201,11 @@ public class LeTan_DashBoard extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                try {
-                    new LeTan_DashBoard().setVisible(true);
-                } catch (Exception ex) {
-                    Logger.getLogger(LeTan_DashBoard.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new LeTan_DashBoard().setVisible(true);
                 ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2); // 2 luồng cho 2 nhiệm vụ
-                scheduler.scheduleAtFixedRate(() -> {
-                    try {
-                        dao.capNhatBanTruocGioKhachDen();
-                    } catch (RemoteException ex) {
-                        Logger.getLogger(LeTan_DashBoard.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }, 0, 10, TimeUnit.MINUTES);
-                scheduler.scheduleAtFixedRate(() -> {
-                    try {
-                        dao.capNhatBanSauGioKhachDen();
-                    } catch (RemoteException ex) {
-                        Logger.getLogger(LeTan_DashBoard.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }, 0, 10, TimeUnit.MINUTES);
-                try {
-                    kh_dao.updateDiemTL();
-                } catch (RemoteException ex) {
-                    Logger.getLogger(LeTan_DashBoard.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                scheduler.scheduleAtFixedRate(() -> dao.capNhatBanTruocGioKhachDen(), 0, 10, TimeUnit.MINUTES);
+                scheduler.scheduleAtFixedRate(() -> dao.capNhatBanSauGioKhachDen(), 0, 10, TimeUnit.MINUTES);
+                kh_dao.updateDiemTL();
             }
         });
     }

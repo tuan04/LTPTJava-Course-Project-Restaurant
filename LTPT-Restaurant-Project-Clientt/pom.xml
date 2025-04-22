@@ -175,5 +175,13 @@
             <artifactId>swing-time-picker</artifactId>
             <version>1</version>
         </dependency>
+        <dependency>
+            <groupId>com.example</groupId> <!-- Thay com.example bằng groupId của bạn -->
+            <artifactId>your-library</artifactId> <!-- Thay your-library bằng artifactId của bạn -->
+            <version>1.0.0</version> <!-- Thay 1.0.0 bằng phiên bản thư viện của bạn -->
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/LTPTJava-Course-Project-Restaurant-1.0-SNAPSHOT.jar</systemPath> <!-- Đảm bảo rằng đường dẫn đúng đến file .jar -->
+        </dependency>
+
     </dependencies>
 </project>

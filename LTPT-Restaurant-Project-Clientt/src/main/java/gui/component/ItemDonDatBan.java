@@ -4,17 +4,18 @@
  */
 package gui.component;
 
-
-import model.Ban;
-import model.DonDatBan;
-import model.LoaiBan;
-import model.NhanVien;
+import dao.Ban_DAO;
+import dao.LoaiBan_DAO;
+import dao.NhanVien_DAO;
+import entity.Ban;
+import entity.DonDatBan;
+import entity.LoaiBan;
+import entity.NhanVien;
 import gui.form.CapNhatDonDatBan_Form;
 import gui.form.CapNhatDonDatBan_PN;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
-import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -27,11 +28,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import rmi.RMIClientManager;
-import service.BanService;
-import service.LoaiBanService;
-import service.NhanVienService;
-
 
 /**
  *
@@ -42,40 +38,37 @@ public class ItemDonDatBan extends javax.swing.JPanel {
     private static CapNhatDonDatBan_Form currentForm = null;
 
     private DonDatBan ddb;
-    private NhanVienService nhanVien_DAO ;
-    private BanService ban_DAO;
-    private LoaiBanService loaiBan_DAO ;
+    private NhanVien_DAO nhanVien_DAO = new NhanVien_DAO();
+    private Ban_DAO ban_DAO = new Ban_DAO();
+    private LoaiBan_DAO loaiBan_DAO = new LoaiBan_DAO();
     private NhanVien nv = null;
     private static Map<String, ImageIcon> imageCache = new HashMap<>();
 
     /**
      * Creates new form ItemDonDatBan
      */
-    public ItemDonDatBan(DonDatBan ddb, NhanVien nv) throws Exception {
-               this.nhanVien_DAO = RMIClientManager.getInstance().getNhanVienService();
-               this.ban_DAO=RMIClientManager.getInstance().getBanService();
-               this.loaiBan_DAO=RMIClientManager.getInstance().getLoaiBanService();
+    public ItemDonDatBan(DonDatBan ddb, NhanVien nv) {
         initComponents();
         this.ddb = ddb;
         this.nv = nv;
         loadDDB();
     }
 
-    public void loadDDB() throws RemoteException {
+    public void loadDDB() {
         SwingUtilities.invokeLater(() -> {
             imgLoad("/hinhAnh/table.png");
         });
 
-        NhanVien nv = nhanVien_DAO.findById(ddb.getNhanVien().getMaNV());
-        Ban ban = ban_DAO.findById(ddb.getBan().getMaBan());
-        LoaiBan lb = loaiBan_DAO.findById(ban.getLoaiBan().getMaLoaiBan());
+        NhanVien nv = nhanVien_DAO.getNV(ddb.getNhanVien().getMaNV());
+        Ban ban = ban_DAO.getBan(ddb.getBan().getMaBan());
+        LoaiBan lb = loaiBan_DAO.getLB(ban.getLoaiBan().getMaLB());
 
-        khachHangLb.setText(ddb.getKhachHang().getTenKH() + " - " + ddb.getKhachHang().getSdt());
-        txtDate.setText(ddb.getGioDat().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        txtTime.setText(ddb.getGioDat().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+        khachHangLb.setText(ddb.getHoTenKH() + " - " + ddb.getSoDienThoai());
+        txtDate.setText(ddb.getGioHen().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        txtTime.setText(ddb.getGioHen().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
         txtTienCoc.setText(currencyFormat(ddb.getTienCoc()));
-        txtTenNV.setText(nv.getTenNV());
-        txtBan.setText("Bàn " + ban.getMaBan() + " / " + lb.getTenLoaiBan());
+        txtTenNV.setText(nv.getHoTenNV());
+        txtBan.setText("Bàn " + ban.getSoBan() + " / " + lb.getTenLB());
     }
 
     public String currencyFormat(double price) {

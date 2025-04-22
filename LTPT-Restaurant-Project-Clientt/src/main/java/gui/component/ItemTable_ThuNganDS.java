@@ -4,24 +4,21 @@
  */
 package gui.component;
 
-
-import model.Ban;
-import model.LoaiBan;
+import dao.LoaiBan_DAO;
+import entity.Ban;
+import entity.LoaiBan;
 import gui.main.Admin_DashBoard;
 import gui.main.ThuNgan_DashBoard;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
-import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import service.LoaiBanService;
-import rmi.RMIClientManager;
 
 /**
  *
@@ -32,38 +29,37 @@ public class ItemTable_ThuNganDS extends javax.swing.JPanel {
     private Ban ban = null;
     private Object dashBoard;
     private static Map<String, ImageIcon> imageCache = new HashMap<>();
-    private LoaiBanService lb_dao ;
+    private LoaiBan_DAO lb_dao = new LoaiBan_DAO();
 
     /**
      * Creates new form ItemTable1
      */
-    public ItemTable_ThuNganDS(Ban ban, ThuNgan_DashBoard dashBoard) throws Exception {
-       this.lb_dao=RMIClientManager.getInstance().getLoaiBanService();
+    public ItemTable_ThuNganDS(Ban ban, ThuNgan_DashBoard dashBoard) {
         initComponents();
         this.dashBoard = dashBoard;
         this.ban = ban;
         loadBan();
     }
 
-    public ItemTable_ThuNganDS(Ban ban, Admin_DashBoard dashBoard) throws RemoteException {
+    public ItemTable_ThuNganDS(Ban ban, Admin_DashBoard dashBoard) {
         initComponents();
         this.dashBoard = dashBoard;
         this.ban = ban;
         loadBan();
     }
 
-    public void loadBan() throws RemoteException {
+    public void loadBan() {
         SwingUtilities.invokeLater(() -> {
             imgLoad("/hinhAnh/table.png");
         });
-        LoaiBan lb = lb_dao.findById(ban.getLoaiBan().getMaLoaiBan());
-        if (ban.getTrangThai() == 1) {
+        LoaiBan lb = lb_dao.getLoaiBanTheoMa(ban.getLoaiBan().getMaLB());
+        if (ban.getTinhTrang() == 1) {
             jPanel11.setBackground(Color.GREEN);
         }
-        if (ban.getTrangThai() == 2) {
+        if (ban.getTinhTrang() == 2) {
             jPanel11.setBackground(new Color(171, 219, 227));
         }
-        tableName.setText("Bàn " + ban.getMaBan() + " / " + lb.getTenLoaiBan());
+        tableName.setText("Bàn " + ban.getSoBan() + " / " + lb.getTenLB());
     }
 
     public void imgLoad(String path) {
@@ -99,15 +95,15 @@ public class ItemTable_ThuNganDS extends javax.swing.JPanel {
 
     public void loadTaoHoaDon_PN() {
         if (dashBoard instanceof ThuNgan_DashBoard) {
-            if (ban.getTrangThai() == 0) {
+            if (ban.getTinhTrang() == 0) {
                 ((ThuNgan_DashBoard) dashBoard).showTaoHD(ban);
-            } else if (ban.getTrangThai() == 1) {
+            } else if (ban.getTinhTrang() == 1) {
                 ((ThuNgan_DashBoard) dashBoard).showGoiMon(ban);
             }
         } else {
-            if (ban.getTrangThai() == 0) {
+            if (ban.getTinhTrang() == 0) {
                 ((Admin_DashBoard) dashBoard).showTaoHD(ban);
-            } else if (ban.getTrangThai()  == 1) {
+            } else if (ban.getTinhTrang() == 1) {
                 ((Admin_DashBoard) dashBoard).showGoiMon(ban);
             }
         }

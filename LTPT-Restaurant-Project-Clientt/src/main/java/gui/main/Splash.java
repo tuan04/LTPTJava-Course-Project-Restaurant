@@ -5,8 +5,6 @@
 package gui.main;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
@@ -47,12 +45,7 @@ public class Splash extends javax.swing.JFrame {
         @Override
         protected void done() {
             SwingUtilities.invokeLater(() -> {
-              Login form = null;
-                try {
-                    form = new Login();
-                } catch (Exception ex) {
-                    Logger.getLogger(Splash.class.getName()).log(Level.SEVERE, null, ex);
-                }
+              Login form = new Login();
               form.run();
             });
             
