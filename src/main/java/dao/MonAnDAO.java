@@ -137,7 +137,7 @@ public class MonAnDAO extends GenericDao<MonAn, String>{
     //Tim mon an theo ma
     public Object[] timMonAnTheoMa(String maMA, String loaiMon, String trangThaiMon) {
         String jpql = "SELECT m.maMonAn, m.tenMonAn, m.gia, " +
-                "COALESCE(km.giamGia, 0), lm.tenLoaiMon, m.trangThai " +
+                "COALESCE(km.chietKhau, 0), lm.tenLoaiMon, m.trangThai " +
                 "FROM MonAn m LEFT JOIN m.khuyenMai km JOIN m.loaiMonAn lm " +
                 "WHERE m.maMonAn = :maMA";
 
@@ -217,7 +217,5 @@ public class MonAnDAO extends GenericDao<MonAn, String>{
         return em.createQuery("SELECT l.tenLoaiMon FROM LoaiMonAn l", String.class)
                 .getResultList();
     }
-
-
 
 }

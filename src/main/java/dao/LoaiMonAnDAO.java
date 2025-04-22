@@ -9,8 +9,6 @@ import model.LoaiMonAn;
 import java.util.List;
 
 public class LoaiMonAnDAO extends GenericDao<LoaiMonAn, String>{
-
-
     public LoaiMonAnDAO(Class<LoaiMonAn> clazz) {
         super(clazz);
 

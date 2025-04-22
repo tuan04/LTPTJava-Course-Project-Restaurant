@@ -2,59 +2,59 @@ package service;
 
 import model.HoaDon;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
 public interface HoaDonService extends GenericService<HoaDon, String> {
-    public ArrayList<HoaDon> thongKeNam(String year, String loaiBan);
+    public ArrayList<HoaDon> thongKeNam(String year, String loaiBan) throws RemoteException;
 
-    public List<HoaDon> thongKeThang(String month, String year, String loaiBan);
+    public List<HoaDon> thongKeThang(String month, String year, String loaiBan) throws RemoteException;
 
-    public List<HoaDon> thongKeNgay(String day, String loaiBan);
+    public List<HoaDon> thongKeNgay(String day, String loaiBan) throws RemoteException;
 
-    public List<Object[]> thongKeNamMon(String year, String maLoaiMon);
+    public List<Object[]> thongKeNamMon(String year, String maLoaiMon) throws RemoteException;
 
-    public List<Object[]> thongKeQuyMon(String quarter, String year, String maLoaiMon);
+    public List<Object[]> thongKeQuyMon(String quarter, String year, String maLoaiMon) throws RemoteException;
 
-    public List<Object[]> thongKeThangMon(String month, String year, String maLoaiMon);
+    public List<Object[]> thongKeThangMon(String month, String year, String maLoaiMon) throws RemoteException;
 
-    public List<Object[]> thongKeNgayMon(String day, String maLoaiMon);
+    public List<Object[]> thongKeNgayMon(String day, String maLoaiMon) throws RemoteException;
 
-    public List<Integer> loadNam();
+    public List<Integer> loadNam() throws RemoteException;
 
-    public String hoaDonMoiNhat();
+    public String hoaDonMoiNhat() throws RemoteException;
 
-    public HoaDon getHD(String maHD);
+    public HoaDon getHD(String maHD) throws RemoteException;
 
-    public List<HoaDon> todayList(String maNhanVien, String today);
+    public List<HoaDon> todayList(String maNhanVien, String today) throws RemoteException;
 
-    public boolean createOrder(HoaDon hd);
+    public boolean createOrder(HoaDon hd) throws RemoteException;
 
-    public HoaDon getHoaDon(String soBan);
+    public HoaDon getHoaDon(String soBan) throws RemoteException;
 
-    public List<Object[]> getChiTietHoaDon(String soBan);
+    public List<Object[]> getChiTietHoaDon(String soBan) throws RemoteException;
 
-    public boolean taoHoaDon(HoaDon hoaDon);
+    public boolean taoHoaDon(HoaDon hoaDon) throws RemoteException;
 
+    public Object[] getThongTinHoaDon(String maHoaDon) throws RemoteException;
 
-    public Object[] getThongTinHoaDon(String maHoaDon);
+    public List<Object[]> getChiTietHoaDon_1(String maHD) throws RemoteException;
 
-    public List<Object[]> getChiTietHoaDon_1(String maHD);
+    public double checkNS(String maHoaDon, String sdt) throws RemoteException;
 
-    public double checkNS(String maHoaDon, String sdt);
+    public Object[] getThongTinKH(String maHD, String sdt) throws RemoteException;
 
-    public Object[] getThongTinKH(String maHD, String sdt);
+    public Object[] getKM(String maHD, String maKM) throws RemoteException;
 
-    public Object[] getKM(String maHD, String maKM);
+    public boolean capNhatHoaDon(String maHD, String maKM, String maKH, Double tienTT, Double giamGia) throws RemoteException;
 
-    public boolean capNhatHoaDon(String maHD, String maKM, String maKH, Double tienTT, Double giamGia);
+    public Object timKiemHD(String maHD) throws RemoteException;
 
-    public Object timKiemHD(String maHD);
+    public boolean kiemTraGiamGiaSN(String maKH) throws RemoteException;
 
-    public boolean kiemTraGiamGiaSN(String maKH);
+    public List<Object[]> timKiemCTHD(String maHD) throws RemoteException;
 
-    public List<Object[]> timKiemCTHD(String maHD);
-
-    public List<Object[]> hoaDonTrongNgay();
+    public List<Object[]> hoaDonTrongNgay() throws RemoteException;
 
 }

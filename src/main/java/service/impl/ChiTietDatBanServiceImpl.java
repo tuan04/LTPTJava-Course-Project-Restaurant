@@ -15,7 +15,7 @@ public class ChiTietDatBanServiceImpl extends GenericServiceImpl<ChiTietDatBan, 
         super(chiTietDatBanDAO);
         this.chiTietDatBanDAO = chiTietDatBanDAO;
     }
-    public List<ChiTietDatBan> getList (String maDDB){
+    public List<ChiTietDatBan> getList (String maDDB) throws RemoteException{
         return chiTietDatBanDAO.getList(maDDB);
     }
 }

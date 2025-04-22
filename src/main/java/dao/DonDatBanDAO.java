@@ -79,54 +79,99 @@ public class DonDatBanDAO extends GenericDao<DonDatBan, String>{
                 .getResultList();
     }
 
-//    public void capNhatBanSauGioKhachDen() {
-//        LocalDate today = LocalDate.now();
-//        LocalDateTime now = LocalDateTime.now();
-//        LocalDateTime from = now.minusMinutes(60);
-//        LocalDateTime to = now.minusMinutes(30);
-//
-//        // Lấy các đơn phù hợp
-//        String jpql = "SELECT d FROM DonDatBan d " +
-//                "WHERE d.trangThai = 1 " +
-//                "AND d.ngayTao = :today " +
-//                "AND d.gioDat BETWEEN :from AND :to " +
-//                "AND d.ban.trangThai = 2";
-//
-//        List<DonDatBan> dsDon = em.createQuery(jpql, DonDatBan.class)
-//                .setParameter("today", today)
-//                .setParameter("from", from)
-//                .setParameter("to", to)
-//                .getResultList();
-//
-//        for (DonDatBan ddb : dsDon) {
-//            ddb.getBan().setTrangThai(0);        // Trả lại bàn
-//            ddb.setTrangThai(3);                 // Hủy đơn
-//            ddb.setTienHoanCoc(0);               // Không hoàn cọc
-//            ddb.setGioHuy(LocalDateTime.now());  // Giờ hủy
-//        }
-//    }
+    public boolean capNhatBanTruocGioKhachDen() {
+        EntityTransaction tr = em.getTransaction();
+        try {
+            tr.begin();
 
-//    public void capNhatBanTruocGioKhachDen() {
-//        LocalDate today = LocalDate.now();
-//        LocalDateTime now = LocalDateTime.now();
-//        LocalDateTime from = now;
-//        LocalDateTime to = now.plusMinutes(30);
-//
-//        String jpql = "SELECT DISTINCT d.ban FROM DonDatBan d " +
-//                "WHERE d.trangThai = 1 " +
-//                "AND d.gioDat BETWEEN :from AND :to " +
-//                "AND d.ngayTao = :today";
-//
-//        List<Ban> dsBan = em.createQuery(jpql, Ban.class)
-//                .setParameter("from", from)
-//                .setParameter("to", to)
-//                .setParameter("today", today)
-//                .getResultList();
-//
-//        for (Ban ban : dsBan) {
-//            ban.setTrangThai(2); // Đặt tình trạng là ĐANG CHUẨN BỊ
-//        }
-//    }
+            LocalDateTime now = LocalDateTime.now();
+            LocalDate today = now.toLocalDate();
+            LocalDateTime fromTime = now;
+            LocalDateTime toTime = now.plusMinutes(30);
+
+            String jpql = """
+            SELECT ddb FROM DonDatBan ddb
+            WHERE ddb.trangThai = 1
+              AND FUNCTION('DATE', ddb.gioDat) = :today
+              AND ddb.gioDat BETWEEN :fromTime AND :toTime
+        """;
+
+            List<DonDatBan> list = em.createQuery(jpql, DonDatBan.class)
+                    .setParameter("today", today)
+                    .setParameter("fromTime", fromTime)
+                    .setParameter("toTime", toTime)
+                    .getResultList();
+
+            for (DonDatBan ddb : list) {
+                Ban ban = ddb.getBan();
+                if (ban != null) {
+                    ban.setTrangThai(2); // Cập nhật tình trạng
+                    em.merge(ban);
+                }
+            }
+
+            tr.commit();
+            return true;
+        } catch (Exception ex) {
+            if (tr.isActive()) {
+                tr.rollback();
+            }
+            throw new RuntimeException("Lỗi cập nhật bàn trước giờ khách đến", ex);
+        }
+    }
+
+
+    public boolean capNhatBanSauGioKhachDen() {
+        EntityTransaction tr = em.getTransaction();
+        try {
+            tr.begin();
+
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime fromTime = now.minusMinutes(60);
+            LocalDateTime toTime = now.minusMinutes(30);
+
+            LocalDateTime startOfDay = LocalDate.now().atStartOfDay();
+            LocalDateTime endOfDay = LocalDate.now().atTime(23, 59, 59);
+
+            String jpql = """
+            SELECT ddb FROM DonDatBan ddb
+            WHERE ddb.trangThai = 1
+              AND ddb.gioDat BETWEEN :fromTime AND :toTime
+              AND ddb.gioDat BETWEEN :startOfDay AND :endOfDay
+        """;
+
+            List<DonDatBan> danhSach = em.createQuery(jpql, DonDatBan.class)
+                    .setParameter("fromTime", fromTime)
+                    .setParameter("toTime", toTime)
+                    .setParameter("startOfDay", startOfDay)
+                    .setParameter("endOfDay", endOfDay)
+                    .getResultList();
+
+            for (DonDatBan ddb : danhSach) {
+                Ban ban = ddb.getBan();
+                if (ban != null && ban.getTrangThai() == 2) {
+                    ban.setTrangThai(0);
+                    em.merge(ban);
+                }
+
+                ddb.setTrangThai(3);
+                ddb.setTienHoanCoc(0);
+                ddb.setGioHuy(LocalDateTime.now());
+                em.merge(ddb);
+            }
+
+            tr.commit();
+            return true;
+        } catch (Exception ex) {
+            if (tr.isActive()) tr.rollback();
+            throw new RuntimeException("Lỗi cập nhật bàn sau giờ khách đến", ex);
+        }
+    }
+
+
+
+
+
     //Lay danh sách cac đơn đặt bàn hủy trong ngày chỉ dinh
     public List<DonDatBan> todayListHuy(String toDay, String maNV){
         LocalDate ngay = LocalDate.parse(toDay, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
