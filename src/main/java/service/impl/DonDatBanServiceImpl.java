@@ -29,10 +29,10 @@ public class DonDatBanServiceImpl extends GenericServiceImpl<DonDatBan, String> 
         return donDatBanDAO.todayList(toDay, maNV);
     };
     public void capNhatBanSauGioKhachDen() throws RemoteException{
-//        donDatBanDAO.capNhatBanSauGioKhachDen();
+        donDatBanDAO.capNhatBanSauGioKhachDen();
     };
     public void capNhatBanTruocGioKhachDen() throws RemoteException{
-//        donDatBanDAO.capNhatBanTruocGioKhachDen();
+        donDatBanDAO.capNhatBanTruocGioKhachDen();
     };
     public List<DonDatBan> todayListHuy(String toDay, String maNV) throws RemoteException{
         return donDatBanDAO.todayListHuy(toDay, maNV);
