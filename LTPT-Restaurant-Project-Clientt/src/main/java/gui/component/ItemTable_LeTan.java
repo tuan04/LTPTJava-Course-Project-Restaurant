@@ -4,13 +4,13 @@
  */
 package gui.component;
 
-import dao.LoaiBan_DAO;
-import entity.Ban;
-import entity.LoaiBan;
+import model.Ban;
+import model.LoaiBan;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
+import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
@@ -18,6 +18,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
+import rmi.RMIClientManager;
+import service.LoaiBanService;
 
 /**
  *
@@ -26,27 +28,27 @@ import javax.swing.SwingWorker;
 public class ItemTable_LeTan extends javax.swing.JPanel {
     private Ban ban = null;
     private static Map<String, ImageIcon> imageCache = new HashMap<>();
-    private LoaiBan_DAO lb_dao = new LoaiBan_DAO();
-
+    private LoaiBanService lb_dao ;
     /**
      * Creates new form ItemTable
      */
-    public ItemTable_LeTan(Ban ban) {
+    public ItemTable_LeTan(Ban ban) throws Exception {
+        this.lb_dao=RMIClientManager.getInstance().getLoaiBanService();
         initComponents();
         this.ban = ban;
         loadBan();
     }
 
-    public void loadBan(){
+    public void loadBan() throws RemoteException{
         SwingUtilities.invokeLater(() -> {imgLoad("/hinhAnh/table.png");});
-        LoaiBan lb = lb_dao.getLoaiBanTheoMa(ban.getLoaiBan().getMaLB());
-        if(ban.getTinhTrang() == 1){
+        LoaiBan lb = lb_dao.findById(ban.getLoaiBan().getMaLoaiBan());
+        if(ban.getTrangThai() == 1){
             jPanel8.setBackground(Color.GREEN);
         }
-        if(ban.getTinhTrang() == 2){
+        if(ban.getTrangThai() == 2){
             jPanel8.setBackground(new Color(171,219,227));
         }
-        tableName.setText("Bàn " + ban.getSoBan() +  " / " + lb.getTenLB() + " (" + ban.getSoGhe() + ")");
+        tableName.setText("Bàn " + ban.getMaBan() +  " / " + lb.getTenLoaiBan() );
     }
     
     public void imgLoad(String path){

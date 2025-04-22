@@ -1,7 +1,6 @@
 package gui.component;
 
-import dao.NhanVien_DAO;
-import entity.NhanVien;
+import model.NhanVien;
 import gui.form.ThongTinNhanVienChiTiet_Form;
 import gui.main.Login;
 import java.awt.Color;
@@ -10,15 +9,21 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import rmi.RMIClientManager;
+import service.NhanVienService;
 
 public class Header extends javax.swing.JPanel {
 
-    private NhanVien_DAO nv_dao = new NhanVien_DAO();
+    private NhanVienService nv_dao ;
     
-    public Header() {
+    public Header() throws Exception {
+        this.nv_dao=RMIClientManager.getInstance().getNhanVienService();
         initComponents();
     }
     
@@ -51,10 +56,10 @@ public class Header extends javax.swing.JPanel {
     }
 
     //
-    private void hienThiFormNhanVien(String maNV) {
+    private void hienThiFormNhanVien(String maNV) throws RemoteException {
         if (maNV != null && !maNV.trim().isEmpty()) {
             // Lấy thông tin nhân viên từ database
-            NhanVien nv = nv_dao.getNV(maNV.trim());
+            NhanVien nv = nv_dao.findById(maNV.trim());
             if (nv != null) {
                 // Khởi tạo form thông tin nhân viên trực tiếp với mã nhân viên
                 ThongTinNhanVienChiTiet_Form form = new ThongTinNhanVienChiTiet_Form(maNV, this);
@@ -203,20 +208,32 @@ public class Header extends javax.swing.JPanel {
     private void lbMaNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbMaNVMouseClicked
         // TODO add your handling code here:
         String maNV = lbMaNV.getText(); 
-        hienThiFormNhanVien(maNV);
+        try {
+            hienThiFormNhanVien(maNV);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Header.class.getName()).log(Level.SEVERE, null, ex);
+        }
     
     }//GEN-LAST:event_lbMaNVMouseClicked
 
     private void lbRoleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbRoleMouseClicked
         // TODO add your handling code here:
         String maNV = lbMaNV.getText(); 
-        hienThiFormNhanVien(maNV);
+        try {
+            hienThiFormNhanVien(maNV);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Header.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_lbRoleMouseClicked
 
     private void lbUserNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbUserNameMouseClicked
         // TODO add your handling code here:
         String maNV = lbMaNV.getText(); 
-        hienThiFormNhanVien(maNV);
+        try {
+            hienThiFormNhanVien(maNV);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Header.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_lbUserNameMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
