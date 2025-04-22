@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2f7e40cb-2830-4038-bf61-350af4e1cb31" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/target/LTPT-Restaurant-Project-Client-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/connectDB/ConnectDB.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/dao/Ban_DAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/dao/ChiTietDatBan_DAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/dao/ChiTietHoaDon_DAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/dao/DichVu_DAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/dao/DonDatBan_DAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/dao/HoaDon_DAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/dao/KhachHang_DAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/dao/KhuyenMai_DAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/dao/LoaiBan_DAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/dao/LoaiKhachHang_DAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/dao/LoaiMonAn_DAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/dao/LoaiNhanVien_DAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/dao/MonAn_DAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/dao/NhanVien_DAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/entity/Ban.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/entity/ChiTietDatBan.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/entity/ChiTietHoaDon.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/entity/DichVu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/entity/DonDatBan.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/entity/HoaDon.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/entity/KhachHang.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/entity/KhuyenMai.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/entity/LoaiBan.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/entity/LoaiKhachHang.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/entity/LoaiMonAn.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/entity/LoaiNhanVien.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/entity/MonAn.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/entity/NhanVien.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/Button.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/Chart$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/Chart$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/Chart.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/FoodRow.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/GradientPanel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/Header$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/Header$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/Header$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/Header$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/Header.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemDonDatBan$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemDonDatBan$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemDonDatBan$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemDonDatBan$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemDonDatBan.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemMonAn$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemMonAn$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemMonAn$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemMonAn.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemMonAnDatBan$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemMonAnDatBan$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemMonAnDatBan$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemMonAnDatBan.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemTable$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemTable$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemTable$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemTable.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemTable_LeTan$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemTable_LeTan$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemTable_LeTan$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemTable_LeTan.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemTable_ThuNganDS$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemTable_ThuNganDS$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemTable_ThuNganDS$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/ItemTable_ThuNganDS.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/Logo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/Menu$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/Menu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/RowTable.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/SoLuongSpinner.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/component/TabbedPaneCustom.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/event/EventMenu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/event/EventMenuSelected.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/event/EventShowPopupMenu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_Form$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_Form$10.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_Form$11.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_Form$12.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_Form$13.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_Form$14.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_Form$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_Form$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_Form$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_Form$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_Form$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_Form$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_Form$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_Form$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_Form.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatDonDatBan_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_Admin_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_Admin_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_Admin_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_Admin_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_Admin_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_Admin_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_Admin_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_Admin_PN$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_Admin_PN$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_Admin_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_PN$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_PN$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/CapNhatHoaDon_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ChiTietDatBan_Form$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ChiTietDatBan_Form$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ChiTietDatBan_Form.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ChiTietHoaDon_Form$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ChiTietHoaDon_Form$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ChiTietHoaDon_Form$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ChiTietHoaDon_Form.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DanhMucBanLeTan_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DanhMucBanLeTan_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DanhMucBanLeTan_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DanhMucBanLeTan_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DanhMucBanLeTan_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DanhMucBanThuNgan_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DanhMucBanThuNgan_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DanhMucBanThuNgan_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DanhMucBanThuNgan_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DanhMucBanThuNgan_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DanhSachMonAn$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DanhSachMonAn$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DanhSachMonAn$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DanhSachMonAn$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DanhSachMonAn$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DanhSachMonAn.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DatBan_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DatBan_PN$10.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DatBan_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DatBan_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DatBan_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DatBan_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DatBan_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DatBan_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DatBan_PN$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DatBan_PN$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/DatBan_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/HuyDonDatBan_Form$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/HuyDonDatBan_Form$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/HuyDonDatBan_Form$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/HuyDonDatBan_Form.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/KetToanLeTan_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/KetToanLeTan_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/KetToanLeTan_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/KetToanLeTan_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/KetToanLeTan_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/KetToanLeTan_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/KetToanLeTan_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/KetToanLeTan_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/KetToanThuNgan_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/KetToanThuNgan_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/KetToanThuNgan_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/KetToanThuNgan_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/KetToanThuNgan_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/Main_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyKhachHang_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyKhachHang_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyKhachHang_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyKhachHang_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyKhachHang_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyKhachHang_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyKhachHang_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyKhachHang_PN$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyKhachHang_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyKhuyenMai_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyKhuyenMai_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyKhuyenMai_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyKhuyenMai_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyKhuyenMai_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyKhuyenMai_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyKhuyenMai_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyKhuyenMai_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyMonAn_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyMonAn_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyMonAn_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyMonAn_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyMonAn_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyMonAn_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyMonAn_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyMonAn_PN$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyMonAn_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyNhanVien_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyNhanVien_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyNhanVien_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyNhanVien_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyNhanVien_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyNhanVien_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyNhanVien_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyNhanVien_PN$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyNhanVien_PN$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/QuanLyNhanVien_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TaoHoaDon_Admin_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TaoHoaDon_Admin_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TaoHoaDon_Admin_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TaoHoaDon_Admin_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TaoHoaDon_Admin_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TaoHoaDon_Admin_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TaoHoaDon_Admin_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TaoHoaDon_Admin_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TaoHoaDon_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TaoHoaDon_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TaoHoaDon_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TaoHoaDon_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TaoHoaDon_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TaoHoaDon_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TaoHoaDon_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TaoHoaDon_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Admin_Form$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Admin_Form$10.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Admin_Form$11.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Admin_Form$12.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Admin_Form$13.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Admin_Form$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Admin_Form$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Admin_Form$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Admin_Form$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Admin_Form$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Admin_Form$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Admin_Form$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Admin_Form$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Admin_Form.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Form$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Form$10.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Form$11.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Form$12.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Form$13.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Form$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Form$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Form$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Form$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Form$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Form$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Form$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Form$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThanhToan_Form.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemKhachHang_Form$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemKhachHang_Form$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemKhachHang_Form$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemKhachHang_Form$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemKhachHang_Form.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemKhuyenMai_Form$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemKhuyenMai_Form$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemKhuyenMai_Form$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemKhuyenMai_Form$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemKhuyenMai_Form$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemKhuyenMai_Form.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemMonAn_Form$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemMonAn_Form$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemMonAn_Form$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemMonAn_Form$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemMonAn_Form.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemNhanVien_Form$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemNhanVien_Form$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemNhanVien_Form$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemNhanVien_Form$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThemNhanVien_Form.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$10.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$11.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$12.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$13.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$14.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$15.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$16.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$17.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$18.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDoanhThu_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$10.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$11.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$12.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$13.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$14.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$15.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$16.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$17.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$18.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeDonDatBan_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeMonAn_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeMonAn_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeMonAn_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeMonAn_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeMonAn_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeMonAn_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeMonAn_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeMonAn_PN$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongKeMonAn_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinKhachHang_Form$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinKhachHang_Form$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinKhachHang_Form$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinKhachHang_Form$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinKhachHang_Form.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinKhuyenMai_Form$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinKhuyenMai_Form$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinKhuyenMai_Form$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinKhuyenMai_Form$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinKhuyenMai_Form.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinMonAn_Form$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinMonAn_Form$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinMonAn_Form$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinMonAn_Form$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinMonAn_Form.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinNhanVienChiTiet_Form$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinNhanVienChiTiet_Form$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinNhanVienChiTiet_Form$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinNhanVienChiTiet_Form$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinNhanVienChiTiet_Form.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinNhanVien_Form$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinNhanVien_Form$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinNhanVien_Form$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinNhanVien_Form$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/ThongTinNhanVien_Form.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimDonDatBan_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimDonDatBan_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimDonDatBan_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimDonDatBan_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimDonDatBan_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimDonDatBan_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimDonDatBan_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimDonDatBan_PN$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimDonDatBan_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimHoaDon_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimHoaDon_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimHoaDon_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimHoaDon_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimHoaDon_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimHoaDon_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimHoaDon_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimHoaDon_PN$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimHoaDon_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhachHang_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhachHang_PN$10.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhachHang_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhachHang_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhachHang_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhachHang_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhachHang_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhachHang_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhachHang_PN$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhachHang_PN$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhachHang_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhuyenMai_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhuyenMai_PN$10.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhuyenMai_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhuyenMai_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhuyenMai_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhuyenMai_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhuyenMai_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhuyenMai_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhuyenMai_PN$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhuyenMai_PN$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimKhuyenMai_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimMonAn_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimMonAn_PN$10.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimMonAn_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimMonAn_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimMonAn_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimMonAn_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimMonAn_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimMonAn_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimMonAn_PN$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimMonAn_PN$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimMonAn_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimNhanVien_PN$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimNhanVien_PN$10.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimNhanVien_PN$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimNhanVien_PN$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimNhanVien_PN$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimNhanVien_PN$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimNhanVien_PN$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimNhanVien_PN$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimNhanVien_PN$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimNhanVien_PN$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/form/TimNhanVien_PN.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/Admin_DashBoard$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/Admin_DashBoard$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/Admin_DashBoard$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/Admin_DashBoard$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/Admin_DashBoard.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/ForgotPassword$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/ForgotPassword$10.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/ForgotPassword$11.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/ForgotPassword$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/ForgotPassword$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/ForgotPassword$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/ForgotPassword$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/ForgotPassword$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/ForgotPassword$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/ForgotPassword$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/ForgotPassword$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/ForgotPassword.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/LeTan_DashBoard$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/LeTan_DashBoard$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/LeTan_DashBoard$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/LeTan_DashBoard$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/LeTan_DashBoard.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/Login$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/Login$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/Login$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/Login$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/Login$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/Login$6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/Login$7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/Login$8.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/Login.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/QuanLy_DashBoard$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/QuanLy_DashBoard$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/QuanLy_DashBoard$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/QuanLy_DashBoard$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/QuanLy_DashBoard.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/Splash$SplashWorker.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/Splash.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/ThuNgan_DashBoard$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/ThuNgan_DashBoard$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/ThuNgan_DashBoard$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/ThuNgan_DashBoard$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/ThuNgan_DashBoard.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/VerifyCode$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/VerifyCode$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/VerifyCode$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/VerifyCode$4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/VerifyCode$5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/main/VerifyCode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/model/ModelChart.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/model/ModelLegend.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/model/ModelMenu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/WrapLayout.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/button/GraphicsUtilities.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/button/RippleEffect$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/button/RippleEffect$Effect$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/button/RippleEffect$Effect.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/button/RippleEffect.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/button/ShadowRenderer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/chart/BlankPlotChart.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/chart/BlankPlotChatRender.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/chart/LabelColor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/chart/LegendItem.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/chart/NiceScale.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/chart/SeriesSize.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/Button$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/Button$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/Button.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/MenuAnimation$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/MenuAnimation.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/MenuButton$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/MenuButton$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/MenuButton.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/MenuItem$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/MenuItem$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/MenuItem.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/ModernScrollBarUI$ScrollBarButton.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/ModernScrollBarUI.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/PanelPopup.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/PopupMenu$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/PopupMenu$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/PopupMenu$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/PopupMenu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/menu/ScrollBarCustom.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/tab/ShadowRenderer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/tab/TabbedPaneCustomUI.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/BooleanCellRenderer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/HoverIndex.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/ScrollBarCustomUI$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/ScrollBarCustomUI$ScrollButton$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/ScrollBarCustomUI$ScrollButton.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/ScrollBarCustomUI.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/TableCustom$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/TableCustom$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/TableCustom$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/TableCustom$TableType.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/TableCustom.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/TableCustomCellRender.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/TableHeaderCustomCellRender.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/TextAreaCellRenderer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/cell/ActionButton$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/cell/ActionButton.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/cell/ActionCell$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/cell/ActionCell.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/cell/DeleteLabel$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/cell/DeleteLabel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/cell/EventCellInputChange.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/cell/PanelAction$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/cell/PanelAction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/cell/SpinnerCellEditor$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/cell/SpinnerCellEditor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/cell/SpinnerCellRenderer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/cell/TableActionCellEditor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/cell/TableActionCellRender.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/gui/swing/table/cell/TableActionEvent.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/print/ReportManager.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/print/model/FieldReportDonTamTinh.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/print/model/FieldReportHoaDon.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/print/model/ParameterReportDonTamTinh.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/print/model/ParameterReportHoaDon.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/rmi/RMIClientManager.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "tuan04"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/tuan04/LTPTJava-Course-Project-Restaurant",
+    "accountId": "7a2a29bf-b43f-420e-bda9-9e6c7580f80b"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="2w5CSrJG89Bo86vRCl7sKe25as5" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Tuan",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Tai_lieu_hoc/HK2_2024/LapTrinhPhanTanJava/LTPTJava-Course-Project-Restaurant/LTPT-Restaurant-Project-Clientt",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.189" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.189" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2f7e40cb-2830-4038-bf61-350af4e1cb31" name="Changes" comment="" />
+      <created>1745322050522</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1745322050522</updated>
+      <workItem from="1745322051759" duration="55000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

@@ -11,14 +11,14 @@ import dao.LoaiBan_DAO;
 import dao.LoaiMonAn_DAO;
 import dao.MonAn_DAO;
 import dao.NhanVien_DAO;
-import entity.Ban;
-import entity.ChiTietDatBan;
-import entity.DonDatBan;
-import entity.KhuyenMai;
-import entity.LoaiBan;
-import entity.LoaiMonAn;
-import entity.MonAn;
-import entity.NhanVien;
+import model.Ban;
+import model.ChiTietDatBan;
+import model.DonDatBan;
+import model.KhuyenMai;
+import model.LoaiBan;
+import model.LoaiMonAn;
+import model.MonAn;
+import model.NhanVien;
 import gui.component.Header;
 import gui.component.ItemMonAnDatBan;
 import gui.component.ItemTable;
@@ -35,6 +35,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Point;
+import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -44,6 +45,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 import javax.swing.JButton;
@@ -53,27 +55,41 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-
+import rmi.RMIClientManager;
+import service.BanService;
+import service.ChiTietDatBanService;
+import service.DonDatBanService;
+import service.LoaiBanService;
+import service.LoaiMonAnService;
+import service.MonAnService;
+import service.NhanVienService;
 /**
  *
  * @author THANHTRI
  */
 public class CapNhatDonDatBan_Form extends javax.swing.JFrame {
 
-    private MonAn_DAO monAn_dao = new MonAn_DAO();
-    private Ban_DAO ban_dao = new Ban_DAO();
-    private LoaiMonAn_DAO loaiMa_dao = new LoaiMonAn_DAO();
-    private LoaiBan_DAO loaiBan_dao = new LoaiBan_DAO();
-    private NhanVien_DAO nhanVien_DAO = new NhanVien_DAO();
-    private ChiTietDatBan_DAO ctdb_DAO = new ChiTietDatBan_DAO();
-    private DonDatBan_DAO donDatBan_DAO = new DonDatBan_DAO();
+    private MonAnService monAn_dao;
+    private BanService ban_dao;
+    private LoaiMonAnService loaiMa_dao;
+    private LoaiBanService loaiBan_dao;
+    private NhanVienService nhanVien_DAO;
+    private ChiTietDatBanService ctdb_DAO;
+    private DonDatBanService donDatBan_DAO;
     private DefaultTableModel tableModel;
     private DonDatBan ddb;
     private Point mousePressLocation;
     private NhanVien nv;
 
 
-    public CapNhatDonDatBan_Form() {
+    public CapNhatDonDatBan_Form() throws Exception {
+        this.loaiMa_dao = RMIClientManager.getInstance().getLoaiMonAnService();
+        this.ban_dao = RMIClientManager.getInstance().getBanService();
+        this.monAn_dao = RMIClientManager.getInstance().getMonAnService();
+        this.loaiBan_dao = RMIClientManager.getInstance().getLoaiBanService();
+        this.nhanVien_DAO = RMIClientManager.getInstance().getNhanVienService();
+        this.ctdb_DAO = RMIClientManager.getInstance().getChiTietDatBanService();
+        this.donDatBan_DAO = RMIClientManager.getInstance().getDonDatBanService();
         initComponents();
         setLocationRelativeTo(null);
         customTable();
@@ -88,7 +104,14 @@ public class CapNhatDonDatBan_Form extends javax.swing.JFrame {
         DefaultSelectedLoaiMon();
     }
 
-   public CapNhatDonDatBan_Form(DonDatBan ddb, NhanVien nv) {
+   public CapNhatDonDatBan_Form(DonDatBan ddb, NhanVien nv) throws Exception {
+        this.loaiMa_dao = RMIClientManager.getInstance().getLoaiMonAnService();
+        this.ban_dao = RMIClientManager.getInstance().getBanService();
+        this.monAn_dao = RMIClientManager.getInstance().getMonAnService();
+        this.loaiBan_dao = RMIClientManager.getInstance().getLoaiBanService();
+        this.nhanVien_DAO = RMIClientManager.getInstance().getNhanVienService();
+        this.ctdb_DAO = RMIClientManager.getInstance().getChiTietDatBanService();
+        this.donDatBan_DAO = RMIClientManager.getInstance().getDonDatBanService();
         initComponents();
         this.nv = nv;
         setLocationRelativeTo(null);
@@ -107,34 +130,34 @@ public class CapNhatDonDatBan_Form extends javax.swing.JFrame {
     }
 
 
-    private void init() {
+    private void init() throws RemoteException {
         tableModel = (DefaultTableModel) orderTable.getModel();
-        NhanVien nhanVien = nhanVien_DAO.getNV(ddb.getNhanVien().getMaNV());
-        Ban ban = ban_dao.getBan(ddb.getBan().getMaBan());
-        LoaiBan lb = loaiBan_dao.getLB(ban.getLoaiBan().getMaLB());
-        ArrayList<ChiTietDatBan> list = ctdb_DAO.getList(ddb.getMaDDB());
+        NhanVien nhanVien = nhanVien_DAO.findById(ddb.getNhanVien().getMaNV());
+        Ban ban = ban_dao.findById(ddb.getBan().getMaBan());
+        LoaiBan lb = loaiBan_dao.findById(ban.getLoaiBan().getMaLoaiBan());
+        ArrayList<ChiTietDatBan> list = (ArrayList<ChiTietDatBan>) ctdb_DAO.getList(ddb.getMaDDB());
 
         txtNow.setText(new SimpleDateFormat("HH:mm").format(new Date()));
         txtMaDDB.setText(ddb.getMaDDB());
-        txtTenNV.setText(nhanVien.getHoTenNV());
-        txtKH.setText(ddb.getHoTenKH());
+        txtTenNV.setText(nhanVien.getTenNV());
+        txtKH.setText(ddb.getKhachHang().getTenKH());
         txtSLKH.setText(String.valueOf(ddb.getSoLuongKH()));
-        tableLable.setText("Bàn " + ban.getSoBan() + " - " + lb.getTenLB());
+        tableLable.setText(ban.getTenBan() + " - " + lb.getTenLoaiBan());
         tableLable.setToolTipText(ddb.getBan().getMaBan());
-        txtSDT.setText(ddb.getSoDienThoai());
+        txtSDT.setText(ddb.getKhachHang().getSdt());
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
-        System.out.println(Date.from(ddb.getGioHen().atZone(ZoneId.systemDefault()).toInstant()));
-        txtDate.setDate(Date.from(ddb.getGioHen().atZone(ZoneId.systemDefault()).toInstant()));
-        timePicker1.setSelectedTime(java.util.Date.from(ddb.getGioHen().atZone(java.time.ZoneId.systemDefault()).toInstant()));
-        System.out.println(java.util.Date.from(ddb.getGioHen().atZone(java.time.ZoneId.systemDefault()).toInstant()));
+        System.out.println(Date.from(ddb.getGioDat().atZone(ZoneId.systemDefault()).toInstant()));
+        txtDate.setDate(Date.from(ddb.getGioDat().atZone(ZoneId.systemDefault()).toInstant()));
+        timePicker1.setSelectedTime(java.util.Date.from(ddb.getGioDat().atZone(java.time.ZoneId.systemDefault()).toInstant()));
+        System.out.println(java.util.Date.from(ddb.getGioDat().atZone(java.time.ZoneId.systemDefault()).toInstant()));
         txtGhiChu.setText(ddb.getGhiChu());
 
         if (list != null) {
             for (ChiTietDatBan x : list) {
-                MonAn ma = monAn_dao.getMonAn(x.getMonAn().getMaMA());
+                MonAn ma = monAn_dao.getMonAn(x.getMonAn().getMaMonAn());
                 double giaGiam = tinhGiaGiam(ma.getKhuyenMai(), ma.getGia(), ma);
                 double thanhTien = tinhThanhTien(giaGiam, 1);
-                tableModel.addRow(new Object[]{ma.getTenMA(), x.getSoLuong(), currencyFormat(ma.getGia()), currencyFormat(giaGiam), currencyFormat(thanhTien), new DeleteLabel().createDeleteLabel(orderTable), ma.getMaMA()});
+                tableModel.addRow(new Object[]{ma.getTenMonAn(), x.getSoLuong(), currencyFormat(ma.getGia()), currencyFormat(giaGiam), currencyFormat(thanhTien), new DeleteLabel().createDeleteLabel(orderTable), ma.getMaMonAn()});
             }
         }
         tongTienLabel.setText(currencyFormat(ddb.getTienCoc()));
@@ -144,7 +167,7 @@ public class CapNhatDonDatBan_Form extends javax.swing.JFrame {
         if (km == null) {
             return price;
         }
-        double soTienGiam = ma.getGia() - (km.getGiamGia() * (10 / 100.0));
+        double soTienGiam = ma.getGia() - (km.getChietKhau()* 100);
         return soTienGiam;
     }
 
@@ -247,13 +270,13 @@ public class CapNhatDonDatBan_Form extends javax.swing.JFrame {
         loadBanTheoLoai(but.getToolTipText());
     }
 
-    private void loadLoaiMon() {
-        ArrayList<LoaiMonAn> list = loaiMa_dao.getListLoaiMonAn();
+    private void loadLoaiMon() throws RemoteException {
+        List<LoaiMonAn> list = loaiMa_dao.getAll();
         for (LoaiMonAn loai : list) {
             JButton but = new JButton();
             but.setBackground(Color.WHITE);
-            but.setText(loai.getTenLoaiMA());
-            but.setToolTipText(loai.getMaLoaiMA());
+            but.setText(loai.getTenLoaiMon());
+            but.setToolTipText(loai.getMaLoaiMon());
             but.setBorder(null);
             but.setBorderPainted(false);
             but.setFocusPainted(false);
@@ -263,13 +286,13 @@ public class CapNhatDonDatBan_Form extends javax.swing.JFrame {
         }
     }
 
-    private void loadLoaiBan() {
-        ArrayList<LoaiBan> list = loaiBan_dao.getListLoaiBan();
+    private void loadLoaiBan() throws RemoteException {
+        List<LoaiBan> list = loaiBan_dao.getAll();
         for (LoaiBan loai : list) {
             JButton but = new JButton();
             but.setBackground(Color.WHITE);
-            but.setText(loai.getTenLB());
-            but.setToolTipText(loai.getMaLB());
+            but.setText(loai.getTenLoaiBan());
+            but.setToolTipText(loai.getMaLoaiBan());
             but.setBorder(null);
             but.setBorderPainted(false);
             but.setFocusPainted(false);
@@ -309,8 +332,8 @@ public class CapNhatDonDatBan_Form extends javax.swing.JFrame {
         });
     }
 
-    private void loadMonTheoLoai(String maLoai) {
-        ArrayList<MonAn> listMA = monAn_dao.getMonTheoLoai(maLoai);
+    private void loadMonTheoLoai(String maLoai) throws RemoteException {
+        List<MonAn> listMA = monAn_dao.getMonTheoLoai(maLoai);
         foodsPanel.removeAll(); // Xóa tất cả các thành phần
         foodsPanel.revalidate(); // Cập nhật lại bố cục
         foodsPanel.repaint(); // Vẽ lại giao diện
@@ -319,8 +342,8 @@ public class CapNhatDonDatBan_Form extends javax.swing.JFrame {
         }
     }
 
-    private void loadBanTheoLoai(String maLoai) {
-        ArrayList<Ban> listMA = ban_dao.getListBanTheoLoai(maLoai);
+    private void loadBanTheoLoai(String maLoai) throws RemoteException {
+        List<Ban> listMA = ban_dao.getListBanTheoLoai(maLoai);
         tablesPanel.removeAll(); // Xóa tất cả các thành phần
         tablesPanel.revalidate(); // Cập nhật lại bố cục
         tablesPanel.repaint(); // Vẽ lại giao diện
@@ -384,7 +407,7 @@ public class CapNhatDonDatBan_Form extends javax.swing.JFrame {
             return false;
         }
 
-        if (current.isAfter(ddb.getGioHen().minusHours(3))) {
+        if (current.isAfter(ddb.getGioDat().minusHours(3))) {
             JOptionPane.showMessageDialog(null, "Đơn đặt bàn chỉ được cập nhật trước 3 tiếng so với giờ hẹn!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return false;
         }
