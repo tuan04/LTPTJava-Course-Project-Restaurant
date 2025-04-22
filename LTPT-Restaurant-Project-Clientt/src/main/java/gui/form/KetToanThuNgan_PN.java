@@ -4,10 +4,9 @@
  */
 package gui.form;
 
-import dao.HoaDon_DAO;
-import dao.NhanVien_DAO;
-import entity.HoaDon;
-import entity.NhanVien;
+
+import model.HoaDon;
+import model.NhanVien;
 import gui.component.Header;
 import gui.main.Admin_DashBoard;
 import gui.main.ThuNgan_DashBoard;
@@ -20,13 +19,17 @@ import java.awt.Font;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -41,6 +44,9 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import service.HoaDonService;
+import service.NhanVienService;
+import rmi.RMIClientManager;
 
 /**
  *
@@ -53,7 +59,7 @@ public class KetToanThuNgan_PN extends javax.swing.JPanel {
      * Creates new form pn_ThongKeDoanhThu
      */
     private DefaultTableModel modelTable;
-    private HoaDon_DAO hoaDon_DAO;
+    private HoaDonService hoaDon_DAO;
     private String maNV;
     private String tenNV;
     private String today;
@@ -62,12 +68,14 @@ public class KetToanThuNgan_PN extends javax.swing.JPanel {
     private double tongDT = 0;
     private int tongSLDon = 0;
     private NhanVien nv;
-    private NhanVien_DAO nhanVien_dao = new NhanVien_DAO();
+    private NhanVienService nhanVien_dao;
     
-    public KetToanThuNgan_PN(Admin_DashBoard dashboard) {
+    public KetToanThuNgan_PN(Admin_DashBoard dashboard) throws Exception {
+        this.hoaDon_DAO=RMIClientManager.getInstance().getHoaDonService();
+        this.nhanVien_dao=RMIClientManager.getInstance().getNhanVienService();
         initComponents();
         customTable();
-        this.nv = nhanVien_dao.getNV(dashboard.getHeader().getTextMaNV());
+        this.nv = nhanVien_dao.findById(dashboard.getHeader().getTextMaNV());
         init();
         loadTable();
         loadTXT();
@@ -75,10 +83,12 @@ public class KetToanThuNgan_PN extends javax.swing.JPanel {
         chart();
     }
 
-    public KetToanThuNgan_PN(ThuNgan_DashBoard dashboard) {
+    public KetToanThuNgan_PN(ThuNgan_DashBoard dashboard) throws Exception {
+        this.hoaDon_DAO=RMIClientManager.getInstance().getHoaDonService();
+        this.nhanVien_dao=RMIClientManager.getInstance().getNhanVienService();
         initComponents();
         customTable();
-        this.nv = nhanVien_dao.getNV(dashboard.getHeader().getTextMaNV());
+        this.nv = nhanVien_dao.findById(dashboard.getHeader().getTextMaNV());
         init();
         loadTable();
         loadTXT();
@@ -121,19 +131,18 @@ public class KetToanThuNgan_PN extends javax.swing.JPanel {
 
     private void init() {
         setCellRender();
-        hoaDon_DAO = new HoaDon_DAO();
         maNV = nv.getMaNV();
-        tenNV = nv.getHoTenNV();
+        tenNV = nv.getTenNV();
         today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         modelTable = (DefaultTableModel) table.getModel();
     }
 
-    private void loadTable() {
-        ArrayList<HoaDon> list = hoaDon_DAO.todayList(maNV, today);
+    private void loadTable() throws RemoteException {
+      List<HoaDon> list = hoaDon_DAO.todayList(maNV, today);
         int i = 1;
         if (list != null) {
             for (HoaDon x : list) {
-                modelTable.addRow(new Object[]{i, x.getMaHD(), currencyFormat(x.getTongTien()), currencyFormat(x.getGiamGiaThanhVien()), currencyFormat(x.getGiamGiaSinhNhat()), currencyFormat(x.getTongTienTT()), new ActionCell().createActionLabel(table, 6, "/gui/icon/icons8-eye-20.png")});
+                modelTable.addRow(new Object[]{i, x.getMaHD(), currencyFormat(x.getTongTien()), currencyFormat(x.getTongTienGiamGia()), currencyFormat(x.getTongTienGiamGia()), currencyFormat(x.getTongTienThanhToan()), new ActionCell().createActionLabel(table, 6, "/gui/icon/icons8-eye-20.png")});
                 ++i;
             }
         }
@@ -166,16 +175,20 @@ public class KetToanThuNgan_PN extends javax.swing.JPanel {
                 int column = table.getSelectedColumn();
                 if (column == 6 && row >= 0) {
                     String maHD = table.getValueAt(row, 1).toString();
-                    suKienXemChiTiet(maHD);
+                    try {
+                        suKienXemChiTiet(maHD);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(KetToanThuNgan_PN.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
 
             }
         });
     }
 
-    public void suKienXemChiTiet(String maHD) {
+    public void suKienXemChiTiet(String maHD) throws RemoteException {
         Object[] ob = (Object[]) hoaDon_DAO.timKiemHD(maHD);
-        ArrayList<Object[]> list = hoaDon_DAO.timKiemCTHD(maHD);
+        ArrayList<Object[]> list = (ArrayList<Object[]>) hoaDon_DAO.timKiemCTHD(maHD);
 
         String soBan = ob[0].toString();
         String ngayLap = ob[1].toString();

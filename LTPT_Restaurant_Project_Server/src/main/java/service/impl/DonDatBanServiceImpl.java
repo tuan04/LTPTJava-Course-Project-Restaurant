@@ -40,4 +40,22 @@ public class DonDatBanServiceImpl extends GenericServiceImpl<DonDatBan, String> 
     public boolean capNhatTTDDB(String maDDB) {
         return donDatBanDAO.capNhatTTDDB(maDDB);
     }
+
+    public List<Object[]> getChiTietDonDatBan(String maDonDatBan) {
+        return donDatBanDAO.getChiTietDonDatBan(maDonDatBan);
     }
+    public Object[] getThongTinDonDatBan(String maDDB) {
+        return donDatBanDAO.getThongTinDonDatBan(maDDB);
+    }
+    public boolean huyDonDatBan(String maDDB, double hoanCoc, LocalDateTime gioHuy, String maNV) {
+        return donDatBanDAO.huyDonDatBan(maDDB, hoanCoc, gioHuy, maNV);
+
+    }
+    public Object[] timDDB(String ma) {
+        return donDatBanDAO.timDDB(ma);
+    }
+    public List<Object[]> timChiTietDonDatBan(String maDonDatBan){
+        return donDatBanDAO.timChiTietDonDatBan(maDonDatBan);
+    }
+}
+
