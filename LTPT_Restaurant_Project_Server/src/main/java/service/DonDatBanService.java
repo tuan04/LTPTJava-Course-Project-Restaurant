@@ -14,5 +14,6 @@ public interface DonDatBanService extends GenericService<DonDatBan, String>{
     public void capNhatBanSauGioKhachDen() throws RemoteException;
     public void capNhatBanTruocGioKhachDen() throws RemoteException;
     public List<DonDatBan> todayListHuy(String toDay, String maNV) throws RemoteException;
+    public boolean capNhatTTDDB(String maDDB) ;
 
 }

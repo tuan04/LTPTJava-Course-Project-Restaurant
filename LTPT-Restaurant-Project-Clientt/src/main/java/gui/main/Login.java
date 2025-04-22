@@ -4,20 +4,20 @@
  */
 package gui.main;
 
-import connectDB.ConnectDB;
-import dao.KhachHang_DAO;
-import dao.LoaiKhachHang_DAO;
-import dao.NhanVien_DAO;
-import entity.KhachHang;
-import entity.LoaiKhachHang;
-import entity.NhanVien;
+
+import model.KhachHang;
+import model.LoaiKhachHang;
+import model.NhanVien;
 import gui.component.Header;
 import javax.swing.*;
 import java.awt.event.*;
+import java.rmi.RemoteException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -28,6 +28,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import service.KhachHangService;
+import service.LoaiKhachHangService;
+import service.NhanVienService;
+import rmi.RMIClientManager;
 
 /**
  *
@@ -38,15 +42,19 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    private NhanVien_DAO nhanVien_DAO = new NhanVien_DAO();
-    private KhachHang_DAO khachHang_DAO = new KhachHang_DAO();
-    private LoaiKhachHang_DAO loaiKhachHang_DAO = new LoaiKhachHang_DAO();
-    private Header header = new Header();
+    private NhanVienService nhanVien_DAO ;
+    private KhachHangService khachHang_DAO ;
+    private LoaiKhachHangService loaiKhachHang_DAO ;
+    private Header header;
 
-    public Login() {
+    public Login() throws Exception {
+        this.nhanVien_DAO=RMIClientManager.getInstance().getNhanVienService();
+        this.khachHang_DAO=RMIClientManager.getInstance().getKhachHangService();
+        this.loaiKhachHang_DAO=RMIClientManager.getInstance().getLoaiKhachHangService();
+        this.header = new Header();
 
         initComponents();
-        connect();
+//        connect();
 
         bg.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
                 .put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enterKey");
@@ -54,61 +62,65 @@ public class Login extends javax.swing.JFrame {
         bg.getActionMap().put("enterKey", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dangNhap();
+                try {
+                    dangNhap();
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
         giamGiaSN();
     }
 
-    private void connect() {
-        ConnectDB.getInstance().connect();
-    }
+//    private void connect() {
+//        ConnectDB.getInstance().connect();
+//    }
 
-    private void dangNhap() {
+    private void dangNhap() throws RemoteException {
         String username = txtUsername.getText();
         String password = new String(txtPassword.getPassword());
         if (valid()) {
             NhanVien x = nhanVien_DAO.dangNhap(username, hashPassword(password));
             if (x != null) {
-                switch (x.getLoaiNhanVien().getMaLoaiNV()) {
-                    case "LNV1" -> {
+                switch (x.getLoaiNV()) {
+                    case "QL" -> {
                         header.setTextMaNV(x.getMaNV());
-                        header.setTextUsername(x.getHoTenNV());
+                        header.setTextUsername(x.getTenNV());
                         header.setTextRole("Nhân Viên Quản Lý");
                         SwingUtilities.invokeLater(() -> {
-                            new QuanLy_DashBoard(header).setVisible(true);
+                            try {
+                                new QuanLy_DashBoard(header).setVisible(true);
+                            } catch (Exception ex) {
+                                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         });
 
                         dispose();
                     }
-                    case "LNV2" -> {
+                    case "NV" -> {
                         header.setTextMaNV(x.getMaNV());
-                        header.setTextUsername(x.getHoTenNV());
-                        header.setTextRole("Nhân Viên Thu Ngân");
+                        header.setTextUsername(x.getTenNV());
+                        header.setTextRole("Nhân Viên");
                         SwingUtilities.invokeLater(() -> {
-                            new ThuNgan_DashBoard(header).setVisible(true);
+                            try {
+                                new ThuNgan_DashBoard(header).setVisible(true);
+                            } catch (Exception ex) {
+                                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         });
                         dispose();
                     }
-                    case "LNV3" -> {
-                        header.setTextMaNV(x.getMaNV());
-                        header.setTextUsername(x.getHoTenNV());
-                        header.setTextRole("Nhân Viên Lễ Tân");
-                        SwingUtilities.invokeLater(() -> {
-                            new LeTan_DashBoard(header).setVisible(true);
-                        });
-                        dispose();
-                    }
-                    case "LNV4" -> {
-                        header.setTextMaNV(x.getMaNV());
-                        header.setTextUsername(x.getHoTenNV());
-                        header.setTextRole("Admin");
-                        SwingUtilities.invokeLater(() -> {
-                            new Admin_DashBoard(header).setVisible(true);
-                        });
-                        dispose();
-                    }
+               
+//                    case "LNV4" -> {
+//                        header.setTextMaNV(x.getMaNV());
+//                        header.setTextUsername(x.getTenNV());
+//                        header.setTextRole("Admin");
+//                        SwingUtilities.invokeLater(() -> {
+//                            new Admin_DashBoard(header).setVisible(true);
+//                        });
+//                        dispose();
+//                    }
                     default -> {
 
                     }
@@ -120,14 +132,14 @@ public class Login extends javax.swing.JFrame {
 
     }
 
-    private void giamGiaSN() {
+    private void giamGiaSN() throws RemoteException {
         LocalDate ngayHH = LocalDate.now();
-        String date = ngayHH.toString().substring(5);
-        KhachHang kh = khachHang_DAO.giamGiaNgaySinh(date);
+//        String date = ngayHH.toString().substring(5);
+        KhachHang kh = khachHang_DAO.giamGiaNgaySinh(ngayHH);
         if (kh != null) {
-            LoaiKhachHang lKH = loaiKhachHang_DAO.kiemTraLKH(kh.getLoaiKhachHang().getMaLoaiKH());
+            LoaiKhachHang lKH = loaiKhachHang_DAO.findById(kh.getLoaiKH().getMaLoaiKH());
             String email = kh.getEmail();
-            sendOtpEmail(email, "Chúc mừng sinh nhật! Nhân dịp đặc biệt này, chúng tôi gửi tặng bạn một voucher giảm giá lên đến " + lKH.getGiamGiaSinhNhat() + " % trên hóa đơn như một món quà nhỏ để bạn tận hưởng ngày vui trọn vẹn hơn. Chúc bạn có một ngày thật hạnh phúc và ý nghĩa!");
+            sendOtpEmail(email, "Chúc mừng sinh nhật! Nhân dịp đặc biệt này, chúng tôi gửi tặng bạn một voucher giảm giá lên đến " + lKH.getGiamGiaSN() + " % trên hóa đơn như một món quà nhỏ để bạn tận hưởng ngày vui trọn vẹn hơn. Chúc bạn có một ngày thật hạnh phúc và ý nghĩa!");
         }
     }
 
@@ -181,7 +193,7 @@ public class Login extends javax.swing.JFrame {
         }
     }
 
-    private boolean valid() {
+    private boolean valid() throws RemoteException {
         if (txtUsername.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Mã nhân viên không được rỗng!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return false;
@@ -427,20 +439,28 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        dangNhap();
+        try {
+            dangNhap();
+        } catch (RemoteException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         dispose();
         SwingUtilities.invokeLater(() -> {
-            new ForgotPassword().setVisible(true);
+            try {
+                new ForgotPassword().setVisible(true);
+            } catch (Exception ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }//GEN-LAST:event_jLabel5MouseClicked
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -473,7 +493,11 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         SwingUtilities.invokeLater(() -> {
-            new Login().setVisible(true);
+            try {
+                new Login().setVisible(true);
+            } catch (Exception ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
 
     }

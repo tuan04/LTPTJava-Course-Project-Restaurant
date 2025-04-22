@@ -4,19 +4,23 @@
  */
 package gui.component;
 
-import dao.LoaiBan_DAO;
-import entity.Ban;
-import entity.LoaiBan;
+import model.Ban;
+import model.LoaiBan;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
+import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
+import service.LoaiBanService;
+import rmi.RMIClientManager;
 
 /**
  *
@@ -26,24 +30,25 @@ public class ItemTable extends javax.swing.JPanel {
     private JLabel tableLable = null;
     private Ban ban = null;
     private static Map<String, ImageIcon> imageCache = new HashMap<>();
-    private LoaiBan_DAO lb_dao = new LoaiBan_DAO();
+    private LoaiBanService lb_dao ;
 
     /**
      * Creates new form ItemTable
      */
-    public ItemTable(JLabel tableLabel, Ban ban) {
+    public ItemTable(JLabel tableLabel, Ban ban) throws Exception {
+        this.lb_dao=RMIClientManager.getInstance().getLoaiBanService();
         initComponents();
         this.tableLable = tableLabel;
         this.ban = ban;
         loadBan();
     }
 
-    public void loadBan(){
+    public void loadBan() throws RemoteException{
         SwingUtilities.invokeLater(() -> {imgLoad("/hinhAnh/table.png");});
-        LoaiBan lb = lb_dao.getLoaiBanTheoMa(ban.getLoaiBan().getMaLB());
+        LoaiBan lb = lb_dao.findById(ban.getLoaiBan().getMaLoaiBan());
         imgTable.setToolTipText(ban.getMaBan());
         tableName.setToolTipText(ban.getMaBan());
-        tableName.setText("Bàn " + ban.getSoBan() +  " / " + lb.getTenLB() + " (" + ban.getSoGhe() + ")");
+        tableName.setText("Bàn " + ban.getMaBan() +  " / " + lb.getTenLoaiBan() );
     }
     
     public void imgLoad(String path){
@@ -146,15 +151,25 @@ public class ItemTable extends javax.swing.JPanel {
 
     private void imgTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgTableMouseClicked
         // TODO add your handling code here:
-        LoaiBan lb = lb_dao.getLoaiBanTheoMa(ban.getLoaiBan().getMaLB());
-        tableLable.setText("Bàn " + ban.getSoBan() +  " / " + lb.getTenLB());
+        LoaiBan lb = null;
+        try {
+            lb = lb_dao.findById(ban.getLoaiBan().getMaLoaiBan());
+        } catch (RemoteException ex) {
+            Logger.getLogger(ItemTable.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tableLable.setText("Bàn " + ban.getMaBan() +  " / " + lb.getTenLoaiBan());
         tableLable.setToolTipText(ban.getMaBan());
     }//GEN-LAST:event_imgTableMouseClicked
 
     private void tableNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableNameMouseClicked
         // TODO add your handling code here:
-        LoaiBan lb = lb_dao.getLoaiBanTheoMa(ban.getLoaiBan().getMaLB());
-        tableLable.setText("Bàn " + ban.getSoBan() +  " / " + lb.getTenLB());
+        LoaiBan lb = null;
+        try {
+            lb = lb_dao.findById(ban.getLoaiBan().getMaLoaiBan());
+        } catch (RemoteException ex) {
+            Logger.getLogger(ItemTable.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tableLable.setText("Bàn " + ban.getMaBan() +  " / " + lb.getTenLoaiBan());
         tableLable.setToolTipText(ban.getMaBan());
 
     }//GEN-LAST:event_tableNameMouseClicked

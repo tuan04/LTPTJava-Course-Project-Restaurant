@@ -4,18 +4,24 @@
  */
 package gui.main;
 
-import dao.NhanVien_DAO;
+//import dao.NhanVien_DAO;
 import static gui.main.ForgotPassword.sendOtpEmail;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+import model.NhanVien;
+import service.NhanVienService;
+import rmi.RMIClientManager;
 
 /**
  *
@@ -27,8 +33,7 @@ public class VerifyCode extends javax.swing.JFrame {
     private static String maNV;
     private static String email;
     private static String password;
-    private NhanVien_DAO nhanVien_DAO = new NhanVien_DAO();
-
+    private NhanVienService nhanVien_DAO ;
     /**
      * Creates new form VerifyCode
      *
@@ -36,7 +41,8 @@ public class VerifyCode extends javax.swing.JFrame {
      * @param email
      * @param password
      */
-    public VerifyCode(String maNV, String email, String password) {
+    public VerifyCode(String maNV, String email, String password) throws Exception {
+        this.nhanVien_DAO=RMIClientManager.getInstance().getNhanVienService();
         initComponents();
         pack();
         
@@ -63,27 +69,37 @@ public class VerifyCode extends javax.swing.JFrame {
         
     }
     
-    private void checkOTP() {
+    private void checkOTP() throws RemoteException {
         if (nhanVien_DAO.checkOTP(maNV, email, txtOTP.getText())) {
-            nhanVien_DAO.updatePassword(maNV, password);
+            NhanVien nv=nhanVien_DAO.findById(maNV);
+            nv.setMatKhau(password);
+            nhanVien_DAO.update(nv);
             JOptionPane.showMessageDialog(null, "Mật khẩu được đổi thành công!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             closeAllFrame();
             SwingUtilities.invokeLater(() -> {
-                new Login().setVisible(true);
+                try {
+                    new Login().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(VerifyCode.class.getName()).log(Level.SEVERE, null, ex);
+                }
             });
         } else {
             JOptionPane.showMessageDialog(null, "Mã xác thực không đúng!", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }
     
-    private void resend() {
+    private void resend() throws RemoteException {
         if (timerLabel.getText().equals("0 giây")) {
             String otp = nhanVien_DAO.generateOTP(6);
             nhanVien_DAO.updateOTP(maNV, otp);
             sendOtpEmail(email, otp);
             ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
             scheduler.schedule(() -> {
-                nhanVien_DAO.deleteOTP(maNV);
+                try {
+                    nhanVien_DAO.deleteOTP(maNV);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(VerifyCode.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }, 60, TimeUnit.SECONDS);
         } else {
             JOptionPane.showMessageDialog(null, "Chưa hết thời gian để gửi mã mới", "Thông báo", JOptionPane.WARNING_MESSAGE);
@@ -242,11 +258,19 @@ public class VerifyCode extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
-        checkOTP();
+        try {
+            checkOTP();
+        } catch (RemoteException ex) {
+            Logger.getLogger(VerifyCode.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void btnGuiLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiLaiActionPerformed
-        resend();
+        try {
+            resend();
+        } catch (RemoteException ex) {
+            Logger.getLogger(VerifyCode.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnGuiLaiActionPerformed
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
@@ -260,7 +284,11 @@ public class VerifyCode extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VerifyCode(maNV, email, password).setVisible(true);
+                try {
+                    new VerifyCode(maNV, email, password).setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(VerifyCode.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
