@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="629fe26f-0400-4246-98e6-661a1f2e8b80" name="Changes" comment="update KhuyenMaiDAOTest.java, MonAnDAOTest.java, LoaiMonAnDaoTest.java">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/script.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/test.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/testdb.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/BanDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ChiTietDatBanDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ChiTietHoaDonDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/DonDatBanDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/GenericDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/HoaDonDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/KhachHangDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/KhuyenMaiDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/LoaiBanDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/LoaiKhachHangDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/LoaiKhuyenMaiDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/LoaiMonAnDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/MonAnDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/NhanVienDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/DataGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/Runner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Ban.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ChiTietDatBan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ChiTietHoaDon.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/DonDatBan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/HoaDon.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/KhachHang.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/KhuyenMai.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/LoaiBan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/LoaiKhachHang.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/LoaiKhuyenMai.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/LoaiMonAn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/MonAn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/NhanVien.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/rmi/RMIServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/BanService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/ChiTietDatBanService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/ChiTietHoaDonService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/DonDatBanService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/GenericService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/HoaDonService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/KhachHangService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/KhuyenMaiService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoaiBanService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoaiKhachHangService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoaiKhuyenMaiService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoaiMonAnService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/MonAnService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/NhanVienService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/BanServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/ChiTietDatBanServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/ChiTietHoaDonServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/DonDatBanServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/GenericServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/HoaDonServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/KhachHangServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/KhuyenMaiServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/LoaiBanServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/LoaiKhachHangServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/LoaiKhuyenMaiServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/LoaiMonAnServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/MonAnServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/NhanVienServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/JPAUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dao/BanDAOTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dao/KhachHangDAOTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dao/KhuyenMaiDAOTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dao/LoaiBanDAOTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dao/LoaiKhachHangDAOTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dao/LoaiKhuyenMaiDAOTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dao/LoaiMonAnDAOTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dao/MonAnDAOTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dao/NhanVienDAOTest.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="LTPTJava-Course-Project-Restaurant" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="LTPTJava-Course-Project-Restaurant" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="LTPTJava-Course-Project-Restaurant" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit5 Test Class" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/LTPT_Restaurant_Project_Server" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;tuan04&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/tuan04/LTPTJava-Course-Project-Restaurant&quot;,
+    &quot;accountId&quot;: &quot;7a2a29bf-b43f-420e-bda9-9e6c7580f80b&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2rsNoi5jvTMu1RWmFWHcYU3aBBv" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.BanDAOTest.deleteBan.executor": "Run",
+    "Gradle.BanDAOTest.executor": "Run",
+    "Gradle.BanDAOTest.getAllBan.executor": "Run",
+    "Gradle.BanDAOTest.testCreateBan.executor": "Run",
+    "Gradle.BanDAOTest.testCreateBan_Success.executor": "Run",
+    "Gradle.BanDAOTest.testCreateBan_Success1.executor": "Run",
+    "Gradle.BanDAOTest.testCreateBan_emptyObject.executor": "Run",
+    "Gradle.BanDAOTest.testCreateBan_failed.executor": "Run",
+    "Gradle.BanDAOTest.testCreateBan_nullAgr.executor": "Run",
+    "Gradle.BanDAOTest.testCreateBan_nullObject.executor": "Run",
+    "Gradle.BanDAOTest.testCreateBan_success.executor": "Run",
+    "Gradle.BanDAOTest.testCreateBan_success1.executor": "Run",
+    "Gradle.BanDAOTest.timTheoMaTest.executor": "Run",
+    "Gradle.BanDAOTest.timTheoMaTest_nullReturned.executor": "Run",
+    "Gradle.BanDAOTest.updateBan.executor": "Run",
+    "Gradle.Build LTPTJava-Course-Project-Restaurant.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.KhachHangServiceTest.testCreate.executor": "Run",
+    "Gradle.KhuyenMaiDAOTest.testCreateKhuyenMai.executor": "Run",
+    "Gradle.KhuyenMaiDAOTest.testGetAllKhuyenMai.executor": "Run",
+    "Gradle.KhuyenMaiDAOTest.testGetKhuyenMai.executor": "Run",
+    "Gradle.KhuyenMaiDAOTest.testUpdateKhuyenMai.executor": "Run",
+    "Gradle.LTPTJava-Course-Project-Restaurant [:Main.main()].executor": "Run",
+    "Gradle.LTPTJava-Course-Project-Restaurant [:dao.BanDAO.main()].executor": "Run",
+    "Gradle.LTPTJava-Course-Project-Restaurant [:dao.ChiTietDatBanDAO.main()].executor": "Run",
+    "Gradle.LTPTJava-Course-Project-Restaurant [:dao.ChiTietHoaDonDAO.main()].executor": "Run",
+    "Gradle.LTPTJava-Course-Project-Restaurant [:dao.DonDatBanDAO.main()].executor": "Run",
+    "Gradle.LTPTJava-Course-Project-Restaurant [:dao.HoaDonDAO.main()].executor": "Run",
+    "Gradle.LTPTJava-Course-Project-Restaurant [:dao.KhachHangDAO.main()].executor": "Run",
+    "Gradle.LTPTJava-Course-Project-Restaurant [:dao.NhanVienDAO.main()].executor": "Run",
+    "Gradle.LTPTJava-Course-Project-Restaurant [:data.CC.main()].executor": "Run",
+    "Gradle.LTPTJava-Course-Project-Restaurant [:data.DataGenerator.main()].executor": "Run",
+    "Gradle.LTPTJava-Course-Project-Restaurant [:data.Runner.main()].executor": "Debug",
+    "Gradle.LTPTJava-Course-Project-Restaurant [:rmi.RMIServer.main()].executor": "Run",
+    "Gradle.LTPTJava-Course-Project-Restaurant [build].executor": "Run",
+    "Gradle.LTPTJava-Course-Project-Restaurant [clean].executor": "Run",
+    "Gradle.LTPTJava-Course-Project-Restaurant [jar].executor": "Run",
+    "Gradle.LoaiBanDAOTest.getAllLoaiBan.executor": "Run",
+    "Gradle.LoaiBanDAOTest.getLoaiBanTheoMa.executor": "Run",
+    "Gradle.LoaiBanDAOTest.getLoaiBanTheoMa_nullReturned.executor": "Run",
+    "Gradle.LoaiKhachHangDAOTest.testUpdateRollbackOnException.executor": "Run",
+    "Gradle.LoaiKhachHangDAOTest.update.executor": "Run",
+    "Gradle.LoaiKhuyenMaiDAOTest.getAllLoaiKhuyenMai.executor": "Run",
+    "Gradle.LoaiMonAnDAOTest.findByID.executor": "Run",
+    "Gradle.LoaiMonAnDAOTest.findByID_nullReturned.executor": "Debug",
+    "Gradle.LoaiMonAnDAOTest.getAll.executor": "Run",
+    "Gradle.MonAnDAOTest.createMonAn.executor": "Run",
+    "Gradle.MonAnDAOTest.createMonAn_nullObject.executor": "Run",
+    "Gradle.MonAnDAOTest.deleteMonAn.executor": "Run",
+    "Gradle.MonAnDAOTest.findByID.executor": "Run",
+    "Gradle.MonAnDAOTest.findByID_incorrect.executor": "Run",
+    "Gradle.MonAnDAOTest.getAllMonAn.executor": "Run",
+    "Gradle.MonAnDAOTest.updateMonAn.executor": "Run",
+    "Gradle.NhanVienDAOTest.createNhanVien.executor": "Run",
+    "Gradle.NhanVienDAOTest.createNhanVienEmty.executor": "Run",
+    "Gradle.NhanVienDAOTest.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "<unknown>",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Tai_lieu_hoc/HK2_2024/LapTrinhPhanTanJava/LTPTJava-Course-Project-Restaurant/LTPT_Restaurant_Project_Server",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.35552076",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mariadb"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Tai_lieu_hoc\HK2_2024\LapTrinhPhanTanJava\LTPTJava-Course-Project-Restaurant\lib" />
+      <recent name="T:\Tai_lieu_hoc\HK2_2024\LapTrinhPhanTanJava\LTPTJava-Course-Project-Restaurant\src\test\java\dao" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="dao" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.LTPTJava-Course-Project-Restaurant [build]">
+    <configuration name="ChiTietHoaDonDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="dao.ChiTietHoaDonDAO" />
+      <module name="LTPTJava-Course-Project-Restaurant.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NhanVienDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="dao.NhanVienDAO" />
+      <module name="LTPTJava-Course-Project-Restaurant.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RMIServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="rmi.RMIServer" />
+      <module name="LTPTJava-Course-Project-Restaurant.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="rmi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LTPTJava-Course-Project-Restaurant [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="LTPTJava-Course-Project-Restaurant [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.LTPTJava-Course-Project-Restaurant [build]" />
+        <item itemvalue="Gradle.LTPTJava-Course-Project-Restaurant [clean]" />
+        <item itemvalue="Application.RMIServer" />
+        <item itemvalue="Application.ChiTietHoaDonDAO" />
+        <item itemvalue="Application.NhanVienDAO" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.189" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.189" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="StructureViewState">
+    <option name="selectedTab" value="Logical" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="629fe26f-0400-4246-98e6-661a1f2e8b80" name="Changes" comment="" />
+      <created>1737344000416</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1737344000416</updated>
+      <workItem from="1737344001475" duration="2080000" />
+      <workItem from="1737346143185" duration="26000" />
+      <workItem from="1737347252461" duration="134000" />
+      <workItem from="1737347430184" duration="3078000" />
+      <workItem from="1737360118566" duration="1186000" />
+      <workItem from="1737362333444" duration="172000" />
+      <workItem from="1737362533542" duration="9000" />
+      <workItem from="1737362654213" duration="306000" />
+      <workItem from="1737363108705" duration="300000" />
+      <workItem from="1737363484290" duration="92000" />
+      <workItem from="1737363595452" duration="3048000" />
+      <workItem from="1737367737427" duration="232000" />
+      <workItem from="1737367986742" duration="37000" />
+      <workItem from="1737368034164" duration="278000" />
+      <workItem from="1737368345068" duration="1783000" />
+      <workItem from="1737370180520" duration="70000" />
+      <workItem from="1737370499042" duration="28000" />
+      <workItem from="1737370537165" duration="36000" />
+      <workItem from="1737370583504" duration="241000" />
+      <workItem from="1737370889496" duration="144000" />
+      <workItem from="1737371093883" duration="106000" />
+      <workItem from="1737371212597" duration="475000" />
+      <workItem from="1737371714322" duration="220000" />
+      <workItem from="1737372022760" duration="36000" />
+      <workItem from="1737372072844" duration="1929000" />
+      <workItem from="1737374333986" duration="3021000" />
+      <workItem from="1737377429281" duration="4713000" />
+      <workItem from="1737386614320" duration="12085000" />
+      <workItem from="1737426942316" duration="29469000" />
+      <workItem from="1737512119103" duration="24827000" />
+      <workItem from="1739374828222" duration="1169000" />
+      <workItem from="1739408845972" duration="339000" />
+      <workItem from="1740057222465" duration="17000" />
+      <workItem from="1744986573541" duration="2051000" />
+      <workItem from="1745026440572" duration="90000" />
+      <workItem from="1745028887761" duration="10000" />
+      <workItem from="1745043662636" duration="8287000" />
+      <workItem from="1745059369355" duration="5687000" />
+      <workItem from="1745068387004" duration="4368000" />
+      <workItem from="1745072771555" duration="121000" />
+      <workItem from="1745072961267" duration="407000" />
+      <workItem from="1745073382430" duration="6116000" />
+      <workItem from="1745116026582" duration="5983000" />
+      <workItem from="1745128257605" duration="2276000" />
+      <workItem from="1745141878475" duration="1358000" />
+      <workItem from="1745144897936" duration="16029000" />
+      <workItem from="1745204678421" duration="4068000" />
+      <workItem from="1745214412020" duration="1204000" />
+      <workItem from="1745235176841" duration="10947000" />
+      <workItem from="1745295174411" duration="368000" />
+      <workItem from="1745301895221" duration="1890000" />
+      <workItem from="1745307718936" duration="3031000" />
+    </task>
+    <task id="LOCAL-00001" summary="update dao classes">
+      <option name="closed" value="true" />
+      <created>1737467309310</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1737467309310</updated>
+    </task>
+    <task id="LOCAL-00002" summary="cập nhật lại cau hình và DataGenerator.java">
+      <option name="closed" value="true" />
+      <created>1737528331159</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1737528331159</updated>
+    </task>
+    <task id="LOCAL-00003" summary="update KhuyenMaiDAOTest.java, MonAnDAOTest.java, LoaiMonAnDaoTest.java">
+      <option name="closed" value="true" />
+      <created>1737548854505</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1737548854505</updated>
+    </task>
+    <task id="LOCAL-00004" summary="update KhuyenMaiDAOTest.java, MonAnDAOTest.java, LoaiMonAnDaoTest.java">
+      <option name="closed" value="true" />
+      <created>1737548886142</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1737548886142</updated>
+    </task>
+    <task id="LOCAL-00005" summary="update KhuyenMaiDAOTest.java, MonAnDAOTest.java, LoaiMonAnDaoTest.java">
+      <option name="closed" value="true" />
+      <created>1737548969855</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1737548969855</updated>
+    </task>
+    <task id="LOCAL-00006" summary="update KhuyenMaiDAOTest.java, MonAnDAOTest.java, LoaiMonAnDaoTest.java">
+      <option name="closed" value="true" />
+      <created>1737548994936</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1737548994936</updated>
+    </task>
+    <task id="LOCAL-00007" summary="update KhuyenMaiDAOTest.java, MonAnDAOTest.java, LoaiMonAnDaoTest.java">
+      <option name="closed" value="true" />
+      <created>1737549046413</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1737549046413</updated>
+    </task>
+    <task id="LOCAL-00008" summary="update KhuyenMaiDAOTest.java, MonAnDAOTest.java, LoaiMonAnDaoTest.java">
+      <option name="closed" value="true" />
+      <created>1745295381268</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1745295381269</updated>
+    </task>
+    <task id="LOCAL-00009" summary="update KhuyenMaiDAOTest.java, MonAnDAOTest.java, LoaiMonAnDaoTest.java">
+      <option name="closed" value="true" />
+      <created>1745295475551</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1745295475551</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update dao classes" />
+    <MESSAGE value="cập nhật lại cau hình và DataGenerator.java" />
+    <MESSAGE value="update KhuyenMaiDAOTest.java, MonAnDAOTest.java, LoaiMonAnDaoTest.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="update KhuyenMaiDAOTest.java, MonAnDAOTest.java, LoaiMonAnDaoTest.java" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
