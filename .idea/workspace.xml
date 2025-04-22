@@ -4,88 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="629fe26f-0400-4246-98e6-661a1f2e8b80" name="Changes" comment="update KhuyenMaiDAOTest.java, MonAnDAOTest.java, LoaiMonAnDaoTest.java">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql/script.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql/test.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql/testdb.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/BanDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ChiTietDatBanDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ChiTietHoaDonDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/DonDatBanDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/GenericDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/HoaDonDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/KhachHangDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/KhuyenMaiDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/LoaiBanDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/LoaiKhachHangDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/LoaiKhuyenMaiDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/LoaiMonAnDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/MonAnDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/NhanVienDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/DataGenerator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/Runner.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Ban.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/ChiTietDatBan.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/ChiTietHoaDon.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/DonDatBan.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/HoaDon.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/KhachHang.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/KhuyenMai.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/LoaiBan.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/LoaiKhachHang.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/LoaiKhuyenMai.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/LoaiMonAn.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/MonAn.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/NhanVien.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rmi/RMIServer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/BanService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/ChiTietDatBanService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/ChiTietHoaDonService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/DonDatBanService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/GenericService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/HoaDonService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/KhachHangService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/KhuyenMaiService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoaiBanService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoaiKhachHangService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoaiKhuyenMaiService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/LoaiMonAnService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/MonAnService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/NhanVienService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/BanServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/ChiTietDatBanServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/ChiTietHoaDonServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/DonDatBanServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/GenericServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/HoaDonServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/KhachHangServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/KhuyenMaiServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/LoaiBanServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/LoaiKhachHangServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/LoaiKhuyenMaiServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/LoaiMonAnServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/MonAnServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/impl/NhanVienServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/JPAUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/BanDAOTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/KhachHangDAOTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/KhuyenMaiDAOTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/LoaiBanDAOTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/LoaiKhachHangDAOTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/LoaiKhuyenMaiDAOTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/LoaiMonAnDAOTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/MonAnDAOTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/NhanVienDAOTest.java" beforeDir="false" />
-    </list>
+    <list default="true" id="629fe26f-0400-4246-98e6-661a1f2e8b80" name="Changes" comment="update KhuyenMaiDAOTest.java, MonAnDAOTest.java, LoaiMonAnDaoTest.java" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -137,7 +56,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/LTPT_Restaurant_Project_Server" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -227,11 +146,11 @@
     "RunOnceActivity.git.unshallow": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "<unknown>",
+    "git-widget-placeholder": "Tuan",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "21",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Tai_lieu_hoc/HK2_2024/LapTrinhPhanTanJava/LTPTJava-Course-Project-Restaurant/LTPT_Restaurant_Project_Server",
+    "last_opened_file_path": "D:/Tai_lieu_hoc/HK2_2024/LapTrinhPhanTanJava/LTPTJava-Course-Project-Restaurant",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -426,6 +345,7 @@
       <workItem from="1745295174411" duration="368000" />
       <workItem from="1745301895221" duration="1890000" />
       <workItem from="1745307718936" duration="3031000" />
+      <workItem from="1745321974392" duration="55000" />
     </task>
     <task id="LOCAL-00001" summary="update dao classes">
       <option name="closed" value="true" />

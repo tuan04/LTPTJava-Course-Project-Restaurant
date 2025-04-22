@@ -1,7 +1,24 @@
 package rmi;
 
-import service.*;
+import service.DonDatBanService;
+import service.ChiTietDatBanService;
+import service.HoaDonService;
+import service.ChiTietHoaDonService;
+import service.BanService;
+import service.LoaiBanService;
+import service.KhachHangService;
+import service.LoaiKhachHangService;
+import service.KhuyenMaiService;
+import service.LoaiKhuyenMaiService;
+import service.MonAnService;
+import service.LoaiMonAnService;
+import service.NhanVienService;
+
 import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import model.NhanVien;
 
 public class RMIClientManager {
@@ -22,22 +39,23 @@ public class RMIClientManager {
     private NhanVienService nhanVienService;
 
     private RMIClientManager() throws Exception {
-        String host = "rmi://DESKTOP-03JUV5H:9090/";
+        Registry registry = LocateRegistry.getRegistry("DESKTOP-0LHH81P", 9090);
 
-        donDatBanService = (DonDatBanService) Naming.lookup(host + "donDatBanService");
-        chiTietDatBanService = (ChiTietDatBanService) Naming.lookup(host + "chiTietDatBanService");
-        hoaDonService = (HoaDonService) Naming.lookup(host + "hoaDonService");
-        chiTietHoaDonService = (ChiTietHoaDonService) Naming.lookup(host + "chiTietHoaDonService");
-        banService = (BanService) Naming.lookup(host + "banService");
-        loaiBanService = (LoaiBanService) Naming.lookup(host + "loaiBanService");
-        khachHangService = (KhachHangService) Naming.lookup(host + "khachHangService");
-        loaiKhachHangService = (LoaiKhachHangService) Naming.lookup(host + "loaiKhachHangService");
-        khuyenMaiService = (KhuyenMaiService) Naming.lookup(host + "khuyenMaiService");
-        loaiKhuyenMaiService = (LoaiKhuyenMaiService) Naming.lookup(host + "loaiKmService");
-        monAnService = (MonAnService) Naming.lookup(host + "monAnService");
-        loaiMonAnService = (LoaiMonAnService) Naming.lookup(host + "loaiMonAnService");
-        nhanVienService = (NhanVienService) Naming.lookup(host + "nhanVienService");
-    }
+        donDatBanService = (DonDatBanService) registry.lookup("donDatBanService");
+        chiTietDatBanService = (ChiTietDatBanService) registry.lookup("chiTietDatBanService");
+        hoaDonService = (HoaDonService) registry.lookup("hoaDonService");
+        chiTietHoaDonService = (ChiTietHoaDonService) registry.lookup("chiTietHoaDonService");
+        banService = (BanService) registry.lookup("banService");
+        loaiBanService = (LoaiBanService) registry.lookup("loaiBanService");
+        khachHangService = (KhachHangService) registry.lookup("khachHangService");
+        loaiKhachHangService = (LoaiKhachHangService) registry.lookup("loaiKhachHangService");
+        khuyenMaiService = (KhuyenMaiService) registry.lookup("khuyenMaiService");
+        loaiKhuyenMaiService = (LoaiKhuyenMaiService) registry.lookup("loaiKmService");
+        monAnService = (MonAnService) registry.lookup("monAnService");
+        loaiMonAnService = (LoaiMonAnService) registry.lookup("loaiMonAnService");
+        nhanVienService = (NhanVienService) registry.lookup("nhanVienService");
+}
+
 
     public static RMIClientManager getInstance() throws Exception {
         if (instance == null) {
@@ -97,13 +115,4 @@ public class RMIClientManager {
     public NhanVienService getNhanVienService() {
         return nhanVienService;
     }
-    public static void main(String[] args) {
-        try {
-        RMIClientManager manager = RMIClientManager.getInstance();
-        NhanVien nv = manager.getNhanVienService().findById("AD001");
-        System.out.println(nv);
-    }
-          catch (Exception e) {
-        e.printStackTrace();
-    }}
 }
