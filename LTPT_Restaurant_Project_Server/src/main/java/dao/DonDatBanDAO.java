@@ -194,19 +194,24 @@ public class DonDatBanDAO extends GenericDao<DonDatBan, String>{
         System.out.println(LocalDate.parse("19/04/2025", DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
         List<DonDatBan> listddb = ddb_dao.todayList("19/04/2025", "NVLT002");
-        if(listddb.isEmpty()){
+        if (listddb.isEmpty()) {
             System.out.print("nooo");
         }
-        for(DonDatBan db : listddb){
+        for (DonDatBan db : listddb) {
             System.out.println(db);
         }
 //        String ddb = ddb_dao.donDatBanMoiNhat();
 //        System.out.println(ddb);
 
 //        System.out.println(ddb_dao.findById("DB250419001"));
-
-
-
     }
+        public boolean capNhatTTDDB(String maDDB) {
+          String sql= "UPDATE DonDatBan c Set c.trangThai = 2 WHERE c.maDDB =: maDDB";
+
+           return  em.createQuery(sql).setParameter("maDDB", maDDB).executeUpdate() > 0;
+        }
+
+
+
 
 }

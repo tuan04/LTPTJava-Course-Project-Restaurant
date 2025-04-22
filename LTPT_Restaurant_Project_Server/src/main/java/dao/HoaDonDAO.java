@@ -462,7 +462,8 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
     }
 
 
-    public boolean taoHoaDon(HoaDon hoaDon) {
+    public boolean taoHoaDon(HoaDon hoaDon)  {
+
         return save(hoaDon);
     }
 
@@ -890,3 +891,4 @@ public class HoaDonDAO extends GenericDao<HoaDon, String> {
     }
 
 }
+

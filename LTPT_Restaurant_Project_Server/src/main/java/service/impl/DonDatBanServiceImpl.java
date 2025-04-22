@@ -37,4 +37,7 @@ public class DonDatBanServiceImpl extends GenericServiceImpl<DonDatBan, String> 
     public List<DonDatBan> todayListHuy(String toDay, String maNV) throws RemoteException{
         return donDatBanDAO.todayListHuy(toDay, maNV);
     };
-}
+    public boolean capNhatTTDDB(String maDDB) {
+        return donDatBanDAO.capNhatTTDDB(maDDB);
+    }
+    }

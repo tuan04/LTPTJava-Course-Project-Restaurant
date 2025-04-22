@@ -18,4 +18,7 @@ public class ChiTietDatBanServiceImpl extends GenericServiceImpl<ChiTietDatBan, 
     public List<ChiTietDatBan> getList (String maDDB) throws RemoteException{
         return chiTietDatBanDAO.getList(maDDB);
     }
-}
+    public boolean deleteChiTietDatBan (String maDDB) {
+        return chiTietDatBanDAO.deleteChiTietDatBan(maDDB);
+    }
+    }
