@@ -1,9 +1,6 @@
 package dao;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import model.Ban;
 import model.DonDatBan;
@@ -13,6 +10,8 @@ import model.NhanVien;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -184,22 +183,162 @@ public class DonDatBanDAO extends GenericDao<DonDatBan, String>{
                 .getResultList();
     }
 
+    public List<Object[]> getChiTietDonDatBan(String maDonDatBan) {
+        String jpql = "SELECT ma.tenMonAn, ma.gia, ctdb.donGia, ctdb.soLuong, ctdb.thanhTien " +
+                "FROM ChiTietDatBan ctdb " +
+                "JOIN ctdb.donDatBan ddb " +
+                "JOIN ctdb.monAn ma " +
+                "LEFT JOIN ma.khuyenMai km " +
+                "WHERE ddb.maDDB = :maDDB";
 
+        return em.createQuery(jpql, Object[].class)
+                .setParameter("maDDB", maDonDatBan)
+                .getResultList();
+    }
+
+
+
+    public Object[] getThongTinDonDatBan(String maDDB) {
+        String sql = "SELECT MA.tenMonAn,CTDB.monAn.gia ,CTDB.donGia,CTDB.soLuong,CTDB.thanhTien " +
+                "FROM DonDatBan DDB JOIN ChiTietDatBan CTDB ON DDB.maDDB = CTDB.donDatBan.maDDB " +
+                " JOIN MonAn MA ON CTDB.monAn.maMonAn = MA.maMonAn " +
+                " WHERE DDB.maDDB = :maDDB";
+
+        List<Object[]> result = em.createQuery(sql, Object[].class)
+                .setParameter("maDDB", maDDB)
+                .getResultList();
+
+        return result.isEmpty() ? null : result.get(0);
+    }
+    public boolean huyDonDatBan(String maDDB, double hoanCoc, LocalDateTime gioHuy, String maNV) {
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+
+            String sql = "UPDATE DonDatBan d "
+                    + "SET d.trangThai = 3, d.tienHoanCoc = :hoanCoc, d.gioHuy = :gioHuy, d.nhanVien.maNV = :maNV "
+                    + "WHERE d.maDDB = :maDDB";
+
+            int updated = em.createQuery(sql)
+                    .setParameter("maDDB", maDDB)
+                    .setParameter("hoanCoc", hoanCoc)
+                    .setParameter("gioHuy", gioHuy)
+                    .setParameter("maNV", maNV)
+                    .executeUpdate();
+
+            tx.commit();
+            return updated > 0;
+        } catch (Exception e) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Object[] timDDB(String ma) {
+        try {
+            String jpql = "SELECT d.khachHang.tenKH, " +
+                    "       FUNCTION('DATE_FORMAT', d.ngayTao, '%d/%m/%Y'), " +
+                    "       FUNCTION('DATE_FORMAT', d.gioDat, '%d/%m/%Y %H:%i'), " +
+                    "       d.soLuongKH, d.khachHang.sdt, b.maBan, d.tienCoc, d.tienHoanCoc, " +
+                    "       FUNCTION('DATE_FORMAT', d.gioHuy, '%d/%m/%Y %H:%i'), d.trangThai " +
+                    "FROM DonDatBan d JOIN d.ban b WHERE d.maDDB = :ma";
+
+            Object[] result = (Object[]) em.createQuery(jpql)
+                    .setParameter("ma", ma)
+                    .getSingleResult();
+
+            String TT;
+            int trangThai = (int) result[9];
+            if (trangThai == 1) {
+                TT = "Đang xử lí";
+            } else if (trangThai == 2) {
+                TT = "Đã nhận bàn";
+            } else {
+                TT = "Đã hủy";
+            }
+
+            return new Object[]{
+                    result[0], // hoTenKH
+                    result[1], // ngayTao
+                    result[2], // gioHen
+                    result[3], // soLuongKH
+                    result[4], // soDienThoai
+                    result[5], // soBan
+                    result[6], // tienCoc
+                    result[7], // hoanCoc
+                    result[8], // gioHuy
+                    TT         // trạng thái chuyển thành chuỗi
+            };
+
+        } catch (NoResultException e) {
+            return null; // hoặc return new Object[] {};
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public List<Object[]> timChiTietDonDatBan(String maDonDatBan) {
+        List<Object[]> list = new ArrayList<>();
+
+        String jpql = "SELECT ma.tenMonAn, ma.gia, ct.donGia, ct.soLuong, ct.thanhTien " +
+                "FROM ChiTietDatBan ct JOIN ct.monAn ma " +
+                "WHERE ct.donDatBan.maDDB = :maDDB";
+
+        try {
+            List<Object[]> results = em.createQuery(jpql, Object[].class)
+                    .setParameter("maDDB", maDonDatBan)
+                    .getResultList();
+            int i = 1;
+            for (Object[] row : results) {
+                Object[] ob = new Object[]{
+                        i++,           // STT
+                        row[0],        // tenMA
+                        row[1],        // gia
+                        row[2],        // giaSauGiam
+                        row[3],        // soLuong
+                        row[4]         // thanhTien
+                };
+                list.add(ob);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 
 
 
     public static void main(String[] args) {
         DonDatBanDAO ddb_dao = new DonDatBanDAO(DonDatBan.class);
-
-        System.out.println(LocalDate.parse("19/04/2025", DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-
-        List<DonDatBan> listddb = ddb_dao.todayList("19/04/2025", "NVLT002");
-        if (listddb.isEmpty()) {
-            System.out.print("nooo");
+        List<Object[]> list=ddb_dao.timChiTietDonDatBan("DB241213002");
+        if (list != null && !list.isEmpty()) {
+            for (Object[] row : list) {
+                for (Object obj : row) {
+                    System.out.print(obj + " ");  // In từng phần tử của mảng
+                }
+                System.out.println();  // In xuống dòng sau mỗi dòng kết quả
+            }
+        } else {
+            System.out.println("Không có hóa đơn nào.");
         }
-        for (DonDatBan db : listddb) {
-            System.out.println(db);
-        }
+//        Object[] list=ddb_dao.getThongTinDonDatBan("DB241213002");
+//        System.out.println(Arrays.toString((Object[]) ddb_dao.timDDB("DB241213001")));
+
+//        System.out.println(ddb_dao.huyDonDatBan("DB241213001",100000,LocalDateTime.now(),"AD001"));
+
+//        System.out.println(LocalDate.parse("19/04/2025", DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+//
+//        List<DonDatBan> listddb = ddb_dao.todayList("19/04/2025", "NVLT002");
+//        if (listddb.isEmpty()) {
+//            System.out.print("nooo");
+//        }
+//        for (DonDatBan db : listddb) {
+//            System.out.println(db);
+//        }
 //        String ddb = ddb_dao.donDatBanMoiNhat();
 //        System.out.println(ddb);
 
@@ -210,6 +349,7 @@ public class DonDatBanDAO extends GenericDao<DonDatBan, String>{
 
            return  em.createQuery(sql).setParameter("maDDB", maDDB).executeUpdate() > 0;
         }
+
 
 
 

@@ -15,5 +15,9 @@ public interface DonDatBanService extends GenericService<DonDatBan, String>{
     public void capNhatBanTruocGioKhachDen() throws RemoteException;
     public List<DonDatBan> todayListHuy(String toDay, String maNV) throws RemoteException;
     public boolean capNhatTTDDB(String maDDB) ;
-
-}
+    public List<Object[]> getChiTietDonDatBan(String maDonDatBan) ;
+    public Object[] getThongTinDonDatBan(String maDDB) ;
+    public boolean huyDonDatBan(String maDDB, double hoanCoc, LocalDateTime gioHuy, String maNV) ;
+    public Object[] timDDB(String ma) ;
+    public List<Object[]> timChiTietDonDatBan(String maDonDatBan);
+    }
