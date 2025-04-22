@@ -4,14 +4,11 @@
  */
 package gui.form;
 
-import dao.Ban_DAO;
-import dao.DonDatBan_DAO;
-import dao.LoaiBan_DAO;
-import dao.NhanVien_DAO;
-import entity.Ban;
-import entity.DonDatBan;
-import entity.LoaiBan;
-import entity.NhanVien;
+
+import model.Ban;
+import model.DonDatBan;
+import model.LoaiBan;
+import  model.NhanVien;
 import gui.main.Admin_DashBoard;
 import gui.main.LeTan_DashBoard;
 import gui.model.ModelChart;
@@ -23,12 +20,14 @@ import java.awt.Font;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -38,6 +37,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import service.BanService;
+import service.DonDatBanService;
+import service.LoaiBanService;
+import service.NhanVienService;
+import rmi.RMIClientManager;
 
 /**
  *
@@ -49,10 +53,10 @@ public class KetToanLeTan_PN extends javax.swing.JPanel {
      * s
      * Creates new form pn_ThongKeDoanhThu
      */
-    private DonDatBan_DAO donDatBan_DAO;
-    private Ban_DAO ban_DAO;
-    private LoaiBan_DAO loaiBan_DAO;
-    private NhanVien_DAO nhanVien_DAO = new NhanVien_DAO();
+    private DonDatBanService donDatBan_DAO;
+    private BanService ban_DAO;
+    private LoaiBanService loaiBan_DAO;
+    private NhanVienService nhanVien_DAO ;
     private String maNV;
     private String tenNV;
     private String today;
@@ -66,9 +70,13 @@ public class KetToanLeTan_PN extends javax.swing.JPanel {
     private DefaultTableModel tableModel;
     private DefaultTableModel tableModel2;
 
-    public KetToanLeTan_PN(Admin_DashBoard dashBoard) {
+    public KetToanLeTan_PN(Admin_DashBoard dashBoard) throws Exception {
+        this.donDatBan_DAO=RMIClientManager.getInstance().getDonDatBanService();
+        this.ban_DAO=RMIClientManager.getInstance().getBanService();
+        this.loaiBan_DAO=RMIClientManager.getInstance().getLoaiBanService();
+        this.nhanVien_DAO=RMIClientManager.getInstance().getNhanVienService();
         initComponents();
-        this.nv = nhanVien_DAO.getNV(dashBoard.getHeader().getTextMaNV());
+        this.nv = nhanVien_DAO.findById(dashBoard.getHeader().getTextMaNV());
         customTable();
         customTable2();
 
@@ -81,9 +89,13 @@ public class KetToanLeTan_PN extends javax.swing.JPanel {
 
     }
     
-    public KetToanLeTan_PN(LeTan_DashBoard dashBoard) {
+    public KetToanLeTan_PN(LeTan_DashBoard dashBoard) throws Exception {
+         this.donDatBan_DAO=RMIClientManager.getInstance().getDonDatBanService();
+        this.ban_DAO=RMIClientManager.getInstance().getBanService();
+        this.loaiBan_DAO=RMIClientManager.getInstance().getLoaiBanService();
+        this.nhanVien_DAO=RMIClientManager.getInstance().getNhanVienService();
         initComponents();
-        this.nv = nhanVien_DAO.getNV(dashBoard.getHeader().getTextMaNV());
+        this.nv = nhanVien_DAO.findById(dashBoard.getHeader().getTextMaNV());
         customTable();
         customTable2();
 
@@ -154,38 +166,36 @@ public class KetToanLeTan_PN extends javax.swing.JPanel {
     private void init() {
         setCellRender();
         setCellRender2();
-        donDatBan_DAO = new DonDatBan_DAO();
-        ban_DAO = new Ban_DAO();
-        loaiBan_DAO = new LoaiBan_DAO();
+       
         maNV = nv.getMaNV();
-        tenNV = nv.getHoTenNV();
+        tenNV = nv.getTenNV();
         today = LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE.ofPattern("dd/MM/yyyy"));
         tableModel = (DefaultTableModel) table.getModel();
         tableModel2 = (DefaultTableModel) table2.getModel();
 
     }
 
-    private void loadTable() {
-        ArrayList<DonDatBan> list = donDatBan_DAO.todayList(today, maNV);
+    private void loadTable() throws RemoteException {
+        List<DonDatBan> list = donDatBan_DAO.todayList(today, maNV);
         int i = 1;
         if (list != null) {
             for (DonDatBan x : list) {
-                Ban ban = ban_DAO.getBan(x.getBan().getMaBan());
-                LoaiBan lb = loaiBan_DAO.getLB(ban.getLoaiBan().getMaLB());
-                tableModel.addRow(new Object[]{i++, x.getMaDDB(), x.getHoTenKH(), x.getSoDienThoai(), x.getSoLuongKH(), "Bàn " + ban.getSoBan() + " - " + lb.getTenLB(), x.getGioHen().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")), currencyFormat(x.getTienCoc()), new ActionCell().createActionLabel(table, 8, "/gui/icon/icons8-eye-20.png")});
+                Ban ban = ban_DAO.findById(x.getBan().getMaBan());
+                LoaiBan lb = loaiBan_DAO.findById(ban.getLoaiBan().getMaLoaiBan());
+                tableModel.addRow(new Object[]{i++, x.getMaDDB(), x.getKhachHang().getTenKH(), x.getKhachHang().getSdt(), x.getSoLuongKH(), "Bàn " + ban.getMaBan() + " - " + lb.getTenLoaiBan(), x.getGioDat().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")), currencyFormat(x.getTienCoc()), new ActionCell().createActionLabel(table, 8, "/gui/icon/icons8-eye-20.png")});
             }
         }
         tongSLDon = tableModel.getRowCount();
     }
 
-    private void loadTable2() {
-        ArrayList<DonDatBan> list = donDatBan_DAO.todayListHuy(today);
+    private void loadTable2() throws RemoteException {
+        List<DonDatBan> list = donDatBan_DAO.todayListHuy(today,maNV);
         int i = 1;
         if (list != null) {
             for (DonDatBan x : list) {
-                Ban ban = ban_DAO.getBan(x.getBan().getMaBan());
-                LoaiBan lb = loaiBan_DAO.getLB(ban.getLoaiBan().getMaLB());
-                tableModel2.addRow(new Object[]{i++, x.getMaDDB(), x.getHoTenKH(), x.getSoDienThoai(), x.getSoLuongKH(), "Bàn " + ban.getSoBan() + " - " + lb.getTenLB(), x.getGioHen().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")), currencyFormat(x.getTienCoc()), x.getGioHuy().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")), currencyFormat(x.getHoanCoc()), nhanVien_DAO.getNV(x.getNhanVien().getMaNV()).getHoTenNV(), new ActionCell().createActionLabel(table2, 11, "/gui/icon/icons8-eye-20.png")});
+                Ban ban = ban_DAO.findById(x.getBan().getMaBan());
+                LoaiBan lb = loaiBan_DAO.findById(ban.getLoaiBan().getMaLoaiBan());
+                tableModel2.addRow(new Object[]{i++, x.getMaDDB(), x.getKhachHang().getTenKH(), x.getKhachHang().getSdt(), x.getSoLuongKH(), "Bàn " + ban.getMaBan() + " - " + lb.getTenLoaiBan(), x.getGioDat().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")), currencyFormat(x.getTienCoc()), x.getGioHuy().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")), currencyFormat(x.getTienHoanCoc()), nhanVien_DAO.findById(x.getNhanVien().getMaNV()).getTenNV(), new ActionCell().createActionLabel(table2, 11, "/gui/icon/icons8-eye-20.png")});
             }
         }
         tongSLDonHuy = tableModel2.getRowCount();
@@ -257,7 +267,8 @@ public class KetToanLeTan_PN extends javax.swing.JPanel {
 
     public void suKienXemChiTiet(String maDDB) {
         Object[] ob = (Object[]) donDatBan_DAO.timDDB(maDDB);
-        ArrayList<Object[]> list = donDatBan_DAO.timChiTietDonDatBan(maDDB);
+//        DonDatBan ob=donDatBan_DAO.findById(maDDB)
+        ArrayList<Object[]> list = (ArrayList<Object[]>) donDatBan_DAO.timChiTietDonDatBan(maDDB);
         //ob = new Object[]{hoTenKH, ngayTao, gioHen, soLuongKH, soDienThoai, loaiBan, tienCoc,hoanCoc,gioHuy,trangThai};
         //String hoTenKH, String ngayDat, String gioHen, String soLuongKH, String soDienThoai, ArrayList<Object[]> list,int tienCoc,String trangThai
         String hoTenKH = ob[0].toString();

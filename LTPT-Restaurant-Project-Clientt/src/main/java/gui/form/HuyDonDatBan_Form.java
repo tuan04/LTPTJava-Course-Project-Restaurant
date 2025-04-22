@@ -1,7 +1,6 @@
 package gui.form;
 
-import dao.DonDatBan_DAO;
-import entity.NhanVien;
+import model.NhanVien;
 import gui.swing.table.TableCustom;
 import java.awt.Color;
 import java.awt.Font;
@@ -14,8 +13,12 @@ import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
+import rmi.RMIClientManager;
+import service.DonDatBanService;
 
 public class HuyDonDatBan_Form extends javax.swing.JFrame {
+    public DonDatBanService dao ;
 
     private String ma;
     private NhanVien nv;
@@ -26,7 +29,8 @@ public class HuyDonDatBan_Form extends javax.swing.JFrame {
      * @param maDDB
      * @param nv
      */
-    public HuyDonDatBan_Form(String maDDB, NhanVien nv, JFrame CapNhatDonDatBan_Form) {
+    public HuyDonDatBan_Form(String maDDB, NhanVien nv, JFrame CapNhatDonDatBan_Form) throws Exception {
+       this.dao=RMIClientManager.getInstance().getDonDatBanService();
         this.ma = maDDB;
         this.nv = nv;
         this.CapNhatDonDatBan_Form = CapNhatDonDatBan_Form;
@@ -372,7 +376,6 @@ public class HuyDonDatBan_Form extends javax.swing.JFrame {
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         try {
-            DonDatBan_DAO dao = new DonDatBan_DAO();
 
             LocalDateTime now = LocalDateTime.now();
 
@@ -386,17 +389,16 @@ public class HuyDonDatBan_Form extends javax.swing.JFrame {
                 setVisible(false);
             }
 
-        } catch (HeadlessException | SQLException e) {
+        } catch (HeadlessException e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_button1ActionPerformed
 
     private void load(String maDDB) {
 
-        DonDatBan_DAO dao = new DonDatBan_DAO();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         try {
-            ArrayList<Object[]> list = dao.getChiTietDonDatBan(maDDB);
+            List<Object[]> list = dao.getChiTietDonDatBan(maDDB);
             Object[] ob = dao.getThongTinDonDatBan(maDDB);
             DefaultTableModel model = (DefaultTableModel) tabThongTinMon.getModel();
             model.getDataVector().removeAllElements();
@@ -429,7 +431,7 @@ public class HuyDonDatBan_Form extends javax.swing.JFrame {
             double tienHoan = (double) ob[4] * hoanCoc / 100.0;
             lblTienHoanLai_V.setText(dinhDangVND(tienHoan));
             lblGioTre_V.setText(String.format("%.2f", Math.abs(gio)) + " giờ");
-        } catch (NumberFormatException | SQLException e) {
+        } catch (NumberFormatException e) {
             e.printStackTrace();
         }
 
