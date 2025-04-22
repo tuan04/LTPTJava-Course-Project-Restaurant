@@ -4,34 +4,42 @@
  */
 package gui.form;
 
-import dao.KhuyenMai_DAO;
-import entity.KhuyenMai;
+
+import model.KhuyenMai;
 import gui.swing.table.TableCustom;
 import java.awt.Color;
 import java.awt.Font;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.openide.util.Exceptions;
+import rmi.RMIClientManager;
+import service.KhuyenMaiService;
 
 /**
  *
  * @author tamthanh
  */
 public class QuanLyKhuyenMai_PN extends javax.swing.JPanel {
-    private KhuyenMai_DAO dao_km = new KhuyenMai_DAO();
+    private KhuyenMaiService dao_km ;
     private DefaultTableModel tbm;
     /**
      * Creates new form QuanLyKhuyenMai_PN
      */
-    public QuanLyKhuyenMai_PN() {
+    public QuanLyKhuyenMai_PN() throws Exception {
+        this.dao_km=RMIClientManager.getInstance().getKhuyenMaiService();
         initComponents();
         customTable();
     }
-    private void customTable() {
+    private void customTable() throws RemoteException {
             TableCustom.apply(jScrollPane1, TableCustom.TableType.MULTI_LINE);
             table.getTableHeader().setFont(new Font("Sanserif", Font.BOLD, 12));
             table.getTableHeader().setBackground(new Color(50, 50, 50));
@@ -63,22 +71,22 @@ public class QuanLyKhuyenMai_PN extends javax.swing.JPanel {
             duyetLoaiKMVaoComboxBox();
     }
     //
-    public void duyetListVaoTable() {
+    public void duyetListVaoTable() throws RemoteException {
 
-                    ArrayList<KhuyenMai> list = dao_km.getList();
+                    List<KhuyenMai> list = dao_km.getAll();
                     ImageIcon icon = new ImageIcon(getClass().getResource("/gui/icon/edit.png"));
                     JLabel lblIcon = new JLabel(icon);
                     for(KhuyenMai e : list) {
-                    Object[] ob = { e.getMaKM(), e.getTenKM(), e.getGiamGia(), e.getNgayBD(), e.getNgayHH(),e.getSoLuong(), e.getLoaiKM().equals("HoaDon") ? "Hóa đơn" : "Món ăn",lblIcon}; 
+                    Object[] ob = { e.getMaKM(), e.getTenKM(), e.getChietKhau(), e.getNgayBD(), e.getNgayBD(),e.getSoLuong(), e.getLoaiKM().equals("HoaDon") ? "Hóa đơn" : "Món ăn",lblIcon}; 
 			tbm.addRow(ob);
 		}
      }
     //
-    public void duyetLoaiKMVaoComboxBox() {
-		ArrayList<KhuyenMai> list = dao_km.getList();
+    public void duyetLoaiKMVaoComboxBox() throws RemoteException {
+		List<KhuyenMai> list = dao_km.getAll();
 		for(KhuyenMai km : list) {
 			int flag = -1;
-			String loai = km.getLoaiKM();
+			String loai = km.getLoaiKM().getTenLoaiKM();
 			for(int i= 0; i < cbbkm.getItemCount(); i++) {
 				if(loai.equals(cbbkm.getItemAt(i))) {
 					flag = 1;
@@ -100,13 +108,13 @@ public class QuanLyKhuyenMai_PN extends javax.swing.JPanel {
     }
     //
     //
-    public void refreshTable() {
+    public void refreshTable() throws RemoteException {
     tbm.setRowCount(0); 
-    ArrayList<KhuyenMai> list = dao_km.getList();
+    List<KhuyenMai> list = dao_km.getAll();
                     ImageIcon icon = new ImageIcon(getClass().getResource("/gui/icon/edit.png"));
                     JLabel lblIcon = new JLabel(icon);
                     for(KhuyenMai e : list) {
-                    Object[] ob = { e.getMaKM(), e.getTenKM(), e.getGiamGia(), e.getNgayBD(), e.getNgayHH(),e.getSoLuong(), e.getLoaiKM().equals("HoaDon") ? "Hóa đơn" : "Món ăn",lblIcon}; 
+                    Object[] ob = { e.getMaKM(), e.getTenKM(), e.getChietKhau(), e.getNgayBD(), e.getNgayBD(),e.getSoLuong(), e.getLoaiKM().equals("HoaDon") ? "Hóa đơn" : "Món ăn",lblIcon}; 
 			tbm.addRow(ob);
 		}
     }
@@ -305,10 +313,14 @@ public class QuanLyKhuyenMai_PN extends javax.swing.JPanel {
         String loai = (String) cbbkm.getSelectedItem();
         tbm.setRowCount(0);  
         if ("Tất cả".equals(loai)) {
-                duyetListVaoTable();  
+            try {  
+                duyetListVaoTable();
+            } catch (RemoteException ex) {
+                Logger.getLogger(QuanLyKhuyenMai_PN.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
                 for (KhuyenMai e : dao_km.getListKMTheoLoai(loai)) {
-                    Object[] ob = { e.getMaKM(), e.getTenKM(), e.getGiamGia(), e.getNgayHH(), e.getNgayBD(),e.getSoLuong(), e.getLoaiKM().equals("HoaDon") ? "Hóa đơn" : "Món ăn"}; 
+                    Object[] ob = { e.getMaKM(), e.getTenKM(), e.getChietKhau(), e.getNgayBD(), e.getNgayBD(),e.getSoLuong(), e.getLoaiKM().getTenLoaiKM()}; 
 			tbm.addRow(ob);
 		}
         }
@@ -327,24 +339,31 @@ public class QuanLyKhuyenMai_PN extends javax.swing.JPanel {
         String ten = tten.getText();
 
         if (!ten.isEmpty()) {
-        tbm.setRowCount(0);
-        ArrayList<KhuyenMai> list = dao_km.TimTheoTen(ten);
-        if (list != null && !list.isEmpty()) { // Kiểm tra danh sách hợp lệ
-            for (KhuyenMai e : list) {
-                if (e != null) {
-                     
-                    Object[] ob = { e.getMaKM(), e.getTenKM(), e.getGiamGia(), e.getNgayHH(), e.getNgayBD(),e.getSoLuong(), e.getLoaiKM().equals("HoaDon") ? "Hóa đơn" : "Món ăn"};
-                    tbm.addRow(ob);
-                }
+            try {
+                tbm.setRowCount(0);
+                List<KhuyenMai> list = dao_km.timKhuyenMaiTheoTen(ten);
+                if (list != null && !list.isEmpty()) { // Kiểm tra danh sách hợp lệ
+                    for (KhuyenMai e : list) {
+                        if (e != null) {
+                            
+                            Object[] ob = { e.getMaKM(), e.getTenKM(), e.getChietKhau(), e.getNgayBD(), e.getNgayBD(),e.getSoLuong(), e.getLoaiKM().getTenLoaiKM()};
+                            tbm.addRow(ob);
+                        }
+                    }
+                } else {
+                    tbm.setRowCount(0);
+                    duyetListVaoTable(); // Hàm duyệt danh sách mặc định
+                    JOptionPane.showMessageDialog(this, "Không tìm thấy Khuyến Mãi", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                }   } catch (RemoteException ex) {
+                Exceptions.printStackTrace(ex);
             }
         } else {
             tbm.setRowCount(0);
-            duyetListVaoTable(); // Hàm duyệt danh sách mặc định
-            JOptionPane.showMessageDialog(this, "Không tìm thấy Khuyến Mãi", "Thông báo", JOptionPane.ERROR_MESSAGE);
-        }
-        } else {
-            tbm.setRowCount(0);
-            duyetListVaoTable();
+            try {
+                duyetListVaoTable();
+            } catch (RemoteException ex) {
+                Exceptions.printStackTrace(ex);
+            }
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tên Khuyến Mãi cần tìm", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_button2ActionPerformed
@@ -361,7 +380,11 @@ public class QuanLyKhuyenMai_PN extends javax.swing.JPanel {
         tten.setText("");
         tten.requestFocus();
         tbm.setRowCount(0);
-	duyetListVaoTable();
+        try {
+            duyetListVaoTable();
+        } catch (RemoteException ex) {
+            Exceptions.printStackTrace(ex);
+        }
         cbbkm.setSelectedItem("Tất cả"); 
     }//GEN-LAST:event_button1ActionPerformed
 
