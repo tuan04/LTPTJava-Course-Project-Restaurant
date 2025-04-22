@@ -4,17 +4,19 @@
  */
 package gui.main;
 
-import connectDB.ConnectDB;
-import dao.NhanVien_DAO;
-import entity.NhanVien;
+
+import model.NhanVien;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.rmi.RemoteException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.mail.Authenticator;
@@ -28,6 +30,8 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
+import service.NhanVienService;
+import rmi.RMIClientManager;
 
 /**
  *
@@ -38,38 +42,51 @@ public class ForgotPassword extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    private NhanVien_DAO nhanVien_DAO = new NhanVien_DAO();
+    private NhanVienService nhanVien_DAO ;
 
-    public ForgotPassword() {
+    public ForgotPassword() throws Exception {
+        this.nhanVien_DAO=RMIClientManager.getInstance().getNhanVienService();
         initComponents();
-        connect();
+//        connect();
         bg.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
                 .put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enterKey");
 
         bg.getActionMap().put("enterKey", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                forgotPass();
+                try {
+                    forgotPass();
+                } catch (RemoteException ex) {
+                    Logger.getLogger(ForgotPassword.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
-    private void connect() {
-        ConnectDB.getInstance().connect();
-    }
+//    private void connect() {
+//        ConnectDB.getInstance().connect();
+//    }
 
-    private void forgotPass() {
+    private void forgotPass() throws RemoteException {
         if (valid()) {
             String otp = nhanVien_DAO.generateOTP(6);
-            NhanVien nv = nhanVien_DAO.getNV(txtUsername.getText());
+            NhanVien nv = nhanVien_DAO.findById(txtUsername.getText());
             nhanVien_DAO.updateOTP(txtUsername.getText(), otp);
             sendOtpEmail(nv.getEmail(), otp);
             ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
             scheduler.schedule(() -> {
-                nhanVien_DAO.deleteOTP(txtUsername.getText());
+                try {
+                    nhanVien_DAO.deleteOTP(txtUsername.getText());
+                } catch (RemoteException ex) {
+                    Logger.getLogger(ForgotPassword.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }, 60, TimeUnit.SECONDS);
             SwingUtilities.invokeLater(() -> {
-                new VerifyCode(txtUsername.getText(), nv.getEmail(), hashPassword(new String(txtPassword.getPassword()))).setVisible(true);
+                try {
+                    new VerifyCode(txtUsername.getText(), nv.getEmail(), hashPassword(new String(txtPassword.getPassword()))).setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(ForgotPassword.class.getName()).log(Level.SEVERE, null, ex);
+                }
             });
         }
     }
@@ -109,7 +126,7 @@ public class ForgotPassword extends javax.swing.JFrame {
         }
     }
 
-    private boolean valid() {
+    private boolean valid() throws RemoteException {
         if (txtUsername.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Mã nhân viên không được rỗng!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return false;
@@ -385,7 +402,11 @@ public class ForgotPassword extends javax.swing.JFrame {
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         dispose();
         SwingUtilities.invokeLater(() -> {
-            new Login().setVisible(true);
+            try {
+                new Login().setVisible(true);
+            } catch (Exception ex) {
+                Logger.getLogger(ForgotPassword.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }//GEN-LAST:event_jLabel10MouseClicked
 
@@ -404,7 +425,11 @@ public class ForgotPassword extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
-        forgotPass();
+        try {
+            forgotPass();
+        } catch (RemoteException ex) {
+            Logger.getLogger(ForgotPassword.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void showMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showMouseClicked
@@ -442,7 +467,11 @@ public class ForgotPassword extends javax.swing.JFrame {
     private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
         dispose();
         SwingUtilities.invokeLater(() -> {
-            new Login().setVisible(true);
+            try {
+                new Login().setVisible(true);
+            } catch (Exception ex) {
+                Logger.getLogger(ForgotPassword.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }//GEN-LAST:event_btnQuayLaiActionPerformed
 
@@ -479,7 +508,11 @@ public class ForgotPassword extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ForgotPassword().setVisible(true);
+                try {
+                    new ForgotPassword().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(ForgotPassword.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
